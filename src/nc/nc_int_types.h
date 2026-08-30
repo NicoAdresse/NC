@@ -274,12 +274,12 @@ static inline nc_i32 nc_checked_add_i32(nc_i32 number_one, nc_i32 number_two) {
     int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
 
     if (check_overflow(sum, INT32_MAX)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, INT32_MAX);
-        return (nc_i32){.val = (int32_t)INT32_MAX};  
+        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, INT32_MAX);
+        return (nc_i32){.val = (int32_t)INT32_MAX};   
     }
 
     if (check_underflow(sum, INT32_MIN)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, INT32_MIN);
+        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, INT32_MIN);
         return (nc_i32){.val = (int32_t)INT32_MIN};   
     }
 
