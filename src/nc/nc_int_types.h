@@ -91,7 +91,7 @@ static inline void send_constructor_error_msg(
 /* Signed / Unsigned */
 #define IS_SIGNED 1
 #define IS_UNSIGNED 0
-#define UNSIGNED_MIN 0
+#define NC_UNSIGNED_MIN 0
 
 /* Integer Value Sizes */
 #define NC_I8_MAX 127
@@ -129,9 +129,9 @@ static inline nc_u8 nc_new_u8(int64_t val) {
         return (nc_u8){.val = (uint8_t)NC_U8_MAX};
     }
 
-    if (check_underflow(val, UNSIGNED_MIN)) {
-        send_constructor_error_msg(8, IS_UNSIGNED, ERROR_UNDERFLOW, val, UNSIGNED_MIN);
-        return (nc_u8){.val = (uint8_t)UNSIGNED_MIN};
+    if (check_underflow(val, NC_UNSIGNED_MIN)) {
+        send_constructor_error_msg(8, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
+        return (nc_u8){.val = (uint8_t)NC_UNSIGNED_MIN};
     }
 
     return (nc_u8){.val = (uint8_t)val};
@@ -159,9 +159,9 @@ static inline nc_u16 nc_new_u16(int64_t val) {
         return (nc_u16){.val = (uint16_t)NC_U16_MAX};
     }
 
-    if (check_underflow(val, UNSIGNED_MIN)) {
-        send_constructor_error_msg(16, IS_UNSIGNED, ERROR_UNDERFLOW, val, UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)UNSIGNED_MIN};
+    if (check_underflow(val, NC_UNSIGNED_MIN)) {
+        send_constructor_error_msg(16, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
+        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};
     }
 
     return (nc_u16){.val = (uint16_t)val};
@@ -189,9 +189,9 @@ static inline nc_u32 nc_new_u32(int64_t val) {
         return (nc_u32){.val = (uint32_t)NC_U32_MAX};
     }
 
-    if (check_underflow(val, UNSIGNED_MIN)) {
-        send_constructor_error_msg(32, IS_UNSIGNED, ERROR_UNDERFLOW, val, UNSIGNED_MIN);
-        return (nc_u32){.val = (uint32_t)UNSIGNED_MIN};
+    if (check_underflow(val, NC_UNSIGNED_MIN)) {
+        send_constructor_error_msg(32, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
+        return (nc_u32){.val = (uint32_t)NC_UNSIGNED_MIN};
     }
 
     return (nc_u32){.val = (uint32_t)val};
@@ -241,9 +241,9 @@ static inline nc_u8 nc_checked_add_u8(nc_u8 number_one, nc_u8 number_two) {
         return (nc_u8){.val = (uint8_t)NC_U8_MAX};
     }
 
-    if (check_underflow(sum, UNSIGNED_MIN)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, UNSIGNED_MIN);
-        return (nc_u8){.val = (uint8_t)UNSIGNED_MIN};
+    if (check_underflow(sum, NC_UNSIGNED_MIN)) {
+        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
+        return (nc_u8){.val = (uint8_t)NC_UNSIGNED_MIN};
     }
 
     return (nc_u8){.val = (uint8_t)sum};
@@ -275,9 +275,9 @@ static inline nc_u16 nc_checked_add_u16(nc_u16 number_one, nc_u16 number_two) {
         return (nc_u16){.val = (uint16_t)NC_U16_MAX};  
     }
 
-    if (check_underflow(sum, UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)UNSIGNED_MIN};  
+    if (check_underflow(sum, NC_UNSIGNED_MIN)) {
+        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
+        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};  
     }
 
     return (nc_u16){.val = (uint16_t)sum};
@@ -309,9 +309,9 @@ static inline nc_u32 nc_checked_add_u32(nc_u32 number_one, nc_u32 number_two) {
         return (nc_u32){.val = (uint32_t)NC_U32_MAX};  
     }
 
-    if (check_underflow(sum, UNSIGNED_MIN)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, UNSIGNED_MIN);
-        return (nc_u32){.val = (uint32_t)UNSIGNED_MIN};   
+    if (check_underflow(sum, NC_UNSIGNED_MIN)) {
+        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
+        return (nc_u32){.val = (uint32_t)NC_UNSIGNED_MIN};   
     }
 
     return (nc_u32){.val = (uint32_t)sum};

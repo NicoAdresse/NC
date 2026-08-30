@@ -1,7 +1,7 @@
-/* tests/nc_int_types/unsigned/nc_u16/test_nc_u16_constructor_underflow.c */
+/* tests/nc_int_types/unsigned/nc_u32/test_nc_u32_constructor_overflow.c */
 
 /*
-    About: Underflow testing of the 'nc_u16' constructor.
+    About: Overflow testing of the 'nc_u32' constructor.
     Initial Commit: TESTING
     Commit Year: 2026
     Licensed Under: MIT
@@ -14,5 +14,5 @@
 #include "../../../../src/nc/nc_int_types.h"
 
 int main(void) {
-    nc_u16 x = nc_new_u16(NC_UNSIGNED_MIN-1);
+    nc_u32 x = nc_new_u32(NC_U32_MAX+1);
 }
