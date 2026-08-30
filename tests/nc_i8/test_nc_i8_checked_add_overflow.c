@@ -1,0 +1,18 @@
+/* tests/nc_i8/test_nc_i8_checked_add_overflow.c */
+
+/*
+    About: Overflow tests 'nc_i8' datatype using the `nc_checked_add` function.
+    Initial Commit: INIT
+    Commit Year: 2026
+    Licensed Under: MIT
+    Committer: Nico Erdmann
+    Author: Nico Erdmann
+*/
+
+#include "../../src/nc/nc_int_types.h"
+
+int main(void) {
+    nc_i8 x = nc_new_i8(120);
+    nc_i8 y = nc_new_i8(45);
+    nc_i8 z = nc_checked_add(x, y);
+}
