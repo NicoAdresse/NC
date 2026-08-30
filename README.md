@@ -36,6 +36,7 @@ NC
 ├── CLEAN.sh
 ├── LICENSE
 ├── README.md
+├── CODE_OF_CONDUCT.md
 ├── src
 │   ├── main.c
 │   └── nc
