@@ -1,7 +1,7 @@
-/* tests/nc_u8/test_nc_u8.c */
+/* tests/nc_int_types/signed/nc_i8/test_nc_i8.c */
 
 /*
-    About: Successful tests 'nc_u8' datatype.
+    About: Successful tests 'nc_i8' datatype.
     Initial Commit: INIT
     Commit Year: 2026
     Licensed Under: MIT
@@ -9,12 +9,14 @@
     Author: Nico Erdmann
 */
 
-#include "../../src/nc/nc_int_types.h"
+/* Expected result: Success */
+
+#include "../../../../src/nc/nc_int_types.h"
 #include <stdio.h>
 
 int main(void) {
-    nc_u8 x = nc_new_u8(155);
-    nc_u8 y = nc_new_u8(65);
+    nc_i8 x = nc_new_i8(-100);
+    nc_i8 y = nc_new_i8(70);
 
     printf("NC_GET_VAL [x]: %d\n", nc_get_val(x));
     printf("NC_GET_VAL [y]: %d\n", nc_get_val(y));

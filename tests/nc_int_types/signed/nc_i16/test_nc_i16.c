@@ -1,20 +1,22 @@
-/* tests/nc_i8/test_nc_i8.c */
+/* tests/nc_int_types/signed/nc_i16/test_nc_i16.c */
 
 /*
-    About: Successful tests 'nc_i8' datatype.
-    Initial Commit: INIT
+    About: Successful tests 'nc_i16' datatype.
+    Initial Commit: TESTING
     Commit Year: 2026
     Licensed Under: MIT
     Committer: Nico Erdmann
     Author: Nico Erdmann
 */
 
-#include "../../src/nc/nc_int_types.h"
+/* Expected result: Success */
+
+#include "../../../../src/nc/nc_int_types.h"
 #include <stdio.h>
 
 int main(void) {
-    nc_i8 x = nc_new_i8(-100);
-    nc_i8 y = nc_new_i8(70);
+    nc_i16 x = nc_new_i16(100);
+    nc_i16 y = nc_new_i16(-40);
 
     printf("NC_GET_VAL [x]: %d\n", nc_get_val(x));
     printf("NC_GET_VAL [y]: %d\n", nc_get_val(y));

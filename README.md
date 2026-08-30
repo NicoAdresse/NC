@@ -41,35 +41,46 @@ NC
 │   └── nc
 │       └── nc_int_types.h
 ├── tests
-│   ├── nc_i8
-│   │   ├── test_nc_i8.c
-│   │   ├── test_nc_i8_checked_add_overflow.c
-│   │   ├── test_nc_i8_checked_add_underflow.c
-│   │   ├── test_nc_i8_constructor_overflow.c
-│   │   └── test_nc_i8_constructor_underflow.c
-│   └── nc_u8
-│       ├── test_nc_u8.c
-│       ├── test_nc_u8_checked_add_overflow.c
-│       ├── test_nc_u8_constructor_overflow.c
-│       └── test_nc_u8_constructor_underflow.c
+│   └── nc_int_types
+│       ├── signed
+│       │   ├── nc_i16
+│       │   │   ├── test_nc_i16.c
+│       │   │   ├── test_nc_i16_checked_add_overflow.c
+│       │   │   ├── test_nc_i16_checked_add_underflow.c
+│       │   │   ├── test_nc_i16_constructor_overflow.c
+│       │   │   └── test_nc_i16_constructor_underflow.c
+│       │   └── nc_i8
+│       │       ├── test_nc_i8.c
+│       │       ├── test_nc_i8_checked_add_overflow.c
+│       │       ├── test_nc_i8_checked_add_underflow.c
+│       │       ├── test_nc_i8_constructor_overflow.c
+│       │       └── test_nc_i8_constructor_underflow.c
+│       └── unsigned
+│           ├── nc_u16
+│           │   ├── test_nc_u16.c
+│           │   ├── test_nc_u16_checked_add_overflow.c
+│           │   ├── test_nc_u16_constructor_overflow.c
+│           │   └── test_nc_u16_constructor_underflow.c
+│           └── nc_u8
+│               ├── test_nc_u8.c
+│               ├── test_nc_u8_checked_add_overflow.c
+│               ├── test_nc_u8_constructor_overflow.c
+│               └── test_nc_u8_constructor_underflow.c
 └── TEST.sh
-
 ```
 
 ## License <->
 
-License -> MIT
+License -> `MIT` | Check the `LICENSE` file.
 
 ## About README.md
 
 About: Quick Lookup on information about this project.
 
+```text
 Initial Commit: INIT
-
 Commit Year: 2026
-
 Licensed Under: MIT
-
 Committer: Nico Erdmann
-
 Author: Nico Erdmann
+```
