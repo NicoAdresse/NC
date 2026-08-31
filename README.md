@@ -34,9 +34,9 @@ chmod +x CLEAN.sh
 ```text
 NC
 ├── CLEAN.sh
+├── CODE_OF_CONDUCT.md
 ├── LICENSE
 ├── README.md
-├── CODE_OF_CONDUCT.md
 ├── src
 │   ├── main.c
 │   └── nc
@@ -45,39 +45,18 @@ NC
 │   └── nc_int_types
 │       ├── signed
 │       │   ├── nc_i16
-│       │   │   ├── test_nc_i16.c
-│       │   │   ├── test_nc_i16_checked_add_overflow.c
-│       │   │   ├── test_nc_i16_checked_add_underflow.c
-│       │   │   ├── test_nc_i16_constructor_overflow.c
-│       │   │   └── test_nc_i16_constructor_underflow.c
+│       │   │   └── test_nc_i16.c
 │       │   ├── nc_i32
-│       │   │   ├── test_nc_i32.c
-│       │   │   ├── test_nc_i32_checked_add_overflow.c
-│       │   │   ├── test_nc_i32_checked_add_underflow.c
-│       │   │   ├── test_nc_i32_constructor_overflow.c
-│       │   │   └── test_nc_i32_constructor_underflow.c
+│       │   │   └── test_nc_i32.c
 │       │   └── nc_i8
-│       │       ├── test_nc_i8.c
-│       │       ├── test_nc_i8_checked_add_overflow.c
-│       │       ├── test_nc_i8_checked_add_underflow.c
-│       │       ├── test_nc_i8_constructor_overflow.c
-│       │       └── test_nc_i8_constructor_underflow.c
+│       │       └── test_nc_i8.c
 │       └── unsigned
 │           ├── nc_u16
-│           │   ├── test_nc_u16.c
-│           │   ├── test_nc_u16_checked_add_overflow.c
-│           │   ├── test_nc_u16_constructor_overflow.c
-│           │   └── test_nc_u16_constructor_underflow.c
+│           │   └── test_nc_u16.c
 │           ├── nc_u32
-│           │   ├── test_nc_u32.c
-│           │   ├── test_nc_u32_checked_add_overflow.c
-│           │   ├── test_nc_u32_constructor_overflow.c
-│           │   └── test_nc_u32_constructor_underflow.c
+│           │   └── test_nc_u32.c
 │           └── nc_u8
-│               ├── test_nc_u8.c
-│               ├── test_nc_u8_checked_add_overflow.c
-│               ├── test_nc_u8_constructor_overflow.c
-│               └── test_nc_u8_constructor_underflow.c
+│               └── test_nc_u8.c
 └── TEST.sh
 ```
 

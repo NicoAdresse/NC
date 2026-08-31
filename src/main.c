@@ -12,13 +12,7 @@
 #include "nc/nc_int_types.h"
 
 int main() {
-    nc_i8 a = nc_new_i8(100);
-    nc_i16 b = nc_new_i16(200);
-    nc_i32 c = nc_new_i32(300);
-
-    printf("%ld\n", nc_get_size(a));
-    printf("%ld\n", nc_get_size(b));
-    printf("%ld\n", nc_get_size(c));
+    nc_i8 x = nc_new((int8_t)20);
 
     return 0; 
 }
