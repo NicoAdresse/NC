@@ -1,7 +1,7 @@
 /* src/nc/nc_int_types.h */
 
 /*
-    About: Header file for all integer NC datatypes and their methods.
+    About: Header file to bind all integer NC datatypes and their methods.
     Initial Commit: INIT
     Commit Year: 2026
     Licensed Under: MIT
@@ -12,873 +12,19 @@
 #ifndef NC_INT_TYPES_H
 #define NC_INT_TYPES_H
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "nc_int/nc_types.h"
+#include "nc_int/nc_int_macros.h"
+#include "nc_int/inc_helper_funcs.h"
+
+#include "nc_int/nc_i8/nc_i8.h"
+#include "nc_int/nc_i16/nc_i16.h"
+#include "nc_int/nc_i32/nc_i32.h"
+#include "nc_int/nc_i64/nc_i64.h"
+#include "nc_int/nc_u8/nc_u8.h"
+#include "nc_int/nc_u16/nc_u16.h"
+#include "nc_int/nc_u32/nc_u32.h"
+#include "nc_int/nc_u64/nc_u64.h"
 
-#include "nc_log.h"
-
-/* Datatypes declarations */
-typedef struct {
-    int8_t val;
-} nc_i8;
-
-typedef struct {
-    uint8_t val;
-} nc_u8;
-
-typedef struct {
-    int16_t val;
-} nc_i16;
-
-typedef struct {
-    uint16_t val;
-} nc_u16;
-
-typedef struct {
-    int32_t val;
-} nc_i32;
-
-typedef struct {
-    uint32_t val;
-} nc_u32;
-
-/* Helper Structs & Enums */
-typedef enum {
-    ERROR_OVERFLOW,
-    ERROR_UNDERFLOW
-} error_int_bound_t;
-
-/* Helper Functions */
-static inline int check_overflow(int64_t val, int64_t max) { return val > max; }
-static inline int check_underflow(int64_t val, int64_t min) { return val < min; }
-
-static inline void send_bounds_error_msg(
-    int number_of_bits,
-    int is_integer_signed,
-    int64_t number_one_val,
-    int64_t number_two_val,
-    error_int_bound_t overflow_type,
-    int64_t bounds_max
-) {
-    println_err(
-        "Error. %s Integer (%d Bits) %s detected. Check your variables. (Values received: %lld & %lld). Defaulting to %lld.",
-        is_integer_signed ? "Signed" : "Unsigned",
-        number_of_bits,
-        (overflow_type == ERROR_OVERFLOW) ? "overflow" : "underflow",
-        (long long)number_one_val,
-        (long long)number_two_val,
-        (long long)bounds_max
-    );
-}
-
-static inline void send_constructor_error_msg(
-    int number_of_bits,
-    int is_integer_signed,
-    error_int_bound_t overflow_type,
-    int64_t val,
-    int64_t bounds_max
-) {
-    println_err(
-        "Error. %s Integer (%d Bits) %s detected. Construction failed. (Value received: %lld). Defaulting to %lld.",
-        is_integer_signed ? "Signed" : "Unsigned",
-        number_of_bits,
-        (overflow_type == ERROR_OVERFLOW) ? "overflow" : "underflow",
-        (long long)val,
-        (long long)bounds_max
-    );
-}
-
-static inline void send_constructor_runtime_fail_error_msg(
-    int number_of_bits,
-    int is_integer_signed,
-    error_int_bound_t overflow_type,
-    int64_t val
-) {
-    println_err(
-        "Error. %s Integer (%d Bits) %s detected. Construction failed. The Runtime will hereby be terminated (Value Received: %lld).",
-        is_integer_signed ? "Signed" : "Unsigned",
-        number_of_bits,
-        (overflow_type == ERROR_OVERFLOW) ? "overflow" : "underflow",
-        (long long)val
-    );
-}
-
-static inline void send_zero_denominator_error_msg(
-    int is_integer_signed,
-    int64_t numerator,
-    int64_t denominator
-) {
-    println_err(
-        "Error. %s Integer was not allowed to be divided by 0. (Value received: %lld & %lld) Defaulting to 0.",
-        is_integer_signed ? "Signed" : "Unsigned",
-        (long long)numerator,
-        (long long)denominator
-    );
-}
-
-/* Helper Macros */
-/* Signed / Unsigned */
-#define IS_SIGNED 1
-#define IS_UNSIGNED 0
-#define NC_UNSIGNED_MIN 0
-
-/* Integer Value Sizes */
-#define NC_I8_MAX 127
-#define NC_I8_MIN -128
-#define NC_U8_MAX 255
-
-#define NC_I16_MAX 32767
-#define NC_I16_MIN -32768
-#define NC_U16_MAX 65535
-
-#define NC_I32_MAX 2147483647
-#define NC_I32_MIN -2147483648
-#define NC_U32_MAX 4294967295
-
-/* Constructors */
-/* nc_i8's constructor */
-static inline nc_i8 nc_new_i8(int64_t val) {
-    if (check_overflow(val, NC_I8_MAX)) {
-        send_constructor_error_msg(8, IS_SIGNED, ERROR_OVERFLOW, val, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(val, NC_I8_MIN)) {
-        send_constructor_error_msg(8, IS_SIGNED, ERROR_UNDERFLOW, val, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
-    return (nc_i8){.val = (int8_t)val};
-}
-
-/* nc_i8's runtime fail constructor */
-static inline nc_i8 nc_new_run_i8_runtime_fail(int64_t val) {
-    if (check_overflow(val, NC_I8_MAX)) {
-        send_constructor_runtime_fail_error_msg(8, IS_SIGNED, ERROR_OVERFLOW, val);
-        exit(1);
-    }
-
-    if (check_underflow(val, NC_I8_MIN)) {
-        send_constructor_runtime_fail_error_msg(8, IS_SIGNED, ERROR_UNDERFLOW, val);
-        exit(1);
-    }
-
-    return (nc_i8){.val = (int8_t)val};
-}
-
-/* nc_u8's constructor */
-static inline nc_u8 nc_new_u8(int64_t val) {
-    if (check_overflow(val, NC_U8_MAX)) {
-        send_constructor_error_msg(8, IS_UNSIGNED, ERROR_OVERFLOW, val, NC_U8_MAX);
-        return (nc_u8){.val = (uint8_t)NC_U8_MAX};
-    }
-
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
-        send_constructor_error_msg(8, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
-        return (nc_u8){.val = (uint8_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u8){.val = (uint8_t)val};
-}
-
-/* nc_u8 runtime fail constructor */
-static inline nc_u8 nc_new_run_u8_runtime_fail(int64_t val) {
-    if (check_overflow(val, NC_U8_MAX)) {
-        send_constructor_runtime_fail_error_msg(8, IS_UNSIGNED, ERROR_OVERFLOW, val);
-        exit(1);
-    }
-
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
-        send_constructor_runtime_fail_error_msg(8, IS_UNSIGNED, ERROR_UNDERFLOW, val);
-        exit(1);
-    }
-
-    return (nc_u8){.val = (uint8_t)val};
-}
-
-/* nc_i16's constructor */
-static inline nc_i16 nc_new_i16(int64_t val) {
-    if (check_overflow(val, NC_I16_MAX)) {
-        send_constructor_error_msg(16, IS_SIGNED, ERROR_OVERFLOW, val, NC_I16_MAX);
-        return (nc_i16){.val = (int16_t)NC_I16_MAX};
-    }
-
-    if (check_underflow(val, NC_I16_MIN)) {
-        send_constructor_error_msg(16, IS_SIGNED, ERROR_UNDERFLOW, val, NC_I16_MIN);
-        return (nc_i16){.val = (int16_t)NC_I16_MIN};
-    }
-
-    return (nc_i16){.val = (int16_t)val};
-}
-
-/* nc_i16 runtime fail constructor */
-static inline nc_i16 nc_new_run_i16_runtime_fail(int64_t val) {
-    if (check_overflow(val, NC_I16_MAX)) {
-        send_constructor_runtime_fail_error_msg(16, IS_SIGNED, ERROR_OVERFLOW, val);
-        exit(1);
-    }
-
-    if (check_underflow(val, NC_I16_MIN)) {
-        send_constructor_runtime_fail_error_msg(16, IS_SIGNED, ERROR_UNDERFLOW, val);
-        exit(1);
-    }
-
-    return (nc_i16){.val = (int16_t)val};
-}
-
-/* nc_u16's constructor */
-static inline nc_u16 nc_new_u16(int64_t val) {
-    if (check_overflow(val, NC_U16_MAX)) {
-        send_constructor_error_msg(16, IS_UNSIGNED, ERROR_OVERFLOW, val, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};
-    }
-
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
-        send_constructor_error_msg(16, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u16){.val = (uint16_t)val};
-}
-
-/* nc_u16 runtime fail constructor */
-static inline nc_u16 nc_new_run_u16_runtime_fail(int64_t val) {
-    if (check_overflow(val, NC_U16_MAX)) {
-        send_constructor_runtime_fail_error_msg(16, IS_UNSIGNED, ERROR_OVERFLOW, val);
-        exit(1);
-    }
-
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
-        send_constructor_runtime_fail_error_msg(16, IS_UNSIGNED, ERROR_UNDERFLOW, val);
-        exit(1);
-    }
-
-    return (nc_u16){.val = (uint16_t)val};
-}
-
-/* nc_i32's constructor */
-static inline nc_i32 nc_new_i32(int64_t val) {
-    if (check_overflow(val, NC_I32_MAX)) {
-        send_constructor_error_msg(32, IS_SIGNED, ERROR_OVERFLOW, val, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};
-    }
-
-    if (check_underflow(val, NC_I32_MIN)) {
-        send_constructor_error_msg(32, IS_SIGNED, ERROR_UNDERFLOW, val, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};
-    }
-
-    return (nc_i32){.val = (int32_t)val};
-}
-
-/* nc_i32 runtime fail constructor */
-static inline nc_i32 nc_new_run_i32_runtime_fail(int64_t val) {
-    if (check_overflow(val, NC_I32_MAX)) {
-        send_constructor_runtime_fail_error_msg(32, IS_SIGNED, ERROR_OVERFLOW, val);
-        exit(1);
-    }
-
-    if (check_underflow(val, NC_I32_MIN)) {
-        send_constructor_runtime_fail_error_msg(32, IS_SIGNED, ERROR_UNDERFLOW, val);
-        exit(1);
-    }
-
-    return (nc_i32){.val = (int32_t)val};
-}
-
-/* nc_u32's constructor */
-static inline nc_u32 nc_new_u32(int64_t val) {
-    if (check_overflow(val, NC_U32_MAX)) {
-        send_constructor_error_msg(32, IS_UNSIGNED, ERROR_OVERFLOW, val, NC_U32_MAX);
-        return (nc_u32){.val = (uint32_t)NC_U32_MAX};
-    }
-
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
-        send_constructor_error_msg(32, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
-        return (nc_u32){.val = (uint32_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u32){.val = (uint32_t)val};
-}
-
-/* nc_u32 runtime fail constructor */
-static inline nc_u32 nc_new_run_u32_runtime_fail(int64_t val) {
-    if (check_overflow(val, NC_U32_MAX)) {
-        send_constructor_runtime_fail_error_msg(32, IS_UNSIGNED, ERROR_OVERFLOW, val);
-        exit(1);
-    }
-
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
-        send_constructor_runtime_fail_error_msg(32, IS_UNSIGNED, ERROR_UNDERFLOW, val);
-        exit(1);
-    }
-
-    return (nc_u32){.val = (uint32_t)val};
-}
-
-/* Methods */
-/* nc_get_val */
-static inline int8_t nc_get_val_i8(nc_i8 primitive) { return primitive.val; }
-static inline uint8_t nc_get_val_u8(nc_u8 primitive) { return primitive.val; }
-static inline int16_t nc_get_val_i16(nc_i16 primitive) { return primitive.val; }
-static inline uint16_t nc_get_val_u16(nc_u16 primitive) { return primitive.val; }
-static inline int32_t nc_get_val_i32(nc_i32 primitive) { return primitive.val; }
-static inline uint32_t nc_get_val_u32(nc_u32 primitive) { return primitive.val; }
-
-/* nc_get_size */
-static inline size_t nc_get_size_i8() { return sizeof(nc_i8); }
-static inline size_t nc_get_size_u8() { return sizeof(nc_u8); }
-static inline size_t nc_get_size_i16() { return sizeof(nc_i16); }
-static inline size_t nc_get_size_u16() { return sizeof(nc_u16); }
-static inline size_t nc_get_size_i32() { return sizeof(nc_i32); }
-static inline size_t nc_get_size_u32() { return sizeof(nc_u32); }
-
-/* nc_convert_to */
-/* nc_convert_to_i8 */
-static inline nc_i8 nc_i16_convert_to_i8(nc_i16 primitive) { return nc_new_i8(primitive.val); }
-static inline nc_i8 nc_i32_convert_to_i8(nc_i32 primitive) { return nc_new_i8(primitive.val); }
-static inline nc_i8 nc_u8_convert_to_i8(nc_u8 primitive) { return nc_new_i8(primitive.val); }
-static inline nc_i8 nc_u16_convert_to_i8(nc_u16 primitive) { return nc_new_i8(primitive.val); }
-static inline nc_i8 nc_u32_convert_to_i8(nc_u32 primitive) { return nc_new_i8(primitive.val); }
-
-/* nc_convert_to_i16 */
-static inline nc_i16 nc_i8_convert_to_i16(nc_i8 primitive) { return nc_new_i16(primitive.val); }
-static inline nc_i16 nc_i32_convert_to_i16(nc_i32 primitive) { return nc_new_i16(primitive.val); }
-static inline nc_i16 nc_u8_convert_to_i16(nc_u8 primitive) { return nc_new_i16(primitive.val); }
-static inline nc_i16 nc_u16_convert_to_i16(nc_u16 primitive) { return nc_new_i16(primitive.val); }
-static inline nc_i16 nc_u32_convert_to_i16(nc_u32 primitive) { return nc_new_i16(primitive.val); }
-
-/* nc_convert_to_i32 */
-static inline nc_i32 nc_i8_convert_to_i32(nc_i8 primitive) { return nc_new_i32(primitive.val); }
-static inline nc_i32 nc_i16_convert_to_i32(nc_i16 primitive) { return nc_new_i32(primitive.val); }
-static inline nc_i32 nc_u8_convert_to_i32(nc_u8 primitive) { return nc_new_i32(primitive.val); }
-static inline nc_i32 nc_u16_convert_to_i32(nc_u16 primitive) { return nc_new_i32(primitive.val); }
-static inline nc_i32 nc_u32_convert_to_i32(nc_u32 primitive) { return nc_new_i32(primitive.val); }
-
-/* nc_convert_to_u8 */
-static inline nc_u8 nc_i8_convert_to_u8(nc_i8 primitive) { return nc_new_u8(primitive.val); }
-static inline nc_u8 nc_i16_convert_to_u8(nc_i16 primitive) { return nc_new_u8(primitive.val); }
-static inline nc_u8 nc_i32_convert_to_u8(nc_i32 primitive) { return nc_new_u8(primitive.val); }
-static inline nc_u8 nc_u16_convert_to_u8(nc_u16 primitive) { return nc_new_u8(primitive.val); }
-static inline nc_u8 nc_u32_convert_to_u8(nc_u32 primitive) { return nc_new_u8(primitive.val); }
-
-/* nc_convert_to_u16 */
-static inline nc_u16 nc_i8_convert_to_u16(nc_i8 primitive) { return nc_new_u16(primitive.val); }
-static inline nc_u16 nc_i16_convert_to_u16(nc_i16 primitive) { return nc_new_u16(primitive.val); }
-static inline nc_u16 nc_i32_convert_to_u16(nc_i32 primitive) { return nc_new_u16(primitive.val); }
-static inline nc_u16 nc_u8_convert_to_u16(nc_u8 primitive) { return nc_new_u16(primitive.val); }
-static inline nc_u16 nc_u32_convert_to_u16(nc_u32 primitive) { return nc_new_u16(primitive.val); }
-
-/* nc_convert_to_u32 */
-static inline nc_u32 nc_i8_convert_to_u32(nc_i8 primitive) { return nc_new_u32(primitive.val); }
-static inline nc_u32 nc_i16_convert_to_u32(nc_i16 primitive) { return nc_new_u32(primitive.val); }
-static inline nc_u32 nc_i32_convert_to_u32(nc_i32 primitive) { return nc_new_u32(primitive.val); }
-static inline nc_u32 nc_u8_convert_to_u32(nc_u8 primitive) { return nc_new_u32(primitive.val); }
-static inline nc_u32 nc_u16_convert_to_u32(nc_u16 primitive) { return nc_new_u32(primitive.val); }
-
-/* nc_convert_to_int */
-static inline int nc_i8_convert_to_int(nc_i8 primitive) { return (int)primitive.val; }
-static inline int nc_i16_convert_to_int(nc_i16 primitive) { return (int)primitive.val; }
-static inline int nc_i32_convert_to_int(nc_i32 primitive) { return (int)primitive.val; }
-static inline int nc_u8_convert_to_int(nc_u8 primitive) { return (int)primitive.val; }
-static inline int nc_u16_convert_to_int(nc_u16 primitive) { return (int)primitive.val; }
-static inline int nc_u32_convert_to_int(nc_u32 primitive) { return (int)primitive.val; }
-
-/* nc_convert_to_int8_t */
-static inline int8_t nc_i8_convert_to_int8_t(nc_i8 primitive) { return (int8_t)primitive.val; }
-static inline int8_t nc_i16_convert_to_int8_t(nc_i16 primitive) { return (int8_t)primitive.val; }
-static inline int8_t nc_i32_convert_to_int8_t(nc_i32 primitive) { return (int8_t)primitive.val; }
-static inline int8_t nc_u8_convert_to_int8_t(nc_u8 primitive) { return (int8_t)primitive.val; }
-static inline int8_t nc_u16_convert_to_int8_t(nc_u16 primitive) { return (int8_t)primitive.val; }
-static inline int8_t nc_u32_convert_to_int8_t(nc_u32 primitive) { return (int8_t)primitive.val; }
-
-/* nc_convert_to_uint8_t */
-static inline uint8_t nc_i8_convert_to_uint8_t(nc_i8 primitive) { return (uint8_t)primitive.val; }
-static inline uint8_t nc_i16_convert_to_uint8_t(nc_i16 primitive) { return (uint8_t)primitive.val; }
-static inline uint8_t nc_i32_convert_to_uint8_t(nc_i32 primitive) { return (uint8_t)primitive.val; }
-static inline uint8_t nc_u8_convert_to_uint8_t(nc_u8 primitive) { return (uint8_t)primitive.val; }
-static inline uint8_t nc_u16_convert_to_uint8_t(nc_u16 primitive) { return (uint8_t)primitive.val; }
-static inline uint8_t nc_u32_convert_to_uint8_t(nc_u32 primitive) { return (uint8_t)primitive.val; }
-
-/* nc_convert_to_int16_t */
-static inline int16_t nc_i8_convert_to_int16_t(nc_i8 primitive) { return (int16_t)primitive.val; }
-static inline int16_t nc_i16_convert_to_int16_t(nc_i16 primitive) { return (int16_t)primitive.val; }
-static inline int16_t nc_i32_convert_to_int16_t(nc_i32 primitive) { return (int16_t)primitive.val; }
-static inline int16_t nc_u8_convert_to_int16_t(nc_u8 primitive) { return (int16_t)primitive.val; }
-static inline int16_t nc_u16_convert_to_int16_t(nc_u16 primitive) { return (int16_t)primitive.val; }
-static inline int16_t nc_u32_convert_to_int16_t(nc_u32 primitive) { return (int16_t)primitive.val; }
-
-/* nc_convert_to_uint16_t */
-static inline uint16_t nc_i8_convert_to_uint16_t(nc_i8 primitive) { return (uint16_t)primitive.val; }
-static inline uint16_t nc_i16_convert_to_uint16_t(nc_i16 primitive) { return (uint16_t)primitive.val; }
-static inline uint16_t nc_i32_convert_to_uint16_t(nc_i32 primitive) { return (uint16_t)primitive.val; }
-static inline uint16_t nc_u8_convert_to_uint16_t(nc_u8 primitive) { return (uint16_t)primitive.val; }
-static inline uint16_t nc_u16_convert_to_uint16_t(nc_u16 primitive) { return (uint16_t)primitive.val; }
-static inline uint16_t nc_u32_convert_to_uint16_t(nc_u32 primitive) { return (uint16_t)primitive.val; }
-
-/* nc_convert_to_int32_t */
-static inline int32_t nc_i8_convert_to_int32_t(nc_i8 primitive) { return (int32_t)primitive.val; }
-static inline int32_t nc_i16_convert_to_int32_t(nc_i16 primitive) { return (int32_t)primitive.val; }
-static inline int32_t nc_i32_convert_to_int32_t(nc_i32 primitive) { return (int32_t)primitive.val; }
-static inline int32_t nc_u8_convert_to_int32_t(nc_u8 primitive) { return (int32_t)primitive.val; }
-static inline int32_t nc_u16_convert_to_int32_t(nc_u16 primitive) { return (int32_t)primitive.val; }
-static inline int32_t nc_u32_convert_to_int32_t(nc_u32 primitive) { return (int32_t)primitive.val; }
-
-/* nc_convert_to_uint32_t */
-static inline uint32_t nc_i8_convert_to_uint32_t(nc_i8 primitive) { return (uint32_t)primitive.val; }
-static inline uint32_t nc_i16_convert_to_uint32_t(nc_i16 primitive) { return (uint32_t)primitive.val; }
-static inline uint32_t nc_i32_convert_to_uint32_t(nc_i32 primitive) { return (uint32_t)primitive.val; }
-static inline uint32_t nc_u8_convert_to_uint32_t(nc_u8 primitive) { return (uint32_t)primitive.val; }
-static inline uint32_t nc_u16_convert_to_uint32_t(nc_u16 primitive) { return (uint32_t)primitive.val; }
-static inline uint32_t nc_u32_convert_to_uint32_t(nc_u32 primitive) { return (uint32_t)primitive.val; }
-
-/* Checked Additions */
-/* Checked Addition -> nc_i8 */
-static inline nc_i8 nc_checked_add_i8(nc_i8 number_one, nc_i8 number_two) {
-    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-
-    if (check_overflow(sum, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(sum, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
-    return (nc_i8){.val = (int8_t)sum};
-}
-
-/* Checked Addition -> nc_u8 */
-static inline nc_u8 nc_checked_add_u8(nc_u8 number_one, nc_u8 number_two) {
-    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-
-    if (check_overflow(sum, NC_U8_MAX)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
-        return (nc_u8){.val = (uint8_t)NC_U8_MAX};
-    }
-
-    if (check_underflow(sum, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u8){.val = (uint8_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u8){.val = (uint8_t)sum};
-}
-
-/* Checked Addition -> nc_i16 */
-static inline nc_i16 nc_checked_add_i16(nc_i16 number_one, nc_i16 number_two) {
-    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-    
-    if (check_overflow(sum, NC_I16_MAX)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
-        return (nc_i16){.val = (int16_t)NC_I16_MAX};
-    }
-
-    if (check_underflow(sum, NC_I16_MIN)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
-        return (nc_i16){.val = (int16_t)NC_I16_MIN};
-    }
-
-    return (nc_i16){.val = (int16_t)sum};
-}
-
-/* Checked Addition -> nc_u16 */
-static inline nc_u16 nc_checked_add_u16(nc_u16 number_one, nc_u16 number_two) {
-    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-
-    if (check_overflow(sum, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};  
-    }
-
-    if (check_underflow(sum, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};  
-    }
-
-    return (nc_u16){.val = (uint16_t)sum};
-}
-
-/* Checked Addition -> nc_i32 */
-static inline nc_i32 nc_checked_add_i32(nc_i32 number_one, nc_i32 number_two) {
-    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-
-    if (check_overflow(sum, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};   
-    }
-
-    if (check_underflow(sum, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};   
-    }
-
-    return (nc_i32){.val = (int32_t)sum};
-}
-
-/* Checked Addition -> nc_u32 */
-static inline nc_u32 nc_checked_add_u32(nc_u32 number_one, nc_u32 number_two) {
-    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-
-    if (check_overflow(sum, NC_U32_MAX)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U32_MAX);
-        return (nc_u32){.val = (uint32_t)NC_U32_MAX};  
-    }
-
-    if (check_underflow(sum, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u32){.val = (uint32_t)NC_UNSIGNED_MIN};   
-    }
-
-    return (nc_u32){.val = (uint32_t)sum};
-}
-
-/* Checked Subtraction */
-/* Checked Subtraction -> nc_i8 */
-static inline nc_i8 nc_checked_sub_i8(nc_i8 number_one, nc_i8 number_two) {
-    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-
-    if (check_overflow(diff, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(diff, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
-    return (nc_i8){.val = (int8_t)diff};
-}
-
-/* Checked Subtraction -> nc_u8 */
-static inline nc_u8 nc_checked_sub_u8(nc_u8 number_one, nc_u8 number_two) {
-    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-
-    if (check_overflow(diff, NC_U8_MAX)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
-        return (nc_u8){.val = (uint8_t)NC_U8_MAX};
-    }
-
-    if (check_underflow(diff, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u8){.val = (uint8_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u8){.val = (uint8_t)diff};
-}
-
-/* Checked Subtraction -> nc_i16 */
-static inline nc_i16 nc_checked_sub_i16(nc_i16 number_one, nc_i16 number_two) {
-    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-
-    if (check_overflow(diff, NC_I16_MAX)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
-        return (nc_i16){.val = (int16_t)NC_I16_MAX};
-    }
-
-    if (check_underflow(diff, NC_I16_MIN)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
-        return (nc_i16){.val = (int16_t)NC_I16_MIN};
-    }
-
-    return (nc_i16){.val = (int16_t)diff};
-}
-
-/* Checked Subtraction -> nc_u16 */
-static inline nc_u16 nc_checked_sub_u16(nc_u16 number_one, nc_u16 number_two) {
-    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-
-    if (check_overflow(diff, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};
-    }
-
-    if (check_underflow(diff, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u16){.val = (uint16_t)diff};
-}
-
-/* Checked Subtraction -> nc_i32 */
-static inline nc_i32 nc_checked_sub_i32(nc_i32 number_one, nc_i32 number_two) {
-    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-
-    if (check_overflow(diff, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};
-    }
-
-    if (check_underflow(diff, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};
-    }
-
-    return (nc_i32){.val = (int32_t)diff};
-}
-
-/* Checked Subtraction -> nc_u32 */
-static inline nc_u32 nc_checked_sub_u32(nc_u32 number_one, nc_u32 number_two) {
-    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-
-    if (check_overflow(diff, NC_U32_MAX)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U32_MAX);
-        return (nc_u32){.val = (uint32_t)NC_U32_MAX};
-    }
-
-    if (check_underflow(diff, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u32){.val = (uint32_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u32){.val = (uint32_t)diff};
-}
-
-/* Checked Multiplication */
-/* Checked Multiplication -> nc_i8 */
-static inline nc_i8 nc_checked_mul_i8(nc_i8 number_one, nc_i8 number_two) {
-    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-
-    if (check_overflow(product, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(product, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
-    return (nc_i8){.val = (int8_t)product};
-}
-
-/* Checked Multiplication -> nc_u8 */
-static inline nc_u8 nc_checked_mul_u8(nc_u8 number_one, nc_u8 number_two) {
-    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-
-    if (check_overflow(product, NC_U8_MAX)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
-        return (nc_u8){.val = (uint8_t)NC_U8_MAX};
-    }
-
-    if (check_underflow(product, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u8){.val = (uint8_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u8){.val = (uint8_t)product};
-}
-
-/* Checked Multiplication -> nc_i16 */
-static inline nc_i16 nc_checked_mul_i16(nc_i16 number_one, nc_i16 number_two) {
-    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-
-    if (check_overflow(product, NC_I16_MAX)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
-        return (nc_i16){.val = (int16_t)NC_I16_MAX};
-    }
-
-    if (check_underflow(product, NC_I16_MIN)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
-        return (nc_i16){.val = (int16_t)NC_I16_MIN};
-    }
-
-    return (nc_i16){.val = (int16_t)product};
-}
-
-/* Checked Multiplication -> nc_u16 */
-static inline nc_u16 nc_checked_mul_u16(nc_u16 number_one, nc_u16 number_two) {
-    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-
-    if (check_overflow(product, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};
-    }
-
-    if (check_underflow(product, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u16){.val = (uint16_t)product};
-}
-
-/* Checked Multiplication -> nc_i32 */
-static inline nc_i32 nc_checked_mul_i32(nc_i32 number_one, nc_i32 number_two) {
-    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-
-    if (check_overflow(product, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};
-    }
-
-    if (check_underflow(product, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};
-    }
-
-    return (nc_i32){.val = (int32_t)product};
-}
-
-/* Checked Multiplication -> nc_u32 */
-static inline nc_u32 nc_checked_mul_u32(nc_u32 number_one, nc_u32 number_two) {
-    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-
-    if (check_overflow(product, NC_U32_MAX)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U32_MAX);
-        return (nc_u32){.val = (uint32_t)NC_U32_MAX};
-    }
-
-    if (check_underflow(product, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u32){.val = (uint32_t)NC_UNSIGNED_MIN};
-    }
-
-    return (nc_u32){.val = (uint32_t)product};
-}
-
-/* Checked Division */
-/* Checked Division -> nc_i8 */
-static inline nc_i8 nc_checked_div_i8(nc_i8 number_one, nc_i8 number_two, int is_zero_denominator_allowed) {
-    if (number_two.val == 0) {
-        if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
-            return (nc_i8){.val = 0};
-        }
-        return (nc_i8){.val = 0};
-    }
-
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-
-    if (check_overflow(quotient, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(quotient, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
-    return (nc_i8){.val = (int8_t)quotient};
-}
-
-/* Checked Division -> nc_u8 */
-static inline nc_u8 nc_checked_div_u8(nc_u8 number_one, nc_u8 number_two, int is_zero_denominator_allowed) {
-    if (number_two.val == 0) {
-        if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
-            return (nc_u8){.val = 0};
-        }
-        return (nc_u8){.val = 0};
-    }
-
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-
-    if (check_overflow(quotient, NC_U8_MAX)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
-        return (nc_u8){.val = (uint8_t)NC_U8_MAX};
-    }
-
-    return (nc_u8){.val = (uint8_t)quotient};
-}
-
-/* Checked Division -> nc_i16 */
-static inline nc_i16 nc_checked_div_i16(nc_i16 number_one, nc_i16 number_two, int is_zero_denominator_allowed) {
-    if (number_two.val == 0) {
-        if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
-            return (nc_i16){.val = 0};
-        }
-        return (nc_i16){.val = 0};
-    }
-
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-
-    if (check_overflow(quotient, NC_I16_MAX)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
-        return (nc_i16){.val = (int16_t)NC_I16_MAX};
-    }
-
-    if (check_underflow(quotient, NC_I16_MIN)) {
-        send_bounds_error_msg(16, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
-        return (nc_i16){.val = (int16_t)NC_I16_MIN};
-    }
-
-    return (nc_i16){.val = (int16_t)quotient};
-}
-
-/* Checked Division -> nc_u16 */
-static inline nc_u16 nc_checked_div_u16(nc_u16 number_one, nc_u16 number_two, int is_zero_denominator_allowed) {
-    if (number_two.val == 0) {
-        if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
-            return (nc_u16){.val = 0};
-        }
-        return (nc_u16){.val = 0};
-    }
-
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-
-    if (check_overflow(quotient, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};
-    }
-
-    return (nc_u16){.val = (uint16_t)quotient};
-}
-
-/* Checked Division -> nc_i32 */
-static inline nc_i32 nc_checked_div_i32(nc_i32 number_one, nc_i32 number_two, int is_zero_denominator_allowed) {
-    if (number_two.val == 0) {
-        if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
-            return (nc_i32){.val = 0};
-        }
-        return (nc_i32){.val = 0};
-    }
-
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-
-    if (check_overflow(quotient, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};
-    }
-
-    if (check_underflow(quotient, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};
-    }
-
-    return (nc_i32){.val = (int32_t)quotient};
-}
-
-/* Checked Division -> nc_u32 */
-static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, int is_zero_denominator_allowed) {
-    if (number_two.val == 0) {
-        if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
-            return (nc_u32){.val = 0};
-        }
-        return (nc_u32){.val = 0};
-    }
-
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-
-    if (check_overflow(quotient, NC_U32_MAX)) {
-        send_bounds_error_msg(32, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U32_MAX);
-        return (nc_u32){.val = (uint32_t)NC_U32_MAX};
-    }
-
-    return (nc_u32){.val = (uint32_t)quotient};
-}
-
-/* Macros */
 #define nc_get_val(x) _Generic((x), \
     nc_i8: nc_get_val_i8, \
     nc_u8: nc_get_val_u8,  \
@@ -886,6 +32,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     nc_u16: nc_get_val_u16, \
     nc_i32: nc_get_val_i32, \
     nc_u32: nc_get_val_u32, \
+    nc_i64: nc_get_val_i64, \
+    nc_u64: nc_get_val_u64, \
     default: nc_get_val_i32 \
 )(x)
 
@@ -896,6 +44,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     nc_u16: nc_get_size_u16(), \
     nc_i32: nc_get_size_i32(), \
     nc_u32: nc_get_size_u32(), \
+    nc_i64: nc_get_size_i64(), \
+    nc_u64: nc_get_size_u64(), \
     default: nc_get_size_i32() \
 )
 
@@ -906,6 +56,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     uint16_t:  nc_new_u16, \
     int32_t:   nc_new_i32, \
     uint32_t:  nc_new_u32, \
+    int64_t:   nc_new_i64, \
+    uint64_t:  nc_new_u64, \
     default: nc_new_i32 \
 )(val)
 
@@ -917,6 +69,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
         nc_u16: nc_i8_convert_to_u16, \
         nc_i32: nc_i8_convert_to_i32, \
         nc_u32: nc_i8_convert_to_u32, \
+        nc_i64: nc_i8_convert_to_i64, \
+        nc_u64: nc_i8_convert_to_u64, \
         int:    nc_i8_convert_to_int \
     ), \
     nc_u8: _Generic((target_type){0}, \
@@ -926,6 +80,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
         nc_u16: nc_u8_convert_to_u16, \
         nc_i32: nc_u8_convert_to_i32, \
         nc_u32: nc_u8_convert_to_u32, \
+        nc_i64: nc_u8_convert_to_i64, \
+        nc_u64: nc_u8_convert_to_u64, \
         int:    nc_u8_convert_to_int \
     ), \
     nc_i16: _Generic((target_type){0}, \
@@ -935,6 +91,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
         nc_u16: nc_i16_convert_to_u16, \
         nc_i32: nc_i16_convert_to_i32, \
         nc_u32: nc_i16_convert_to_u32, \
+        nc_i64: nc_i16_convert_to_i64, \
+        nc_u64: nc_i16_convert_to_u64, \
         int:    nc_i16_convert_to_int \
     ), \
     nc_u16: _Generic((target_type){0}, \
@@ -944,6 +102,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
         nc_u16: (val), \
         nc_i32: nc_u16_convert_to_i32, \
         nc_u32: nc_u16_convert_to_u32, \
+        nc_i64: nc_u16_convert_to_i64, \
+        nc_u64: nc_u16_convert_to_u64, \
         int:    nc_u16_convert_to_int \
     ), \
     nc_i32: _Generic((target_type){0}, \
@@ -953,6 +113,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
         nc_u16: nc_i32_convert_to_u16, \
         nc_i32: (val), \
         nc_u32: nc_i32_convert_to_u32, \
+        nc_i64: nc_i32_convert_to_i64, \
+        nc_u64: nc_i32_convert_to_u64, \
         int:    nc_i32_convert_to_int \
     ), \
     nc_u32: _Generic((target_type){0}, \
@@ -962,7 +124,31 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
         nc_u16: nc_u32_convert_to_u16, \
         nc_i32: nc_u32_convert_to_i32, \
         nc_u32: (val), \
+        nc_i64: nc_u32_convert_to_i64, \
+        nc_u64: nc_u32_convert_to_u64, \
         int:    nc_u32_convert_to_int \
+    ), \
+    nc_i64: _Generic((target_type){0}, \
+        nc_i8:  nc_i64_convert_to_i8, \
+        nc_u8:  nc_i64_convert_to_u8, \
+        nc_i16: nc_i64_convert_to_i16, \
+        nc_u16: nc_i64_convert_to_u16, \
+        nc_i32: nc_i64_convert_to_i32, \
+        nc_u32: nc_i64_convert_to_u32, \
+        nc_i64: (val), \
+        nc_u64: nc_i64_convert_to_u64, \
+        int:    nc_i64_convert_to_int \
+    ), \
+    nc_u64: _Generic((target_type){0}, \
+        nc_i8:  nc_u64_convert_to_i8, \
+        nc_u8:  nc_u64_convert_to_u8, \
+        nc_i16: nc_u64_convert_to_i16, \
+        nc_u16: nc_u64_convert_to_u16, \
+        nc_i32: nc_u64_convert_to_i32, \
+        nc_u32: nc_u64_convert_to_u32, \
+        nc_i64: nc_u64_convert_to_i64, \
+        nc_u64: (val), \
+        int:    nc_u64_convert_to_int \
     ) \
 )(val)
 
@@ -973,6 +159,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     nc_u16: nc_checked_add_u16, \
     nc_i32: nc_checked_add_i32, \
     nc_u32: nc_checked_add_u32, \
+    nc_i64: nc_checked_add_i64, \
+    nc_u64: nc_checked_add_u64, \
     default: nc_checked_add_i32 \
 )((n1), (n2))
 
@@ -983,6 +171,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     nc_u16: nc_checked_sub_u16, \
     nc_i32: nc_checked_sub_i32, \
     nc_u32: nc_checked_sub_u32, \
+    nc_i64: nc_checked_sub_i64, \
+    nc_u64: nc_checked_sub_u64, \
     default: nc_checked_sub_i32 \
 )((n1), (n2))
 
@@ -993,6 +183,8 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     nc_u16: nc_checked_mul_u16, \
     nc_i32: nc_checked_mul_i32, \
     nc_u32: nc_checked_mul_u32, \
+    nc_i64: nc_checked_mul_i64, \
+    nc_u64: nc_checked_mul_u64, \
     default: nc_checked_mul_i32 \
 )((n1), (n2))
 
@@ -1003,7 +195,9 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     nc_u16: nc_checked_div_u16, \
     nc_i32: nc_checked_div_i32, \
     nc_u32: nc_checked_div_u32, \
+    nc_i64: nc_checked_div_i64, \
+    nc_u64: nc_checked_div_u64, \
     default: nc_checked_div_i32 \
 )((n1), (n2), (zda))
 
-#endif /* NC_INT_TYPES_H */
+#endif /*  NC_INT_TYPES_H */
