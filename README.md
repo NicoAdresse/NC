@@ -40,26 +40,30 @@ NC
 ├── src
 │   ├── main.c
 │   └── nc
-│       └── nc_int_types.h
+│       ├── nc_int_types.h
+│       └── nc_log.h
 ├── tests
-│   └── nc_int_types
-│       ├── conversion
-│       │   └── test_nc_convert.c
-│       ├── signed
-│       │   ├── nc_i16
-│       │   │   └── test_nc_i16.c
-│       │   ├── nc_i32
-│       │   │   └── test_nc_i32.c
-│       │   └── nc_i8
-│       │       └── test_nc_i8.c
-│       └── unsigned
-│           ├── nc_u16
-│           │   └── test_nc_u16.c
-│           ├── nc_u32
-│           │   └── test_nc_u32.c
-│           └── nc_u8
-│               └── test_nc_u8.c
-└── TEST.sh
+│   ├── nc_int_types
+│   │   ├── conversion
+│   │   │   └── test_nc_convert.c
+│   │   ├── signed
+│   │   │   ├── nc_i16
+│   │   │   │   └── test_nc_i16.c
+│   │   │   ├── nc_i32
+│   │   │   │   └── test_nc_i32.c
+│   │   │   └── nc_i8
+│   │   │       └── test_nc_i8.c
+│   │   └── unsigned
+│   │       ├── nc_u16
+│   │       │   └── test_nc_u16.c
+│   │       ├── nc_u32
+│   │       │   └── test_nc_u32.c
+│   │       └── nc_u8
+│   │           └── test_nc_u8.c
+│   └── nc_log
+│       └── test_nc_log.c
+├── TEST.sh
+└── vcpkg.json
 ```
 
 ## License <->

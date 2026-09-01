@@ -1,7 +1,7 @@
 /* src/nc/nc_int_types.h */
 
 /*
-    About: Header file for all NC datatypes and their methods.
+    About: Header file for all integer NC datatypes and their methods.
     Initial Commit: INIT
     Commit Year: 2026
     Licensed Under: MIT
@@ -15,6 +15,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "nc_log.h"
 
 /* Datatypes declarations */
 typedef struct {
@@ -59,8 +61,8 @@ static inline void send_bounds_error_msg(
     error_int_bound_t overflow_type,
     int64_t bounds_max
 ) {
-    fprintf(stderr,
-        "Error. %s Integer (%d Bits) %s detected. Check your variables. (Values received: %lld & %lld). Defaulting to %lld.\n",
+    println_err(
+        "Error. %s Integer (%d Bits) %s detected. Check your variables. (Values received: %lld & %lld). Defaulting to %lld.",
         is_integer_signed ? "Signed" : "Unsigned",
         number_of_bits,
         (overflow_type == ERROR_OVERFLOW) ? "overflow" : "underflow",
@@ -77,13 +79,13 @@ static inline void send_constructor_error_msg(
     int64_t val,
     int64_t bounds_max
 ) {
-    fprintf(stderr,
-        "Error. %s Integer (%d Bits) %s detected. Construction failed. (Value received: %lld) Defaulting to %ld.\n",
+    println_err(
+        "Error. %s Integer (%d Bits) %s detected. Construction failed. (Value received: %lld). Defaulting to %lld.",
         is_integer_signed ? "Signed" : "Unsigned",
         number_of_bits,
         (overflow_type == ERROR_OVERFLOW) ? "overflow" : "underflow",
         (long long)val,
-        bounds_max
+        (long long)bounds_max
     );
 }
 
@@ -93,8 +95,8 @@ static inline void send_constructor_runtime_fail_error_msg(
     error_int_bound_t overflow_type,
     int64_t val
 ) {
-    fprintf(stderr,
-        "Error. %s Integer (%d Bits) %s detected. Construction failed. The Runtime will hereby be terminated. (Value Received: %lld)\n",
+    println_err(
+        "Error. %s Integer (%d Bits) %s detected. Construction failed. The Runtime will hereby be terminated (Value Received: %lld).",
         is_integer_signed ? "Signed" : "Unsigned",
         number_of_bits,
         (overflow_type == ERROR_OVERFLOW) ? "overflow" : "underflow",
@@ -107,8 +109,8 @@ static inline void send_zero_denominator_error_msg(
     int64_t numerator,
     int64_t denominator
 ) {
-    fprintf(stderr,
-        "Error. %s Integer was not allowed to be divided by 0. (Value received: %lld & %lld) Defaulting to 0.\n",
+    println_err(
+        "Error. %s Integer was not allowed to be divided by 0. (Value received: %lld & %lld) Defaulting to 0.",
         is_integer_signed ? "Signed" : "Unsigned",
         (long long)numerator,
         (long long)denominator

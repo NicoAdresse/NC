@@ -28,4 +28,9 @@ int main(void) {
     int convert_int = nc_convert(int, converted_u16);
 
     printf("SIZEOF: %ld\n", sizeof(convert_int));
+
+    nc_i32 another_val = nc_new_i32(1000);
+    uint32_t converted_uint32_t = nc_i32_convert_to_uint32_t(another_val);
+
+    printf("%d | %ld\n", converted_uint32_t, sizeof(converted_uint32_t));
 }
