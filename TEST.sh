@@ -24,7 +24,7 @@ EXECUTABLE_NAME="${FILENAME%.c}"
 echo "Starting script for test: $TEST_PATH"
 
 echo "Compiling $TEST_PATH..."
-gcc "$TEST_PATH" -o "build/$EXECUTABLE_NAME"
+gcc -Wall -Wextra -std=c11 -Isrc "$TEST_PATH" -o "build/$EXECUTABLE_NAME"
 echo "Done!"
 
 echo "Executing $EXECUTABLE_NAME"
