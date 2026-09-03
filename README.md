@@ -51,6 +51,7 @@ NC
 │       │   ├── nc_i8
 │       │   │   └── nc_i8.h
 │       │   ├── nc_int_constructors.h
+│       │   ├── nc_int_destructors.h
 │       │   ├── nc_int_macros.h
 │       │   ├── nc_types.h
 │       │   ├── nc_u16

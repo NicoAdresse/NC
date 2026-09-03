@@ -258,4 +258,36 @@ static inline nc_u64 nc_new_must_u64(uint64_t val) {
     return (nc_u64){.val = val};
 }
 
+static inline nc_ptr_i8 nc_new_ptr_i8(nc_i8 val) {
+    if (check_overflow(val.val, NC_I8_MAX)) {
+        send_constructor_error_msg(8, IS_SIGNED, ERROR_OVERFLOW, val.val, NC_I8_MAX);
+        val.val = (int8_t)NC_I8_MAX;
+    }
+    
+    nc_i8* heap_val = malloc(sizeof(nc_i8));
+    if (!heap_val) {
+        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i8), "nc_i8");
+        return (nc_ptr_i8){.ptr = NULL};
+    }
+    
+    *heap_val = val;
+    return (nc_ptr_i8){.ptr = heap_val};
+}
+
+static inline nc_ptr_i8 nc_new_must_ptr_i8(nc_i8 val) {
+	if (check_overflow(val.val, NC_I8_MAX)) {
+		send_constructor_error_msg(8, IS_SIGNED, ERROR_OVERFLOW, val.val, NC_I8_MAX);
+        exit(1);
+	}
+
+    nc_i8* heap_val = malloc(sizeof(nc_i8));
+    if (!heap_val) {
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_i8), "nc_i8");
+        exit(1);
+    }
+
+    *heap_val = val;
+    return (nc_ptr_i8){.ptr = heap_val};
+}
+
 #endif /* NC_INT_CONSTRUCTORS_H */

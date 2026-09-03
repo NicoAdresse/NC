@@ -89,4 +89,30 @@ static inline void send_zero_denominator_error_msg(
     );
 }
 
+static inline void send_allocation_error_msg(
+    int is_integer_signed,
+    long long amount_of_bytes_allocated,
+    char* type_of_primitive
+) {
+    println_err(
+        "Error. %s Integer (%s) failed to allocate %lld bytes. Setting pointer to NULL.",
+        is_integer_signed ? "Signed" : "Unsigned",
+        type_of_primitive,
+        amount_of_bytes_allocated
+    );
+}
+
+static inline void send_allocation_must_error_msg(
+    int is_integer_signed,
+    long long amount_of_bytes_allocated,
+    char* type_of_primitive
+) {
+    println_err(
+        "Error. %s Integer (%s) failed to allocate %lld bytes. Automatically exiting. (Hint: You don't get a memory leak.).",
+        is_integer_signed ? "Signed" : "Unsigned",
+        type_of_primitive,
+        amount_of_bytes_allocated
+    );
+}
+
 #endif /* INC_HELPER_FUNCS_H */
