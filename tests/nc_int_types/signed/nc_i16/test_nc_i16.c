@@ -1,7 +1,7 @@
 /* tests/nc_int_types/signed/nc_i16/test_nc_i16.c */
 
 /*
-    About: Successful tests 'nc_i16' datatype.
+    About: Tests for the 'nc_i16' datatype.
     Initial Commit: INIT
     Commit Year: 2026
     Licensed Under: MIT

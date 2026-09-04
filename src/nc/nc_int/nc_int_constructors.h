@@ -230,14 +230,14 @@ static inline nc_u32 nc_new_must_u32(int64_t val) {
 
 /* nc_u64's constructor */
 static inline nc_u64 nc_new_u64(uint64_t val) {
-    if (check_overflow(val, NC_U64_MAX)) {
+    if (check_overflow_for_u64(val, NC_U64_MAX)) {
         send_constructor_error_msg(64, IS_UNSIGNED, ERROR_OVERFLOW, val, NC_U64_MAX);
-        return (nc_u64){.val = (uint64_t)NC_U64_MAX};
+        return (nc_u64){.val = NC_U64_MAX};
     }
 
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
+    if (check_underflow_for_u64(val, NC_UNSIGNED_MIN)) {
         send_constructor_error_msg(64, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
-        return (nc_u64){.val = (uint64_t)NC_UNSIGNED_MIN};
+        return (nc_u64){.val = NC_UNSIGNED_MIN};
     }
 
     return (nc_u64){.val = val};
@@ -245,12 +245,12 @@ static inline nc_u64 nc_new_u64(uint64_t val) {
 
 /* nc_u64 runtime fail constructor */
 static inline nc_u64 nc_new_must_u64(uint64_t val) {
-    if (check_overflow(val, NC_U64_MAX)) {
+    if (check_overflow_for_u64(val, NC_U64_MAX)) {
         send_constructor_error_msg(64, IS_UNSIGNED, ERROR_OVERFLOW, val, NC_U64_MAX);
         exit(1);
     }
 
-    if (check_underflow(val, NC_UNSIGNED_MIN)) {
+    if (check_underflow_for_u64(val, NC_UNSIGNED_MIN)) {
         send_constructor_error_msg(64, IS_UNSIGNED, ERROR_UNDERFLOW, val, NC_UNSIGNED_MIN);
         exit(1);
     }
@@ -258,6 +258,7 @@ static inline nc_u64 nc_new_must_u64(uint64_t val) {
     return (nc_u64){.val = val};
 }
 
+/* nc_ptr_i8's constructor */
 static inline nc_ptr_i8 nc_new_ptr_i8(nc_i8 val) {
     if (check_overflow(val.val, NC_I8_MAX)) {
         send_constructor_error_msg(8, IS_SIGNED, ERROR_OVERFLOW, val.val, NC_I8_MAX);
@@ -274,6 +275,7 @@ static inline nc_ptr_i8 nc_new_ptr_i8(nc_i8 val) {
     return (nc_ptr_i8){.ptr = heap_val};
 }
 
+/* nc_ptr_i8 runtime fail constructor */
 static inline nc_ptr_i8 nc_new_must_ptr_i8(nc_i8 val) {
 	if (check_overflow(val.val, NC_I8_MAX)) {
 		send_constructor_error_msg(8, IS_SIGNED, ERROR_OVERFLOW, val.val, NC_I8_MAX);

@@ -1,7 +1,7 @@
 /* tests/nc_int_types/unsigned/nc_u32/test_nc_u32.c */
 
 /*
-    About: Successful tests 'nc_u32' datatype.
+    About: Tests for the 'nc_u32' datatype.
     Initial Commit: TESTING
     Commit Year: 2026
     Licensed Under: MIT

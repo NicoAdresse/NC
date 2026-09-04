@@ -1,7 +1,7 @@
 /* tests/nc_int_types/signed/nc_i8/test_nc_i8.c */
 
 /*
-    About: Successful tests 'nc_i8' datatype.
+    About: Tests for the 'nc_i8' datatype.
     Initial Commit: INIT
     Commit Year: 2026
     Licensed Under: MIT

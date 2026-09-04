@@ -22,52 +22,69 @@
 
 /* Checked Addition -> nc_i64 */
 static inline nc_i64 nc_checked_add_i64(nc_i64 number_one, nc_i64 number_two) {
-    int64_t sum = number_one.val + number_two.val;
-
-    if (check_overflow(sum, NC_I64_MAX)) {
-        send_constructor_error_msg(64, IS_SIGNED, ERROR_OVERFLOW, sum, NC_I64_MAX);
+    if (number_two.val > 0 && number_one.val > NC_I64_MAX - number_two.val) {
+        send_constructor_error_msg(64, IS_SIGNED, ERROR_OVERFLOW, NC_I64_MAX, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
     }
 
-    if (check_underflow(sum, NC_I64_MIN)) {
-        send_constructor_error_msg(64, IS_SIGNED, ERROR_UNDERFLOW, sum, NC_I64_MIN);
+    if (number_two.val < 0 && number_one.val < NC_I64_MIN - number_two.val) {
+        send_constructor_error_msg(64, IS_SIGNED, ERROR_UNDERFLOW, NC_I64_MIN, NC_I64_MIN);
         return (nc_i64){.val = (int64_t)NC_I64_MIN};
     }
 
+    int64_t sum = number_one.val + number_two.val;
     return (nc_i64){.val = sum};
 }
 
 /* Checked Subtraction -> nc_i64 */
 static inline nc_i64 nc_checked_sub_i64(nc_i64 number_one, nc_i64 number_two) {
-    int64_t diff = number_one.val - number_two.val;
-
-    if (check_overflow(diff, NC_I64_MAX)) {
+    if (number_two.val < 0 && number_one.val > NC_I64_MAX + number_two.val) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
     }
 
-    if (check_underflow(diff, NC_I64_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, number_one.val, number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
-        return (nc_i64){.val = (int64_t)NC_I64_MIN};
-    }
-
-    return (nc_i64){.val = (int64_t)diff};
-}
-
-/* Checked Multiplication -> nc_i64 */
-static inline nc_i64 nc_checked_mul_i64(nc_i64 number_one, nc_i64 number_two) {
-    int64_t product = number_one.val * number_two.val;
-
-    if (check_overflow(product, NC_I64_MAX)) {
-        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
-        return (nc_i64){.val = (int64_t)NC_I64_MAX};
-    }
-
-    if (check_underflow(product, NC_I64_MIN)) {
+    if (number_two.val > 0 && number_one.val < NC_I64_MIN + number_two.val) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
         return (nc_i64){.val = (int64_t)NC_I64_MIN};
     }
 
+    int64_t diff = number_one.val - number_two.val;
+    return (nc_i64){.val = diff};
+}
+
+/* Checked Multiplication -> nc_i64 */
+static inline nc_i64 nc_checked_mul_i64(nc_i64 number_one, nc_i64 number_two) {
+    if (number_one.val == 0 || number_two.val == 0) {
+        return (nc_i64){.val = 0};
+    }
+
+    if (number_one.val == NC_I64_MIN && number_two.val == -1) {
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
+        return (nc_i64){.val = (int64_t)NC_I64_MAX};
+    }
+    if (number_two.val == NC_I64_MIN && number_one.val == -1) {
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
+        return (nc_i64){.val = (int64_t)NC_I64_MAX};
+    }
+
+    if (number_one.val > 0 && number_two.val > 0 && number_one.val > NC_I64_MAX / number_two.val) {
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
+        return (nc_i64){.val = (int64_t)NC_I64_MAX};
+    }
+    if (number_one.val > 0 && number_two.val < 0 && number_two.val < NC_I64_MIN / number_one.val) {
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
+        return (nc_i64){.val = (int64_t)NC_I64_MIN};
+    }
+    if (number_one.val < 0 && number_two.val > 0 && number_one.val < NC_I64_MIN / number_one.val) {
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
+        return (nc_i64){.val = (int64_t)NC_I64_MIN};
+    }
+    if (number_one.val < 0 && number_two.val < 0 && number_one.val < NC_I64_MAX / number_two.val) {
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
+        return (nc_i64){.val = (int64_t)NC_I64_MAX};
+    }
+
+    int64_t product = number_one.val * number_two.val;
     return (nc_i64){.val = product};
 }
 
@@ -75,24 +92,17 @@ static inline nc_i64 nc_checked_mul_i64(nc_i64 number_one, nc_i64 number_two) {
 static inline nc_i64 nc_checked_div_i64(nc_i64 number_one, nc_i64 number_two, int is_zero_denominator_allowed) {
     if (number_two.val == 0) {
         if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
-            return (nc_i64){.val = 0};
+            send_zero_denominator_error_msg(IS_SIGNED, number_one.val, number_two.val);
         }
         return (nc_i64){.val = 0};
     }
 
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-
-    if (check_overflow(quotient, NC_I64_MAX)) {
-        send_bounds_error_msg(64, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
+    if (number_one.val == NC_I64_MIN && number_two.val == -1) {
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
     }
 
-    if (check_underflow(quotient, NC_I64_MIN)) {
-        send_bounds_error_msg(64, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
-        return (nc_i64){.val = (int64_t)NC_I64_MIN};
-    }
-
+    int64_t quotient = number_one.val / number_two.val;
     return (nc_i64){.val = quotient};
 }
 

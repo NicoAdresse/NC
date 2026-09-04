@@ -1,7 +1,7 @@
 /* tests/nc_int_types/signed/nc_i32/test_nc_i32.c */
 
 /*
-    About: Successful tests 'nc_i32' datatype.
+    About: Tests for the 'nc_i32' datatype.
     Initial Commit: TESTING
     Commit Year: 2026
     Licensed Under: MIT

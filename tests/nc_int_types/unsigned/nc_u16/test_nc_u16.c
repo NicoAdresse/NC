@@ -1,7 +1,7 @@
 /* tests/nc_int_types/unsigned/nc_u16/test_nc_u16.c */
 
 /*
-    About: Successful tests 'nc_u16' datatype.
+    About: Tests for the 'nc_u16' datatype.
     Initial Commit: TESTING
     Commit Year: 2026
     Licensed Under: MIT

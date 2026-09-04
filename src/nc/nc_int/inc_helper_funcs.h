@@ -24,6 +24,8 @@ typedef enum {
 
 static inline int check_overflow(int64_t val, int64_t max) { return val > max; }
 static inline int check_underflow(int64_t val, int64_t min) { return val < min; }
+static inline int check_overflow_for_u64(uint64_t val, uint64_t max) { return val > max; }
+static inline int check_underflow_for_u64(uint64_t val, uint64_t min) { return val < min; }
 
 static inline void send_bounds_error_msg(
     int number_of_bits,
