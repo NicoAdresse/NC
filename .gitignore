@@ -1,11 +1,8 @@
 # .gitignore
 
-#   About: File forces Git to ignore selected directories or files.
-#   Initial Commit: INIT
-#   Commit Year: 2026
-#   Licensed Under: MIT
-#   Committer: Nico Erdmann
-#   Author: Nico Erdmann 
+#   SPDX-License-Identifier: MIT
+#   Copyright (c) 2026 Nico Erdmann
+#   Forces git to ignore specific files.
 
 # Build and output directories
 build/

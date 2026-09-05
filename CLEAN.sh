@@ -1,11 +1,8 @@
 # CLEAN.sh
 
-#   About: Cleans the 'build' directory.
-#   Initial Commit: INIT
-#   Commit Year: 2026
-#   Licensed Under: MIT
-#   Committer: Nico Erdmann
-#   Author: Nico Erdmann
+#   SPDX-License-Identifier: MIT
+#   Copyright (c) 2026 Nico Erdmann
+#   Cleans the 'build' directory.
 
 #!bin/bash
 

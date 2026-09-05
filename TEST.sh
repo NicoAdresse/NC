@@ -1,11 +1,8 @@
 # TEST.sh
 
-#   About: Tests a file and compiles them in the 'build' directory.
-#   Initial Commit: INIT
-#   Commit Year: 2026
-#   Licensed Under: MIT
-#   Committer: Nico Erdmann
-#   Author: Nico Erdmann
+#   SPDX-License-Identifier: MIT
+#   Copyright (c) 2026 Nico Erdmann
+#   Compiles and executes a file and places the binary in the 'build' directory. Meant for testing.
 
 #!/bin/bash
 
