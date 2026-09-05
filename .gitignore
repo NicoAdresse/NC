@@ -7,4 +7,27 @@
 #   Committer: Nico Erdmann
 #   Author: Nico Erdmann 
 
+# Build and output directories
 build/
+bin/
+out/
+
+# Compiled object and library files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
