@@ -1,12 +1,9 @@
 /* src/nc/nc_int/nc_types.h */
 
 /*
-    About: Header file for the definition of the primitive integer datatypes.
-    Initial Commit: INIT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    NC Primitives Definitions.
 */
 
 #ifndef NC_TYPES_H

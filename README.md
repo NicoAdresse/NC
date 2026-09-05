@@ -38,7 +38,6 @@ NC
 ├── LICENSE
 ├── README.md
 ├── src
-│   ├── main.c
 │   └── nc
 │       ├── nc_int
 │       │   ├── inc_helper_funcs.h
@@ -100,15 +99,3 @@ NC
 ## License <->
 
 License -> `MIT` | Check the `LICENSE` file.
-
-## About README.md
-
-About: Quick Lookup on information about this project.
-
-```text
-Initial Commit: INIT
-Commit Year: 2026
-Licensed Under: MIT
-Committer: Nico Erdmann
-Author: Nico Erdmann
-```

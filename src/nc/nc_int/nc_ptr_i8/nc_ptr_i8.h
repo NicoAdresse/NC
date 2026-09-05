@@ -1,12 +1,9 @@
 /* src/nc/nc_int/nc_ptr_i8/nc_ptr_i8.h */
 
 /*
-    About: Header file for the primitive datatype 'nc_ptr_i8'.
-    Initial Commit: NC_INT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Header file for the primitive datatype 'nc_ptr_i8'.
 */
 
 #ifndef NC_PTR_I8_H

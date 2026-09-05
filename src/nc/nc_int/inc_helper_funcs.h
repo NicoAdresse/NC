@@ -1,15 +1,10 @@
 /* src/nc/nc_int/inc_helper_funcs.h */
 
 /*
-    About: Header file for helper functions.
-    Initial Commit: NC_INT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Helper Functions for NC integer primitives. Private, and is not meant to be used by users.
 */
-
-/* NOT MEANT TO BE PUBLIC FOR USERS TO USE. */
 
 #ifndef INC_HELPER_FUNCS_H
 #define INC_HELPER_FUNCS_H

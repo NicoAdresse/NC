@@ -1,12 +1,9 @@
 /* tests/nc_int_types/signed/nc_i64/test_nc_i64.c */
 
 /*
-    About: Tests for the 'nc_i64' datatype.
-    Initial Commit: NC_INT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Tests for 'nc_i64'.
 */
 
 #include "../../../../src/nc/nc_int_types.h"

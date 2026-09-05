@@ -1,12 +1,9 @@
 /* src/nc/nc_log.h */
 
 /*
-    About: Header file for all NC logging methods.
-    Initial Commit: LOGGING
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Logging methods.
 */
 
 #ifndef NC_LOG_H

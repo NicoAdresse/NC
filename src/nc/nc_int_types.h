@@ -1,12 +1,9 @@
 /* src/nc/nc_int_types.h */
 
 /*
-    About: Header file to bind all integer NC datatypes and their methods.
-    Initial Commit: INIT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Duct tape for all methods, integer primitives and macros for users to simply import.
 */
 
 #ifndef NC_INT_TYPES_H

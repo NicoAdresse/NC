@@ -1,12 +1,9 @@
 /* src/nc/nc_int/nc_int_macros.h */
 
 /*
-    About: Header file for integer NC datatypes macros.
-    Initial Commit: NC_INT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Basic macros for NC integer primitives.
 */
 
 #ifndef NC_INT_MACROS_H

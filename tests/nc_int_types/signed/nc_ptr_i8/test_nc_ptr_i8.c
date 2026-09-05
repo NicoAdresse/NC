@@ -1,12 +1,9 @@
 /* tests/nc_int_types/signed/nc_ptr_i8/test_nc_ptr_i8.c */
 
 /*
-    About: Tests for the 'nc_ptr_i8' datatype.
-    Initial Commit: NC_INT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Tests for 'nc_ptr_i8'.
 */
 
 #include "../../../../src/nc/nc_int_types.h"

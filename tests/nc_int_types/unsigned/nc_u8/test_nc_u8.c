@@ -1,12 +1,9 @@
 /* tests/nc_int_types/unsigned/nc_u8/test_nc_u8.c */
 
 /*
-    About: Tests for the 'nc_u8' datatype.
-    Initial Commit: INIT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Tests for 'nc_u8'.
 */
 
 #include "../../../../src/nc/nc_int_types.h"

@@ -1,12 +1,9 @@
 /* tests/nc_int_types/conversion/test_nc_convert.c */
 
 /*
-    About: Successful tests for 'nc_convert' macro across types.
-    Initial Commit: TESTING
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Conversion testing between different NC integer primitives.
 */
 
 #include "../../../src/nc/nc_int_types.h"

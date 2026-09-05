@@ -1,12 +1,9 @@
 /* src/nc/nc_int/nc_u16/nc_u16.h */
 
 /*
-    About: Header file for the primitive datatype 'nc_u16'.
-    Initial Commit: NC_INT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Header file for the primitive datatype 'nc_u16'.
 */
 
 #ifndef NC_U16_H

@@ -1,12 +1,9 @@
 /* tests/nc_log/test_nc_log.c */
 
 /*
-    About: Testing logging methods.
-    Initial Commit: LOGGING
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Testing logging methods.
 */
 
 #include "../../src/nc/nc_log.h"

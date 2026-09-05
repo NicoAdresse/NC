@@ -1,12 +1,9 @@
 /* tests/nc_int_types/signed/nc_i32/test_nc_i32.c */
 
 /*
-    About: Tests for the 'nc_i32' datatype.
-    Initial Commit: TESTING
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Tests for 'nc_i32'.
 */
 
 #include "../../../../src/nc/nc_int_types.h"

@@ -1,12 +1,9 @@
 /* src/nc/nc_int/nc_int_method_macros.h */
 
 /*
-    About: Header file for method macros to improve developer experience.
-    Initial Commit: NC_INT
-    Commit Year: 2026
-    Licensed Under: MIT
-    Committer: Nico Erdmann
-    Author: Nico Erdmann
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Generic Macros used by users.
 */
 
 #ifndef NC_INT_METHOD_MACROS_H
