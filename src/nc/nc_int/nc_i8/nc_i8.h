@@ -40,6 +40,17 @@ static inline uint32_t nc_i8_convert_to_uint32_t(nc_i8 primitive) { return primi
 static inline int64_t nc_i8_convert_to_int64_t(nc_i8 primitive) { return primitive.val; }
 static inline uint64_t nc_i8_convert_to_uint64_t(nc_i8 primitive) { return primitive.val; }
 
+/* nc_libc_primitive_convert_to_i8 */
+static inline nc_i8 nc_int_convert_to_i8(int val) { return nc_new_i8(val); }
+static inline nc_i8 nc_int8_t_convert_to_i8(int8_t val) { return nc_new_i8(val); }
+static inline nc_i8 nc_uint8_t_convert_to_i8(uint8_t val) { return nc_new_i8(val); }
+static inline nc_i8 nc_int16_t_convert_to_i8(int16_t val) { return nc_new_i8(val); }
+static inline nc_i8 nc_uint16_t_convert_to_i8(uint16_t val) { return nc_new_i8(val); }
+static inline nc_i8 nc_int32_t_convert_to_i8(int32_t val) { return nc_new_i8(val); }
+static inline nc_i8 nc_uint32_t_convert_to_i8(uint32_t val) { return nc_new_i8(val); }
+static inline nc_i8 nc_int64_t_convert_to_i8(int64_t val) { return nc_new_i8(val); }
+static inline nc_i8 nc_uint64_t_convert_to_i8(uint64_t val) { return nc_new_i8((int64_t)val); }
+
 /* Checked Addition -> nc_i8 */
 static inline nc_i8 nc_checked_add_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;

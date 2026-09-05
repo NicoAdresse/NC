@@ -111,6 +111,17 @@ static inline uint32_t nc_u32_convert_to_uint32_t(nc_u32 primitive) { return pri
 static inline int64_t nc_u32_convert_to_int64_t(nc_u32 primitive) { return primitive.val; }
 static inline uint64_t nc_u32_convert_to_uint64_t(nc_u32 primitive) { return primitive.val; }
 
+/* nc_libc_primitive_convert_to_u32 */
+static inline nc_u32 nc_int_convert_to_u32(int val) { return nc_new_u32(val); }
+static inline nc_u32 nc_int8_t_convert_to_u32(int8_t val) { return nc_new_u32(val); }
+static inline nc_u32 nc_uint8_t_convert_to_u32(uint8_t val) { return nc_new_u32(val); }
+static inline nc_u32 nc_int16_t_convert_to_u32(int16_t val) { return nc_new_u32(val); }
+static inline nc_u32 nc_uint16_t_convert_to_u32(uint16_t val) { return nc_new_u32(val); }
+static inline nc_u32 nc_int32_t_convert_to_u32(int32_t val) { return nc_new_u32(val); }
+static inline nc_u32 nc_uint32_t_convert_to_u32(uint32_t val) { return nc_new_u32(val); }
+static inline nc_u32 nc_int64_t_convert_to_u32(int64_t val) { return nc_new_u32(val); }
+static inline nc_u32 nc_uint64_t_convert_to_u32(uint64_t val) { return nc_new_u32((int64_t)val); }
+
 /* nc_get_val */
 static inline uint32_t nc_get_val_u32(nc_u32 primitive) { return primitive.val; } 
 

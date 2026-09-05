@@ -16,6 +16,8 @@
 #include "nc_int/nc_int_macros.h"
 #include "nc_int/inc_helper_funcs.h"
 #include "nc_int/nc_int_method_macros.h"
+#include "nc_int/nc_int_constructors.h"
+#include "nc_int/nc_int_destructors.h"
 
 #include "nc_int/nc_i8/nc_i8.h"
 #include "nc_int/nc_i16/nc_i16.h"
@@ -25,5 +27,7 @@
 #include "nc_int/nc_u16/nc_u16.h"
 #include "nc_int/nc_u32/nc_u32.h"
 #include "nc_int/nc_u64/nc_u64.h"
+
+#include "nc_int/nc_ptr_i8/nc_ptr_i8.h"
 
 #endif /*  NC_INT_TYPES_H */

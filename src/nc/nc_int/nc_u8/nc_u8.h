@@ -104,7 +104,7 @@ static inline nc_u16 nc_u8_convert_to_u16(nc_u8 primitive) { return nc_new_u16(p
 static inline nc_u32 nc_u8_convert_to_u32(nc_u8 primitive) { return nc_new_u32(primitive.val); }
 static inline nc_u64 nc_u8_convert_to_u64(nc_u8 primitive) { return nc_new_u64(primitive.val); }
 
-/* nc_convert_u8_to_libc_primitive */
+/* nc_u8_convert_to_libc_primitive */
 static inline int nc_u8_convert_to_int(nc_u8 primitive) { return primitive.val; }
 static inline int8_t nc_u8_convert_to_int8_t(nc_u8 primitive) { return primitive.val; }
 static inline uint8_t nc_u8_convert_to_uint8_t(nc_u8 primitive) { return primitive.val; }
@@ -114,6 +114,17 @@ static inline int32_t nc_u8_convert_to_int32_t(nc_u8 primitive) { return primiti
 static inline uint32_t nc_u8_convert_to_uint32_t(nc_u8 primitive) { return primitive.val; }
 static inline int64_t nc_u8_convert_to_int64_t(nc_u8 primitive) { return primitive.val; }
 static inline uint64_t nc_u8_convert_to_uint64_t(nc_u8 primitive) { return primitive.val; }
+
+/* nc_libc_primitive_convert_to_u8 */
+static inline nc_u8 nc_int_convert_to_u8(int val) { return nc_new_u8(val); }
+static inline nc_u8 nc_int8_t_convert_to_u8(int8_t val) { return nc_new_u8(val); }
+static inline nc_u8 nc_uint8_t_convert_to_u8(uint8_t val) { return nc_new_u8(val); }
+static inline nc_u8 nc_int16_t_convert_to_u8(int16_t val) { return nc_new_u8(val); }
+static inline nc_u8 nc_uint16_t_convert_to_u8(uint16_t val) { return nc_new_u8(val); }
+static inline nc_u8 nc_int32_t_convert_to_u8(int32_t val) { return nc_new_u8(val); }
+static inline nc_u8 nc_uint32_t_convert_to_u8(uint32_t val) { return nc_new_u8(val); }
+static inline nc_u8 nc_int64_t_convert_to_u8(int64_t val) { return nc_new_u8(val); }
+static inline nc_u8 nc_uint64_t_convert_to_u8(uint64_t val) { return nc_new_u8((int64_t)val); }
 
 /* nc_get_val */
 static inline uint8_t nc_get_val_u8(nc_u8 primitive) { return primitive.val; }

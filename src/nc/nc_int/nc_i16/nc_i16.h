@@ -117,6 +117,17 @@ static inline uint32_t nc_i16_convert_to_uint32_t(nc_i16 primitive) { return pri
 static inline int64_t nc_i16_convert_to_int64_t(nc_i16 primitive) { return primitive.val; }
 static inline uint64_t nc_i16_convert_to_uint64_t(nc_i16 primitive) { return primitive.val; }
 
+/* nc_libc_primitive_convert_to_i16 */
+static inline nc_i16 nc_int_convert_to_i16(int val) { return nc_new_i16(val); }
+static inline nc_i16 nc_int8_t_convert_to_i16(int8_t val) { return nc_new_i16(val); }
+static inline nc_i16 nc_uint8_t_convert_to_i16(uint8_t val) { return nc_new_i16(val); }
+static inline nc_i16 nc_int16_t_convert_to_i16(int16_t val) { return nc_new_i16(val); }
+static inline nc_i16 nc_uint16_t_convert_to_i16(uint16_t val) { return nc_new_i16(val); }
+static inline nc_i16 nc_int32_t_convert_to_i16(int32_t val) { return nc_new_i16(val); }
+static inline nc_i16 nc_uint32_t_convert_to_i16(uint32_t val) { return nc_new_i16(val); }
+static inline nc_i16 nc_int64_t_convert_to_i16(int64_t val) { return nc_new_i16(val); }
+static inline nc_i16 nc_uint64_t_convert_to_i16(uint64_t val) { return nc_new_i16((int64_t)val); }
+
 /* nc_get_val */
 static inline int16_t nc_get_val_i16(nc_i16 primitive) { return primitive.val; }
 

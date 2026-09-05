@@ -58,6 +58,7 @@
     uint32_t:  nc_new_u32, \
     int64_t:   nc_new_i64, \
     uint64_t:  nc_new_u64, \
+    int8_t*:   nc_new_ptr_i8, \
     default: nc_new_i32 \
 )(val)
 
@@ -70,6 +71,7 @@
     uint32_t: nc_new_must_u32, \
     int64_t: nc_new_must_i64, \
     uint64_t: nc_new_must_u64, \
+    int8_t*: nc_new_must_ptr_i8, \
     default: nc_new_must_i32 \
 )(val)
 
@@ -173,6 +175,7 @@
     nc_u32: nc_checked_add_u32, \
     nc_i64: nc_checked_add_i64, \
     nc_u64: nc_checked_add_u64, \
+    nc_ptr_i8: nc_checked_add_ptr_i8, \
     default: nc_checked_add_i32 \
 )((n1), (n2))
 
@@ -185,6 +188,7 @@
     nc_u32: nc_checked_sub_u32, \
     nc_i64: nc_checked_sub_i64, \
     nc_u64: nc_checked_sub_u64, \
+    nc_ptr_i8: nc_checked_sub_ptr_i8, \
     default: nc_checked_sub_i32 \
 )((n1), (n2))
 
@@ -197,6 +201,7 @@
     nc_u32: nc_checked_mul_u32, \
     nc_i64: nc_checked_mul_i64, \
     nc_u64: nc_checked_mul_u64, \
+    nc_ptr_i8: nc_checked_mul_ptr_i8, \
     default: nc_checked_mul_i32 \
 )((n1), (n2))
 
@@ -209,6 +214,7 @@
     nc_u32: nc_checked_div_u32, \
     nc_i64: nc_checked_div_i64, \
     nc_u64: nc_checked_div_u64, \
+    nc_ptr_i8: nc_checked_div_ptr_i8, \
     default: nc_checked_div_i32 \
 )((n1), (n2), (is_zero_division_allowed))
 
