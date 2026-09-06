@@ -10,21 +10,7 @@ See [`docs/ABOUT_NC.md`](./docs/ABOUT_NC.md).
 
 ## Testing <->
 
-To test certain files like [`test_nc_i8.c`](./tests/nc_int_types/signed/nc_i8/test_nc_i8.c), run this:
-
-```bash
-chmod +x TEST.sh
-./TEST.sh test_nc_i8.c # Adds a compiled binary called 'test_nc_i8' in 'build'.
-```
-
-## Cleaning <->
-
-To remove compiled binaries or just to clean the ***'build'*** directory, run this:
-
-```bash
-chmod +x CLEAN.sh
-./CLEAN.sh # Automatically cleans the build for you.
-```
+See [`docs/TESTING_NC.md`](./docs/TESTING_NC.md).
 
 ## File Structure <->
 

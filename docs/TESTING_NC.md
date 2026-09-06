@@ -15,5 +15,7 @@ To execute a test, run the `TEST.sh` script and provide the path to your test fi
 
 This approach ensures fast iteration times while keeping NC lightweight and compatible with virtually any architecture that supports `libc`.
 
+If you have finished, you can run the `CLEAN.sh` bash script to automatically clean the `build` directory.
+
 ## Project Status <->
 The project is currently small and lightweight, meaning no heavy build tools like CMake are required at this stage.
