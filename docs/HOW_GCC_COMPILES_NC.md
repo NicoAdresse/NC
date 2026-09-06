@@ -8,7 +8,7 @@ Because NC is a header-centric C library relying heavily on static inline functi
 
 ### GNU Variadic Extensions
 
-- NC's logging and debug macros use the GNU extension ##__VA_ARGS__ to cleanly swallow trailing commas when formatting strings with zero optional arguments.
+- NC's logging and debug macros use the GNU extension ##__VA_OPT__(,) (Or ##__VA_ARGS__, if your using an older version of C) to cleanly swallow trailing commas when formatting strings with zero optional arguments.
 - ***Requirement: Because of this, files must be compiled with standard C99 or later (e.g., -std=c99 or -std=gnu99). Compiling under strict ancient ISO C flags without GNU extensions will cause preprocessor errors.***
 
 ### Rust-Style Debug Defaults via NDEBUG
