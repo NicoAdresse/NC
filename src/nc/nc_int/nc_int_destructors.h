@@ -13,10 +13,9 @@
 
 #include "nc_types.h"
 
-static inline void nc_free_ptr_i8(nc_ptr_i8 ptr) {
-    if (ptr.ptr) {
-        free(ptr.ptr);
-    }
-}
+static inline void nc_free_ptr_i8(nc_ptr_i8 ptr) { free(ptr.ptr); }
+static inline void nc_free_ptr_i16(nc_ptr_i16 ptr) { free(ptr.ptr); }
+static inline void nc_free_ptr_i32(nc_ptr_i32 ptr) { free(ptr.ptr); }
+static inline void nc_free_ptr_i64(nc_ptr_i64 ptr) { free(ptr.ptr); }
 
 #endif /* NC_INT_DESTRUCTORS_H */

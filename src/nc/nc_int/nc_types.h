@@ -23,5 +23,8 @@ typedef struct { uint64_t val; } nc_u64;
 
 /* Ptrs Primitives */
 typedef struct { nc_i8* ptr; } nc_ptr_i8;
+typedef struct { nc_i16* ptr; } nc_ptr_i16;
+typedef struct { nc_i32* ptr; } nc_ptr_i32;
+typedef struct { nc_i64* ptr; } nc_ptr_i64;
 
 #endif /* NC_TYPES_H */

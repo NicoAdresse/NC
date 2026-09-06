@@ -26,5 +26,8 @@
 #include "nc_int/nc_u64/nc_u64.h"
 
 #include "nc_int/nc_ptr_i8/nc_ptr_i8.h"
+#include "nc_int/nc_ptr_i16/nc_ptr_i16.h"
+#include "nc_int/nc_ptr_i32/nc_ptr_i32.h"
+#include "nc_int/nc_ptr_i64/nc_ptr_i64.h"
 
 #endif /*  NC_INT_TYPES_H */
