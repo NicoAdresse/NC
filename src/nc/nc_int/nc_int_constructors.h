@@ -210,7 +210,7 @@ static inline nc_ptr_i8 nc_new_ptr_i8(nc_i8 val) {
     nc_i8* heap_val = malloc(sizeof(nc_i8));
 
     if (!heap_val) {
-        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i8), "nc_i8");
+        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i8), "nc_ptr_i8");
         return (nc_ptr_i8){.ptr = NULL};
     }
     
@@ -223,7 +223,7 @@ static inline nc_ptr_i8 nc_new_must_ptr_i8(nc_i8 val) {
     nc_i8* heap_val = malloc(sizeof(nc_i8));
 
     if (!heap_val) {
-        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_i8), "nc_i8");
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_i8), "nc_ptr_i8");
         exit(1);
     }
 
@@ -236,7 +236,7 @@ static inline nc_ptr_i16 nc_new_ptr_i16(nc_i16 val) {
     nc_i16* heap_val = malloc(sizeof(nc_i16));
 
     if (!heap_val) {
-        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i16), "nc_i16_ptr");
+        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i16), "nc_ptr_i16");
         return (nc_ptr_i16){.ptr = NULL};
     }
 
@@ -249,7 +249,7 @@ static inline nc_ptr_i16 nc_new_must_ptr_i16(nc_i16 val) {
     nc_i16* heap_val = malloc(sizeof(nc_i16));
     
     if (!heap_val) {
-        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i16), "nc_i16_ptr");
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_i16), "nc_ptr_i16");
         exit(1);
     }
 
@@ -258,7 +258,6 @@ static inline nc_ptr_i16 nc_new_must_ptr_i16(nc_i16 val) {
 }
 
 /* nc_ptr_i32's constructor */
-
 static inline nc_ptr_i32 nc_new_ptr_i32(nc_i32 val) {
     nc_i32* heap_val = malloc(sizeof(nc_i32));
 
@@ -276,7 +275,7 @@ static inline nc_ptr_i32 nc_new_must_ptr_i32(nc_i32 val) {
     nc_i32* heap_val = malloc(sizeof(nc_i32));
     
     if (!heap_val) {
-        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i32), "nc_i32_ptr");
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_i32), "nc_ptr_i32");
         exit(1);
     }
 
@@ -302,12 +301,116 @@ static inline nc_ptr_i64 nc_new_must_ptr_i64(nc_i64 val) {
     nc_i64* heap_val = malloc(sizeof(nc_i64));
     
     if (!heap_val) {
-        send_allocation_error_msg(IS_SIGNED, sizeof(nc_i64), "nc_i64_ptr");
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_i64), "nc_ptr_i64");
         exit(1);
     }
 
     *heap_val = val;
     return (nc_ptr_i64){.ptr = heap_val};
+}
+
+/* nc_ptr_u8's constructor */
+static inline nc_ptr_u8 nc_new_ptr_u8(nc_u8 val) {
+    nc_u8* heap_val = malloc(sizeof(nc_u8));
+
+    if (!heap_val) {
+        send_allocation_error_msg(IS_SIGNED, sizeof(nc_u8), "nc_ptr_u8");
+        return (nc_ptr_u8){.ptr = NULL};
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u8){.ptr = heap_val};
+}
+
+/* nc_ptr_u8's runtime fail constructor */
+static inline nc_ptr_u8 nc_new_must_ptr_u8(nc_u8 val) {
+    nc_u8* heap_val = malloc(sizeof(nc_u8));
+
+    if (!heap_val) {
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_u8), "nc_ptr_u8");
+        exit(1);
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u8){.ptr = heap_val};
+}
+
+/* nc_ptr_u16's constructor */
+static inline nc_ptr_u16 nc_new_ptr_u16(nc_u16 val) {
+    nc_u16* heap_val = malloc(sizeof(nc_u16));
+
+    if (!heap_val) {
+        send_allocation_error_msg(IS_SIGNED, sizeof(nc_u16), "nc_ptr_u16");
+        return (nc_ptr_u16){.ptr = NULL};
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u16){.ptr = heap_val};
+}
+
+/* nc_ptr_u16's runtime fail constructor */
+static inline nc_ptr_u16 nc_new_must_ptr_u16(nc_u16 val) {
+    nc_u16* heap_val = malloc(sizeof(nc_u16));
+
+    if (!heap_val) {
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_u16), "nc_ptr_u16");
+        exit(1);
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u16){.ptr = heap_val};
+}
+
+/* nc_ptr_u32's constructor */
+static inline nc_ptr_u32 nc_new_ptr_u32(nc_u32 val) {
+    nc_u32* heap_val = malloc(sizeof(nc_u32));
+
+    if (!heap_val) {
+        send_allocation_error_msg(IS_SIGNED, sizeof(nc_u32), "nc_ptr_u32");
+        return (nc_ptr_u32){.ptr = NULL};
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u32){.ptr = heap_val};
+}
+
+/* nc_ptr_u32's runtime fail constructor */
+static inline nc_ptr_u32 nc_new_must_ptr_u32(nc_u32 val) {
+    nc_u32* heap_val = malloc(sizeof(nc_u32));
+
+    if (!heap_val) {
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_u32), "nc_ptr_u32");
+        exit(1);
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u32){.ptr = heap_val};
+}
+
+/* nc_ptr_u64's constructor */
+static inline nc_ptr_u64 nc_new_ptr_u64(nc_u64 val) {
+    nc_u64* heap_val = malloc(sizeof(nc_u64));
+
+    if (!heap_val) {
+        send_allocation_error_msg(IS_SIGNED, sizeof(nc_u64), "nc_ptr_u64");
+        return (nc_ptr_u64){.ptr = NULL};
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u64){.ptr = heap_val};
+}
+
+/* nc_ptr_u64's runtime fail constructor */
+static inline nc_ptr_u64 nc_new_must_ptr_u64(nc_u64 val) {
+    nc_u64* heap_val = malloc(sizeof(nc_u64));
+
+    if (!heap_val) {
+        send_allocation_must_error_msg(IS_SIGNED, sizeof(nc_u64), "nc_ptr_u64");
+        exit(1);
+    }
+
+    *heap_val = val;
+    return (nc_ptr_u64){.ptr = heap_val};
 }
 
 #endif /* NC_INT_CONSTRUCTORS_H */

@@ -30,7 +30,7 @@ static inline void send_bounds_error_msg(
     error_int_bound_t bound_err_type,
     int64_t bounds_max
 ) {
-    println_err(
+    nc_println_err(
         "Error. %s Integer (%d Bits) %s detected. Check your variables. (Values received: %lld & %lld). Defaulting to %lld.",
         is_integer_signed ? "Signed" : "Unsigned",
         number_of_bits,
@@ -49,7 +49,7 @@ static inline void send_bounds_ptr_error_msg(
     error_int_bound_t bound_err_type,
     int64_t bounds_max
 ) {
-    println_err(
+    nc_println_err(
         "Error. %s Pointer Integer (%d bits) %s detected. Check your variables. (Values received: %lld & %lld). Defaulting to %lld.",
         is_integer_signed ? "Signed" : "Unsigned",
         number_of_bits,
@@ -67,7 +67,7 @@ static inline void send_constructor_error_msg(
     int64_t val,
     int64_t bounds_max
 ) {
-    println_err(
+    nc_println_err(
         "Error. %s Integer (%d Bits) %s detected. Construction failed. (Value received: %lld). Defaulting to %lld.",
         is_integer_signed ? "Signed" : "Unsigned",
         number_of_bits,
@@ -83,7 +83,7 @@ static inline void send_constructor_runtime_fail_error_msg(
     error_int_bound_t bound_err_type,
     int64_t val
 ) {
-    println_err(
+    nc_println_err(
         "Error. %s Integer (%d Bits) %s detected. Construction failed. The Runtime will hereby be terminated (Value Received: %lld).",
         is_integer_signed ? "Signed" : "Unsigned",
         number_of_bits,
@@ -97,7 +97,7 @@ static inline void send_zero_denominator_error_msg(
     int64_t numerator,
     int64_t denominator
 ) {
-    println_err(
+    nc_println_err(
         "Error. %s Integer was not allowed to be divided by 0. (Value received: %lld & %lld) Defaulting to 0.",
         is_integer_signed ? "Signed" : "Unsigned",
         (long long)numerator,
@@ -110,7 +110,7 @@ static inline void send_allocation_error_msg(
     long long amount_of_bytes_allocated,
     char* type_of_primitive
 ) {
-    println_err(
+    nc_println_err(
         "Error. %s Integer (%s) failed to allocate %lld bytes. Setting pointer to NULL.",
         is_integer_signed ? "Signed" : "Unsigned",
         type_of_primitive,
@@ -123,7 +123,7 @@ static inline void send_allocation_must_error_msg(
     long long amount_of_bytes_allocated,
     char* type_of_primitive
 ) {
-    println_err(
+    nc_println_err(
         "Error. %s Integer (%s) failed to allocate %lld bytes. Automatically exiting. (Hint: You don't get a memory leak.).",
         is_integer_signed ? "Signed" : "Unsigned",
         type_of_primitive,
@@ -135,7 +135,7 @@ static inline void send_null_pointer_error_msg(
     int is_integer_signed,
     char* type_of_primitive
 ) {
-    println_err(
+    nc_println_err(
         "Error. Attempted to deference a null pointer of a %s integer (%s).",
         is_integer_signed ? "signed" : "unsigned",
         type_of_primitive

@@ -47,15 +47,15 @@ static inline const char* nc_color_to_string(nc_colors color) {
     }
 }
 
-static inline void println_color(const char* string, nc_colors color) {
+static inline void nc_println_color(const char* string, nc_colors color) {
     printf("%s%s\n" NC_RESET, nc_color_to_string(color), string);
 }
 
-static inline void print_color(const char* string, nc_colors color) {
+static inline void nc_print_color(const char* string, nc_colors color) {
     printf("%s%s" NC_RESET, nc_color_to_string(color), string);
 }
 
-static inline int println_err(const char* format, ...) {
+static inline int nc_println_err(const char* format, ...) {
     fprintf(stderr, NC_RED);
 
     va_list args;
@@ -69,7 +69,7 @@ static inline int println_err(const char* format, ...) {
     return printed_chars;
 }
 
-static inline int print_err(const char* format, ...) {
+static inline int nc_print_err(const char* format, ...) {
     fprintf(stderr, NC_RED);
 
     va_list args;
@@ -83,7 +83,7 @@ static inline int print_err(const char* format, ...) {
     return printed_chars;
 }
 
-static inline int println_warn(const char* format, ...) {
+static inline int nc_println_warn(const char* format, ...) {
     fprintf(stderr, NC_YELLOW);
 
     va_list args;
@@ -97,7 +97,7 @@ static inline int println_warn(const char* format, ...) {
     return printed_chars;
 }
 
-static inline int print_warn(const char* format, ...) {
+static inline int nc_print_warn(const char* format, ...) {
     fprintf(stderr, NC_YELLOW);
 
     va_list args;
@@ -111,7 +111,7 @@ static inline int print_warn(const char* format, ...) {
     return printed_chars;
 }
 
-static inline int println_succ(const char* format, ...) {
+static inline int nc_println_succ(const char* format, ...) {
     fprintf(stdout, NC_GREEN);
 
     va_list args;
@@ -125,7 +125,7 @@ static inline int println_succ(const char* format, ...) {
     return printed_chars;
 }
 
-static inline int print_succ(const char* format, ...) {
+static inline int nc_print_succ(const char* format, ...) {
     fprintf(stdout, NC_GREEN);
 
     va_list args;
@@ -139,7 +139,7 @@ static inline int print_succ(const char* format, ...) {
     return printed_chars;
 }
 
-static inline int println_info(const char* format, ...) {
+static inline int nc_println_info(const char* format, ...) {
     fprintf(stdout, NC_CYAN);
 
     va_list args;
@@ -153,7 +153,7 @@ static inline int println_info(const char* format, ...) {
     return printed_chars;
 }
 
-static inline int print_info(const char* format, ...) {
+static inline int nc_print_info(const char* format, ...) {
     fprintf(stdout, NC_CYAN);
 
     va_list args;

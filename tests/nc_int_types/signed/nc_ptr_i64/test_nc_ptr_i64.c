@@ -22,23 +22,23 @@ int main(void) {
 
     printf("=== SUCCESS CASES (i64) ===\n");
     nc_ptr_i64 res_add = nc_checked_add_ptr_i64(ptr_a, val_b);
-    printf("NC_CHECKED_ADD [10 + 5] -> Expected: 15 | Got: %" PRId64 "\n", nc_get_val(*res_add.ptr));
+    printf("NC_CHECKED_ADD [10 + 5] -> Expected: 15 | Got: %" PRId64 "\n", nc_get_val_int(*res_add.ptr));
 
     nc_ptr_i64 res_sub = nc_checked_sub_ptr_i64(ptr_a, val_b);
-    printf("NC_CHECKED_SUB [10 - 5] -> Expected: 5 | Got: %" PRId64 "\n", nc_get_val(*res_sub.ptr));
+    printf("NC_CHECKED_SUB [10 - 5] -> Expected: 5 | Got: %" PRId64 "\n", nc_get_val_int(*res_sub.ptr));
 
     nc_ptr_i64 res_mul = nc_checked_mul_ptr_i64(ptr_a, val_b);
-    printf("NC_CHECKED_MUL [10 * 5] -> Expected: 50 | Got: %" PRId64 "\n", nc_get_val(*res_mul.ptr));
+    printf("NC_CHECKED_MUL [10 * 5] -> Expected: 50 | Got: %" PRId64 "\n", nc_get_val_int(*res_mul.ptr));
 
     nc_ptr_i64 res_div = nc_checked_div_ptr_i64(ptr_a, val_b, 0);
-    printf("NC_CHECKED_DIV [10 / 5] -> Expected: 2 | Got: %" PRId64 "\n", nc_get_val(*res_div.ptr));
+    printf("NC_CHECKED_DIV [10 / 5] -> Expected: 2 | Got: %" PRId64 "\n", nc_get_val_int(*res_div.ptr));
 
     printf("\n=== ERROR CASES (i64) ===\n");
     nc_ptr_i64 res_overflow = nc_checked_add_ptr_i64(ptr_max, val_b);
-    printf("NC_CHECKED_ADD Overflow -> Expected Clamped | Got: %" PRId64 "\n", nc_get_val(*res_overflow.ptr));
+    printf("NC_CHECKED_ADD Overflow -> Expected Clamped | Got: %" PRId64 "\n", nc_get_val_int(*res_overflow.ptr));
 
     nc_ptr_i64 res_div_zero = nc_checked_div_ptr_i64(ptr_a, val_zero, 0);
-    printf("NC_CHECKED_DIV Zero [10 / 0] -> Expected: 0 | Got: %" PRId64 "\n", nc_get_val(*res_div_zero.ptr));
+    printf("NC_CHECKED_DIV Zero [10 / 0] -> Expected: 0 | Got: %" PRId64 "\n", nc_get_val_int(*res_div_zero.ptr));
 
     nc_ptr_i64 res_null = nc_checked_add_ptr_i64(ptr_null, val_b);
     printf("NC_CHECKED_ADD Null Pointer -> Expected Pointer: NULL | Got Pointer: %p\n", (void*)res_null.ptr);
