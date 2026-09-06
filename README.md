@@ -21,6 +21,7 @@ NC
 ├── CONTRIBUTING.md
 ├── docs
 │   ├── ABOUT_NC.md
+│   ├── HOW_GCC_COMPILES_NC.md
 │   └── TESTING_NC.md
 ├── LICENSE
 ├── README.md
@@ -66,6 +67,9 @@ NC
 │       │   └── nc_u8
 │       │       └── nc_u8.h
 │       ├── nc_int_types.h
+│       ├── nc_log
+│       │   ├── nc_debug_stmts.h
+│       │   └── nc_print_stmts.h
 │       └── nc_log.h
 ├── tests
 │   ├── nc_int_types
@@ -108,6 +112,7 @@ NC
 │   │       └── nc_u8
 │   │           └── test_nc_u8.c
 │   └── nc_log
+│       ├── test_nc_debug.c
 │       └── test_nc_log.c
 ├── TEST.sh
 └── vcpkg.json
