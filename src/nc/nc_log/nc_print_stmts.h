@@ -31,9 +31,9 @@ typedef enum {
     NC_COLOR_MAGENTA,
     NC_COLOR_CYAN,
     NC_COLOR_WHITE
-} nc_colors;
+} nc_color_t;
 
-static inline const char* nc_color_to_string(nc_colors color) {
+static inline const char* nc_color_to_string(nc_color_t color) {
     switch (color) {
         case NC_COLOR_BLACK:   return NC_BLACK;
         case NC_COLOR_RED:     return NC_RED;
@@ -47,11 +47,11 @@ static inline const char* nc_color_to_string(nc_colors color) {
     }
 }
 
-static inline void nc_println_color(const char* string, nc_colors color) {
+static inline void nc_println_color(const char* string, nc_color_t color) {
     printf("%s%s\n" NC_RESET, nc_color_to_string(color), string);
 }
 
-static inline void nc_print_color(const char* string, nc_colors color) {
+static inline void nc_print_color(const char* string, nc_color_t color) {
     printf("%s%s" NC_RESET, nc_color_to_string(color), string);
 }
 
