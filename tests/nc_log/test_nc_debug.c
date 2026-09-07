@@ -1,5 +1,11 @@
 /* tests/nc_log/test_nc_debug.c */
 
+/*
+    SPDX-License-Identifier: MIT
+    Copyright (c) 2026 Nico Erdmann
+    Testing assertions and debugging.
+*/
+
 #include "../../src/nc/nc_log/nc_print_stmts.h"
 #include "../../src/nc/nc_log/nc_debug_stmts.h"
 
