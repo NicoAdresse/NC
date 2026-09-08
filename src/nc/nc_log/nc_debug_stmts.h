@@ -30,7 +30,7 @@
         do { \
             if (NC_UNLIKELY(!(condition))) { \
                 nc_println_err("Assertion failed: %s (File: %s, Line: %ld)", msg, __FILE__, (long)__LINE__); \
-                abort(); \
+                exit(1); \
             } \
         } while (0)
 #else
