@@ -88,6 +88,20 @@ static inline nc_u32 nc_checked_div_u32(nc_u32 number_one, nc_u32 number_two, in
     return (nc_u32){.val = (uint32_t)quotient};
 }
 
+/* Checked Modulo -> nc_u32 */
+static inline nc_u32 nc_checked_mod_u32(nc_u32 number_one, nc_u32 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            return (nc_u32){.val = 0};
+        } 
+        return (nc_u32){.val = 0};
+    }
+
+    int64_t remainder = (int64_t)number_one.val % (int64_t)number_two.val;
+    return (nc_u32){.val = (uint32_t)remainder};
+}
+
 /* nc_u32_convert_to */
 static inline nc_i8 nc_u32_convert_to_i8(nc_u32 primitive) { return nc_new_i8(primitive.val); }
 static inline nc_i16 nc_u32_convert_to_i16(nc_u32 primitive) { return nc_new_i16(primitive.val); }

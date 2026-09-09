@@ -94,6 +94,20 @@ static inline nc_i16 nc_checked_div_i16(nc_i16 number_one, nc_i16 number_two, in
     return (nc_i16){.val = (int16_t)quotient};
 }
 
+/* Checked Modulo -> nc_i16 */
+static inline nc_i16 nc_checked_mod_i16(nc_i16 number_one, nc_i16 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            return (nc_i16){.val = 0};
+        } 
+        return (nc_i16){.val = 0};
+    }
+
+    int64_t remainder = (int64_t)number_one.val % (int64_t)number_two.val;
+    return (nc_i16){.val = (int16_t)remainder};
+}
+
 /* nc_i16_convert_to */
 static inline nc_i8 nc_i16_convert_to_i8(nc_i16 primitive) { return nc_new_i8(primitive.val); }
 static inline nc_i32 nc_i16_convert_to_i32(nc_i16 primitive) { return nc_new_i32(primitive.val); }

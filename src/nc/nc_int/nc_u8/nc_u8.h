@@ -92,6 +92,20 @@ static inline nc_u8 nc_checked_div_u8(nc_u8 number_one, nc_u8 number_two, int is
     return (nc_u8){.val = (uint8_t)quotient};
 }
 
+/* Checked Modulo -> nc_u8 */
+static inline nc_u8 nc_checked_mod_u8(nc_u8 number_one, nc_u8 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            return (nc_u8){.val = 0};
+        } 
+        return (nc_u8){.val = 0};
+    }
+
+    int64_t remainder = (int64_t)number_one.val % (int64_t)number_two.val;
+    return (nc_u8){.val = (uint8_t)remainder};
+}
+
 /* nc_u8_convert_to */
 static inline nc_i8 nc_u8_convert_to_i8(nc_u8 primitive) { return nc_new_i8(primitive.val); }
 static inline nc_i16 nc_u8_convert_to_i16(nc_u8 primitive) { return nc_new_i16(primitive.val); }

@@ -124,6 +124,20 @@ static inline nc_i8 nc_checked_div_i8(nc_i8 number_one, nc_i8 number_two, int is
     return (nc_i8){.val = (int8_t)quotient};
 }
 
+/* Checked Modulo -> nc_i8 */
+static inline nc_i8 nc_checked_mod_i8(nc_i8 number_one, nc_i8 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            return (nc_i8){.val = 0};
+        }
+        return (nc_i8){.val = 0};
+    }
+
+    int64_t remainder = (int64_t)number_one.val % (int64_t)number_two.val;
+    return (nc_i8){.val = (int8_t)remainder};
+}
+
 /* nc_get_val */
 static inline int8_t nc_get_val_i8(nc_i8 primitive) { return primitive.val; }
 
