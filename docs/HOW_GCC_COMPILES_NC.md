@@ -22,3 +22,5 @@ gcc -O3 -DNDEBUG main.c -o my_program
 ```
 
 A common point of confusion is that `-DNDEBUG` or `DNC_RELEASE` disables NC's safety. That is false, it disables debugging and assertions. It does not disable any safety checking (like overflow checking).
+
+Check [ASSERTIONS.md](ASSERTIONS.md) for more documentation on debugging.
