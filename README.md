@@ -12,6 +12,20 @@ See [`docs/ABOUT_NC.md`](./docs/ABOUT_NC.md).
 
 See [`docs/TESTING_NC.md`](./docs/TESTING_NC.md).
 
+## How To Install <->
+
+1. **Clone The Repository**
+
+```bash
+git clone https://github.com/NicoAdresse/NC.git
+```
+
+2. **Enjoy + Advice**
+
+This project is still in version **0.0.1.** Do not add it in `usr/include`. PLay around with it in the `tests` directory.
+
+This is a header-only library with **zero dependencies**. You do not need CMake, make, or any external package manager. However, we are planning to add it to `vcpkg` in the future.
+
 ## File Structure <->
 
 ```text
