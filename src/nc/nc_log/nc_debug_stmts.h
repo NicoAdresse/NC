@@ -13,6 +13,7 @@
 #include <stdio.h>
 
 #include "nc_print_stmts.h"
+#include "../nc_int_types.h"
 
 #if defined(__GNUC__) || defined(__clang__)
     #define NC_UNLIKELY(x) __builtin_expect(!!(x), 0)
@@ -36,6 +37,7 @@
         } while (0)
 
     #define NC_FMT_SPECIFIER(x) _Generic((x), \
+        char: "%c", \
         nc_i8: "%d", \
         nc_u8: "%u", \
         nc_i16: "%d", \
@@ -44,6 +46,11 @@
         nc_u32: "%u", \
         nc_i64: "%lld", \
         nc_u64: "%llu", \
+        float: "%f", \
+        double: "%f", \
+        char*: "%s", \
+        const char*: "%s", \
+        default: "%p" \
     )
 
     #define nc_assert_eq(a, b) \
