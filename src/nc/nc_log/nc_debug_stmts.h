@@ -10,8 +10,10 @@
 #define NC_DEBUG_STMTS_H
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "nc_print_stmts.h"
+#include "../nc_int_types.h"
 
 #if defined(__GNUC__) || defined(__clang__)
     #define NC_UNLIKELY(x) __builtin_expect(!!(x), 0)
@@ -33,9 +35,117 @@
                 exit(1); \
             } \
         } while (0)
+
+    #define NC_FMT_SPECIFIER(x) _Generic((x), \
+        char: "%c", \
+        nc_i8: "%d", \
+        nc_u8: "%u", \
+        nc_i16: "%d", \
+        nc_u16: "%u", \
+        nc_i32: "%d", \
+        nc_u32: "%u", \
+        nc_i64: "%lld", \
+        nc_u64: "%llu", \
+        float: "%f", \
+        double: "%f", \
+        char*: "%s", \
+        const char*: "%s", \
+        default: "%p" \
+    )
+
+    #define nc_assert_eq(a, b) \
+        do { \
+            __typeof__(a) _a = (a); \
+            __typeof__(b) _b = (b); \
+            if (NC_UNLIKELY(_a != _b)) { \
+                char fmt_buf[512]; \
+                snprintf(fmt_buf, sizeof(fmt_buf), \
+                    "Assertion failed: %s == %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
+                    #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
+                nc_println_err(fmt_buf, _a, _b); \
+                exit(1); \
+            } \
+        } while (0)
+
+    #define nc_assert_ne(a, b) \
+        do { \
+            __typeof__(a) _a = (a); \
+            __typeof__(b) _b = (b); \
+            if (NC_UNLIKELY(_a == _b)) { \
+                char fmt_buf[512]; \
+                snprintf(fmt_buf, sizeof(fmt_buf), \
+                    "Assertion failed: %s != %s (Both values are: %s) [File: %s, Line: %ld]", \
+                    #a, #b, NC_FMT_SPECIFIER(_a), __FILE__, (long)__LINE__); \
+                nc_println_err(fmt_buf, _a); \
+                exit(1); \
+            } \
+        } while (0)
+
+    #define nc_assert_lt(a, b) \
+        do { \
+            __typeof__(a) _a = (a); \
+            __typeof__(b) _b = (b); \
+            if (NC_UNLIKELY(!(_a < _b))) { \
+                char fmt_buf[512]; \
+                snprintf(fmt_buf, sizeof(fmt_buf), \
+                    "Assertion failed: %s < %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
+                    #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
+                nc_println_err(fmt_buf, _a, _b); \
+                exit(1); \
+            } \
+        } while (0)
+
+    #define nc_assert_le(a, b) \
+        do { \
+            __typeof__(a) _a = (a); \
+            __typeof__(b) _b = (b); \
+            if (NC_UNLIKELY(!(_a <= _b))) { \
+                char fmt_buf[512]; \
+                snprintf(fmt_buf, sizeof(fmt_buf), \
+                    "Assertion failed: %s <= %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
+                    #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
+                nc_println_err(fmt_buf, _a, _b); \
+                exit(1); \
+            } \
+        } while (0)
+
+    #define nc_assert_gt(a, b) \
+        do { \
+            __typeof__(a) _a = (a); \
+            __typeof__(b) _b = (b); \
+            if (NC_UNLIKELY(!(_a > _b))) { \
+                char fmt_buf[512]; \
+                snprintf(fmt_buf, sizeof(fmt_buf), \
+                    "Assertion failed: %s > %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
+                    #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
+                nc_println_err(fmt_buf, _a, _b); \
+                exit(1); \
+            } \
+        } while (0)
+
+    #define nc_assert_ge(a, b) \
+        do { \
+            __typeof__(a) _a = (a); \
+            __typeof__(b) _b = (b); \
+            if (NC_UNLIKELY(!(_a >= _b))) { \
+                char fmt_buf[512]; \
+                snprintf(fmt_buf, sizeof(fmt_buf), \
+                    "Assertion failed: %s >= %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
+                    #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
+                nc_println_err(fmt_buf, _a, _b); \
+                exit(1); \
+            } \
+        } while (0)
+
 #else
     #define nc_debug_log(fmt, ...) ((void)0)
     #define nc_assert(condition, msg) ((void)0)
+    #define nc_assert_eq(a, b) ((void)0)
+    #define nc_assert_ne(a, b) ((void)0)
+    #define nc_assert_lt(a, b) ((void)0)
+    #define nc_assert_le(a, b) ((void)0)
+    #define nc_assert_gt(a, b) ((void)0)
+    #define nc_assert_ge(a, b) ((void)0)
 #endif
 
 #endif /* NC_DEBUG_STMTS_H */
