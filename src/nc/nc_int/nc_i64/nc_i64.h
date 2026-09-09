@@ -20,12 +20,12 @@
 /* Checked Addition -> nc_i64 */
 static inline nc_i64 nc_checked_add_i64(nc_i64 number_one, nc_i64 number_two) {
     if (number_two.val > 0 && number_one.val > NC_I64_MAX - number_two.val) {
-        send_constructor_error_msg(64, IS_SIGNED, ERROR_OVERFLOW, NC_I64_MAX, NC_I64_MAX);
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
     }
 
     if (number_two.val < 0 && number_one.val < NC_I64_MIN - number_two.val) {
-        send_constructor_error_msg(64, IS_SIGNED, ERROR_UNDERFLOW, NC_I64_MIN, NC_I64_MIN);
+        send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MIN};
     }
 
@@ -59,6 +59,7 @@ static inline nc_i64 nc_checked_mul_i64(nc_i64 number_one, nc_i64 number_two) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
     }
+
     if (number_two.val == NC_I64_MIN && number_one.val == -1) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
@@ -68,14 +69,17 @@ static inline nc_i64 nc_checked_mul_i64(nc_i64 number_one, nc_i64 number_two) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
     }
+
     if (number_one.val > 0 && number_two.val < 0 && number_two.val < NC_I64_MIN / number_one.val) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
         return (nc_i64){.val = (int64_t)NC_I64_MIN};
     }
-    if (number_one.val < 0 && number_two.val > 0 && number_one.val < NC_I64_MIN / number_one.val) {
+
+    if (number_one.val < 0 && number_two.val > 0 && number_one.val < NC_I64_MIN / number_two.val) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
         return (nc_i64){.val = (int64_t)NC_I64_MIN};
     }
+
     if (number_one.val < 0 && number_two.val < 0 && number_one.val < NC_I64_MAX / number_two.val) {
         send_bounds_error_msg(64, IS_SIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_I64_MAX);
         return (nc_i64){.val = (int64_t)NC_I64_MAX};
