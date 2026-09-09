@@ -21,6 +21,7 @@ NC
 ├── CONTRIBUTING.md
 ├── docs
 │   ├── ABOUT_NC.md
+│   ├── ASSERTIONS.md
 │   ├── HOW_GCC_COMPILES_NC.md
 │   └── TESTING_NC.md
 ├── LICENSE
