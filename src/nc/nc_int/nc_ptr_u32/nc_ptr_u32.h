@@ -88,6 +88,26 @@ static inline nc_ptr_u32 nc_checked_div_ptr_u32(nc_ptr_u32 ptr_num, nc_u32 val, 
     return nc_new_ptr_u32((nc_u32){.val = quot});
 }
 
+/* Checked Modulo -> nc_ptr_u32 */
+static inline nc_ptr_u32 nc_checked_mod_ptr_u32(nc_ptr_u32 ptr_num, nc_u32 val, int is_zero_denominator_allowed) {
+    if (!ptr_num.ptr) {
+        send_null_pointer_error_msg(IS_UNSIGNED, "nc_ptr_u32");
+        return (nc_ptr_u32){.ptr = NULL};
+    }
+
+    nc_u32 number_one = *ptr_num.ptr;
+
+    if (val.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)val.val);
+        }
+        return nc_new_ptr_u32((nc_u32){.val = 0});
+    }
+
+    uint32_t rem = number_one.val % val.val;
+    return nc_new_ptr_u32((nc_u32){.val = rem});
+}
+
 /* nc_get_size */
 static inline size_t nc_get_size_ptr_u32() { return sizeof(nc_ptr_u32); }
 
