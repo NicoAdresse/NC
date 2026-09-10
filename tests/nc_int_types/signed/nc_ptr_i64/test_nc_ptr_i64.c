@@ -43,6 +43,9 @@ int main(void) {
     nc_ptr_i64 res_null = nc_checked_add_ptr_i64(ptr_null, val_b);
     printf("NC_CHECKED_ADD Null Pointer -> Expected Pointer: NULL | Got Pointer: %p\n", (void*)res_null.ptr);
 
+    nc_assert_eq(nc_get_val_int(nc_checked_mod_int(val_a, val_b, 0)), 0);
+    nc_debug_log("Should appear if successful.");
+
     nc_free_ptr_i64(ptr_a);
     nc_free_ptr_i64(ptr_max);
     nc_free_ptr_i64(ptr_null);
