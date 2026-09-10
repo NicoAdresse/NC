@@ -319,7 +319,7 @@
     nc_ptr_u32: nc_checked_mod_ptr_u32, \
     nc_ptr_i64: nc_checked_mod_ptr_i64, \
     nc_ptr_u64: nc_checked_mod_ptr_u64, \
-    default: nc_checked_mod_i32, \
+    default: nc_checked_mod_i32 \
 )((n1), (n2), (is_zero_division_allowed))
 
 #endif /* NC_INT_METHOD_MACROS_H */
