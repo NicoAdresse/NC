@@ -118,6 +118,30 @@ static inline nc_ptr_i8 nc_checked_div_ptr_i8(nc_ptr_i8 ptr_num, nc_i8 val, int 
     return nc_new_ptr_i8((nc_i8){.val = quot});
 }
 
+/* Checked Modulo -> nc_ptr_i8 */
+static inline nc_ptr_i8 nc_checked_mod_ptr_i8(nc_ptr_i8 ptr_num, nc_i8 val, int is_zero_denominator_allowed) {
+    if (!ptr_num.ptr) {
+        send_null_pointer_error_msg(IS_SIGNED, "nc_ptr_i8");
+        return (nc_ptr_i8){.ptr = NULL};
+    }
+
+    nc_i8 number_one = *ptr_num.ptr;
+
+    if (val.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)val.val);
+        }
+        return nc_new_ptr_i8((nc_i8){.val = 0});
+    }
+
+    if (number_one.val == NC_I8_MIN && val.val == -1) {
+        return nc_new_ptr_i8((nc_i8){.val = 0});
+    }
+
+    int8_t rem = number_one.val % val.val;
+    return nc_new_ptr_i8((nc_i8){.val = rem});
+}
+
 /* nc_get_size */
 static inline size_t nc_get_size_ptr_i8() { return sizeof(nc_ptr_i8); }
 
