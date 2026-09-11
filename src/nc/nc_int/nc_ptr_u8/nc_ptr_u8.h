@@ -114,4 +114,13 @@ static inline size_t nc_get_size_ptr_u8() { return sizeof(nc_ptr_u8); }
 /* nc_get_val */
 static inline nc_u8 nc_get_val_ptr_u8(nc_ptr_u8 primitive) { return *primitive.ptr; }
 
+/* nc_get_signum */
+static inline nc_u8 nc_signum_ptr_u8(nc_ptr_u8 ptr) {
+    if (!ptr.ptr) {
+        return (nc_u8){.val = 0};
+    }
+    uintptr_t addr = (uintptr_t)ptr.ptr;
+    return (nc_u8){.val = (addr > 0) - (addr < 0)};
+}
+
 #endif /* NC_PTR_U8_H */

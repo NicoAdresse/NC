@@ -148,4 +148,13 @@ static inline size_t nc_get_size_ptr_i8() { return sizeof(nc_ptr_i8); }
 /* nc_get_val */
 static inline nc_i8 nc_get_val_ptr_i8(nc_ptr_i8 primitive) { return *primitive.ptr; }
 
+/* nc_get_signum */
+static inline nc_i8 nc_signum_ptr_i8(nc_ptr_i8 ptr) {
+    if (!ptr.ptr) {
+        return (nc_i8){.val = 0};
+    }
+    intptr_t addr = (intptr_t)ptr.ptr;
+    return (nc_i8){.val = (addr > 0) - (addr < 0)};
+}
+
 #endif /* NC_PTR_I8_H */

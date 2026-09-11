@@ -149,4 +149,13 @@ static inline size_t nc_get_size_ptr_i32() { return sizeof(nc_ptr_i32); }
 /* nc_get_val */
 static inline nc_i32 nc_get_val_ptr_i32(nc_ptr_i32 primitive) { return *primitive.ptr; }
 
+/* nc_get_signum */
+static inline nc_i32 nc_signum_ptr_i32(nc_ptr_i16 ptr) {
+    if (!ptr.ptr) {
+        return (nc_i32){.val = 0};
+    }
+    intptr_t addr = (intptr_t)ptr.ptr;
+    return (nc_i32){.val = (addr > 0) - (addr < 0)};
+}
+
 #endif /* NC_PTR_I32_H */

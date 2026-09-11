@@ -311,6 +311,14 @@
     nc_u16: nc_signum_u16, \
     nc_u32: nc_signum_u32, \
     nc_u64: nc_signum_u64, \
+    nc_ptr_i8: nc_signum_ptr_i8, \
+    nc_ptr_i16: nc_signum_ptr_i16, \
+    nc_ptr_i32: nc_signum_ptr_i32, \
+    nc_ptr_i64: nc_signum_ptr_i64, \
+    nc_ptr_u8: nc_signum_ptr_u8, \
+    nc_ptr_u16: nc_signum_ptr_u16, \
+    nc_ptr_u32: nc_signum_ptr_u32, \
+    nc_ptr_u64: nc_signum_ptr_u64, \
     default: nc_signum_i32 \
 )((n1))
 

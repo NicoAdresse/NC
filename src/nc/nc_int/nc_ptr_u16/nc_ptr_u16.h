@@ -114,4 +114,13 @@ static inline size_t nc_get_size_ptr_u16() { return sizeof(nc_ptr_u16); }
 /* nc_get_val */
 static inline nc_u16 nc_get_val_ptr_u16(nc_ptr_u16 primitive) { return *primitive.ptr; }
 
+/* nc_get_signum */
+static inline nc_u16 nc_signum_ptr_u16(nc_ptr_u16 ptr) {
+    if (!ptr.ptr) {
+        return (nc_u16){.val = 0};
+    }
+    uintptr_t addr = (uintptr_t)ptr.ptr;
+    return (nc_u16){.val = (addr > 0) - (addr < 0)};
+}
+
 #endif /* NC_PTR_U16_H */
