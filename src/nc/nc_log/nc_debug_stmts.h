@@ -28,6 +28,7 @@
         #define nc_debug_log(fmt, ...) nc_println_debug("[DEBUG] " fmt, ##__VA_ARGS__)
     #endif
 
+    /* Standard assert. */
     #define nc_assert(condition, msg) \
         do { \
             if (NC_UNLIKELY(!(condition))) { \
@@ -36,6 +37,7 @@
             } \
         } while (0)
 
+    /* Helper Macro. */
     #define NC_FMT_SPECIFIER(x) _Generic((x), \
         char: "%c", \
         nc_i8: "%d", \
@@ -53,6 +55,7 @@
         default: "%p" \
     )
 
+    /* Assert: Checks if two values are equal. */
     #define nc_assert_eq(a, b) \
         do { \
             __typeof__(a) _a = (a); \
@@ -67,6 +70,7 @@
             } \
         } while (0)
 
+    /* Assert: Checks if two vales are NOT equal. */
     #define nc_assert_ne(a, b) \
         do { \
             __typeof__(a) _a = (a); \
@@ -81,6 +85,7 @@
             } \
         } while (0)
 
+    /* Assert: Checks if 'n' value is lesser than 'm' value. */
     #define nc_assert_lt(a, b) \
         do { \
             __typeof__(a) _a = (a); \
@@ -95,6 +100,7 @@
             } \
         } while (0)
 
+    /* Assert: Checks if 'n' value is lesser than or equal 'm' value. */
     #define nc_assert_le(a, b) \
         do { \
             __typeof__(a) _a = (a); \
@@ -109,6 +115,7 @@
             } \
         } while (0)
 
+    /* Assert: Checks if 'n' value is greater than 'm' value. */
     #define nc_assert_gt(a, b) \
         do { \
             __typeof__(a) _a = (a); \
@@ -123,6 +130,7 @@
             } \
         } while (0)
 
+    /* Assert: Checks if 'n' value is greater than or equal 'm' value. */
     #define nc_assert_ge(a, b) \
         do { \
             __typeof__(a) _a = (a); \
@@ -136,8 +144,7 @@
                 exit(1); \
             } \
         } while (0)
-
-#else
+#else /* !defined(NDEBUG) && !defined(NC_RELEASE)    release/NDEBUG builds: all macros are no-ops */
     #define nc_debug_log(fmt, ...) ((void)0)
     #define nc_assert(condition, msg) ((void)0)
     #define nc_assert_eq(a, b) ((void)0)
@@ -146,6 +153,6 @@
     #define nc_assert_le(a, b) ((void)0)
     #define nc_assert_gt(a, b) ((void)0)
     #define nc_assert_ge(a, b) ((void)0)
-#endif
+#endif /* !defined(NDEBUG) && !defined(NC_RELEASE) */
 
 #endif /* NC_DEBUG_STMTS_H */
