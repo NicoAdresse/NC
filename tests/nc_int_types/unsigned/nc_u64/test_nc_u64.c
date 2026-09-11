@@ -28,6 +28,7 @@ int main(void) {
     printf("NC_GET_VAL(NC_CHECKED_SUB) [x, z]: %" PRIu64 "\n", nc_get_val_int(nc_checked_sub_int(x, z)));
     printf("NC_GET_VAL(NC_CHECKED_MUL) [x, z]: %" PRIu64 "\n", nc_get_val_int(nc_checked_mul_int(x, z)));
     printf("NC_GET_VAL(NC_CHECKED_DIV) [x, z]: %" PRIu64 "\n", nc_get_val_int(nc_checked_div_int(x, z, 0)));
+    printf("NC_GET_VAL(NC_SIGNUM_INT) [x]: %" PRIu64 "\n", nc_get_val_int(nc_signum_int(x)));
 
     nc_assert(nc_get_val_int(nc_checked_mod_u64(x, y, 0)) == nc_get_val_int(nc_int_convert_to_u64(100)), "Should be 100.");
     nc_debug_log("If you see this, this means the assertion was successful.");

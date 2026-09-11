@@ -144,4 +144,9 @@ static inline uint16_t nc_get_val_u16(nc_u16 primitive) { return primitive.val; 
 /* nc_get_size */
 static inline size_t nc_get_size_u16() { return sizeof(nc_u16); }
 
+/* nc_get_signum */
+static inline nc_u16 nc_signum_u16(nc_u16 val) {
+    return (nc_u16){.val = (val.val > 0)};
+}
+
 #endif /* NC_U16_H */
