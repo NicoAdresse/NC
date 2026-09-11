@@ -116,11 +116,7 @@ static inline nc_u8 nc_get_val_ptr_u8(nc_ptr_u8 primitive) { return *primitive.p
 
 /* nc_get_signum */
 static inline nc_u8 nc_signum_ptr_u8(nc_ptr_u8 ptr) {
-    if (!ptr.ptr) {
-        return (nc_u8){.val = 0};
-    }
-    uintptr_t addr = (uintptr_t)ptr.ptr;
-    return (nc_u8){.val = (addr > 0) - (addr < 0)};
+    return (nc_u8){.val = ptr.ptr != NULL};
 }
 
 #endif /* NC_PTR_U8_H */

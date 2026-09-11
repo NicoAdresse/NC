@@ -116,11 +116,7 @@ static inline nc_u16 nc_get_val_ptr_u16(nc_ptr_u16 primitive) { return *primitiv
 
 /* nc_get_signum */
 static inline nc_u16 nc_signum_ptr_u16(nc_ptr_u16 ptr) {
-    if (!ptr.ptr) {
-        return (nc_u16){.val = 0};
-    }
-    uintptr_t addr = (uintptr_t)ptr.ptr;
-    return (nc_u16){.val = (addr > 0) - (addr < 0)};
+    return (nc_u16){.val = ptr.ptr != NULL};
 }
 
 #endif /* NC_PTR_U16_H */
