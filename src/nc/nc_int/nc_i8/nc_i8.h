@@ -144,4 +144,9 @@ static inline int8_t nc_get_val_i8(nc_i8 primitive) { return primitive.val; }
 /* nc_get_size */
 static inline size_t nc_get_size_i8() { return sizeof(nc_i8); }
 
+/* nc_get_signum */
+static inline nc_i8 nc_signum_i8(nc_i8 val) {
+    return (nc_i8){.val = (val.val > 0) - (val.val < 0)};
+}
+
 #endif /* NC_I8_H */

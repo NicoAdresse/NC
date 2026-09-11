@@ -158,4 +158,9 @@ static inline int64_t nc_get_val_i64(nc_i64 primitive) { return primitive.val; }
 /* nc_get_size */
 static inline size_t nc_get_size_i64() { return sizeof(nc_i64); }
 
+/* nc_get_signum */
+static inline nc_i64 nc_signum_i64(nc_i64 val) {
+    return (nc_i64){.val = (val.val > 0) - (val.val < 0)};
+}
+
 #endif /* NC_I64_H */

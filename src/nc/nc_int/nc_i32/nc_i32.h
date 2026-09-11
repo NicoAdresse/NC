@@ -144,4 +144,9 @@ static inline int32_t nc_get_val_i32(nc_i32 primitive) { return primitive.val; }
 /* nc_get_size */
 static inline size_t nc_get_size_i32() { return sizeof(nc_i32); }
 
+/* nc_get_signum */
+static inline nc_i32 nc_signum_i32(nc_i32 val) {
+    return (nc_i32){.val = (val.val > 0) - (val.val < 0)};
+}
+
 #endif /* NC_I32_H */

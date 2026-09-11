@@ -145,4 +145,9 @@ static inline int16_t nc_get_val_i16(nc_i16 primitive) { return primitive.val; }
 /* nc_get_size */
 static inline size_t nc_get_size_i16() { return sizeof(nc_i16); }
 
+/* nc_get_signum */
+static inline nc_i16 nc_signum_i16(nc_i16 val) {
+    return (nc_i16){.val = (val.val > 0) - (val.val < 0)};
+}
+
 #endif /* NC_I16_H */

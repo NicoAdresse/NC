@@ -139,4 +139,9 @@ static inline uint32_t nc_get_val_u32(nc_u32 primitive) { return primitive.val; 
 /* nc_get_size */
 static inline size_t nc_get_size_u32() { return sizeof(nc_u32); }
 
+/* nc_get_signum */
+static inline nc_u32 nc_signum_u32(nc_u32 val) {
+    return (nc_u32){.val = (val.val > 0)};
+}
+
 #endif /* NC_U32_H */
