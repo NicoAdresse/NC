@@ -28,7 +28,7 @@ int main(void) {
     printf("NC_GET_VAL(NC_CHECKED_DIV) [x, z]: %ld\n", nc_get_val_int(nc_checked_div_int(x, z, 0)));
     printf("NC_GET_VAL(NC_SIGNUM_INT) [x]: %d\n", nc_get_val_int(nc_signum_int(x)));
 
-    nc_assert(nc_get_val_int(nc_checked_mod_i64(x, y, 0)) == nc_get_val_int(nc_int_convert_to_i64(100)), "Should be 100.");
+    nc_assert(nc_get_val_int(nc_checked_mod_int(x, y, 0)) == nc_get_val_int(nc_int_convert_to_i64(100)), "Should be 100.");
     nc_debug_log("If you see this, this means the assertion was successful.");
 
     return 0;

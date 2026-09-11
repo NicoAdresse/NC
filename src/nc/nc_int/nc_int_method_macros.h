@@ -314,4 +314,24 @@
     default: nc_signum_i32 \
 )((n1))
 
+#define nc_checked_mod_int(n1, n2, is_zero_division_allowed) _Generic((n1),  \
+    nc_i8: nc_checked_mod_i8, \
+    nc_i16: nc_checked_mod_i16, \
+    nc_i32: nc_checked_mod_i32, \
+    nc_i64: nc_checked_mod_i64, \
+    nc_u8: nc_checked_mod_u8, \
+    nc_u16: nc_checked_mod_u16, \
+    nc_u32: nc_checked_mod_u32, \
+    nc_u64: nc_checked_mod_u64, \
+    nc_ptr_i8: nc_checked_mod_ptr_i8, \
+    nc_ptr_u8: nc_checked_mod_ptr_u8, \
+    nc_ptr_i16: nc_checked_mod_ptr_i16, \
+    nc_ptr_u16: nc_checked_mod_ptr_u16, \
+    nc_ptr_i32: nc_checked_mod_ptr_i32, \
+    nc_ptr_u32: nc_checked_mod_ptr_u32, \
+    nc_ptr_i64: nc_checked_mod_ptr_i64, \
+    nc_ptr_u64: nc_checked_mod_ptr_u64, \
+    default: nc_checked_mod_i32 \
+)((n1), (n2), (is_zero_division_allowed))
+
 #endif /* NC_INT_METHOD_MACROS_H */

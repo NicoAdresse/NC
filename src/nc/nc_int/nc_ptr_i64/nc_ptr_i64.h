@@ -118,6 +118,30 @@ static inline nc_ptr_i64 nc_checked_div_ptr_i64(nc_ptr_i64 ptr_num, nc_i64 val, 
     return nc_new_ptr_i64((nc_i64){.val = quot});
 }
 
+/* Checked Modulo -> nc_ptr_i64 */
+static inline nc_ptr_i64 nc_checked_mod_ptr_i64(nc_ptr_i64 ptr_num, nc_i64 val, int is_zero_denominator_allowed) {
+    if (!ptr_num.ptr) {
+        send_null_pointer_error_msg(IS_SIGNED, "nc_ptr_i64");
+        return (nc_ptr_i64){.ptr = NULL};
+    }
+
+    nc_i64 number_one = *ptr_num.ptr;
+
+    if (val.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)val.val);
+        }
+        return nc_new_ptr_i64((nc_i64){.val = 0});
+    }
+
+    if (number_one.val == NC_I64_MIN && val.val == -1) {
+        return nc_new_ptr_i64((nc_i64){.val = 0});
+    }
+
+    int64_t rem = number_one.val % val.val;
+    return nc_new_ptr_i64((nc_i64){.val = rem});
+}
+
 /* nc_get_size */
 static inline size_t nc_get_size_ptr_i64() { return sizeof(nc_ptr_i64); }
 
