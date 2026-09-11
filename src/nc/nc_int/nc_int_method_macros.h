@@ -302,4 +302,16 @@
     default: nc_checked_div_i32 \
 )((n1), (n2), (is_zero_division_allowed))
 
+#define nc_signum_int(n1) _Generic((n1), \
+    nc_i8: nc_signum_i8, \
+    nc_i16: nc_signum_i16, \
+    nc_i32: nc_signum_i32, \
+    nc_i64: nc_signum_i64, \
+    nc_u8: nc_signum_u8, \
+    nc_u16: nc_signum_u16, \
+    nc_u32: nc_signum_u32, \
+    nc_u64: nc_signum_u64, \
+    default: nc_signum_i32 \
+)((n1))
+
 #endif /* NC_INT_METHOD_MACROS_H */
