@@ -42,6 +42,7 @@ int main(void) {
 
     nc_ptr_i64 res_null = nc_checked_add_ptr_i64(ptr_null, val_b);
     printf("NC_CHECKED_ADD Null Pointer -> Expected Pointer: NULL | Got Pointer: %p\n", (void*)res_null.ptr);
+    printf("NC_GET_VAL(NC_SIGNUM_INT) [x]: %" PRId64 "\n" , nc_get_val_int(nc_signum_int(val_a)));
 
     nc_assert_eq(nc_get_val_int(nc_checked_mod_int(val_a, val_b, 0)), 0);
     nc_debug_log("Should appear if successful.");
