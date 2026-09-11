@@ -114,4 +114,9 @@ static inline size_t nc_get_size_ptr_u32() { return sizeof(nc_ptr_u32); }
 /* nc_get_val */
 static inline nc_u32 nc_get_val_ptr_u32(nc_ptr_u32 primitive) { return *primitive.ptr; }
 
+/* nc_get_signum */
+static inline nc_u32 nc_signum_ptr_u32(nc_ptr_u32 ptr) {
+    return (nc_u32){.val = ptr.ptr != NULL};
+}
+
 #endif /* NC_PTR_U32_H */
