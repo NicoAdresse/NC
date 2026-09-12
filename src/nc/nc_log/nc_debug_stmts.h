@@ -61,11 +61,13 @@
             __typeof__(a) _a = (a); \
             __typeof__(b) _b = (b); \
             if (NC_UNLIKELY(_a != _b)) { \
-                char fmt_buf[512]; \
-                snprintf(fmt_buf, sizeof(fmt_buf), \
+                char tmpl_buf[512]; \
+                char msg_buf[512]; \
+                snprintf(tmpl_buf, sizeof(tmpl_buf), \
                     "Assertion failed: %s == %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
                     #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
-                nc_println_err(fmt_buf, _a, _b); \
+                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a, _b); \
+                nc_println_err("%s", msg_buf); \
                 exit(1); \
             } \
         } while (0)
@@ -76,11 +78,13 @@
             __typeof__(a) _a = (a); \
             __typeof__(b) _b = (b); \
             if (NC_UNLIKELY(_a == _b)) { \
-                char fmt_buf[512]; \
-                snprintf(fmt_buf, sizeof(fmt_buf), \
+                char tmpl_buf[512]; \
+                char msg_buf[512]; \
+                snprintf(tmpl_buf, sizeof(tmpl_buf), \
                     "Assertion failed: %s != %s (Both values are: %s) [File: %s, Line: %ld]", \
                     #a, #b, NC_FMT_SPECIFIER(_a), __FILE__, (long)__LINE__); \
-                nc_println_err(fmt_buf, _a); \
+                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a); \
+                nc_println_err("%s", msg_buf); \
                 exit(1); \
             } \
         } while (0)
@@ -91,11 +95,13 @@
             __typeof__(a) _a = (a); \
             __typeof__(b) _b = (b); \
             if (NC_UNLIKELY(!(_a < _b))) { \
-                char fmt_buf[512]; \
-                snprintf(fmt_buf, sizeof(fmt_buf), \
+                char tmpl_buf[512]; \
+                char msg_buf[512]; \
+                snprintf(tmpl_buf, sizeof(tmpl_buf), \
                     "Assertion failed: %s < %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
                     #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
-                nc_println_err(fmt_buf, _a, _b); \
+                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a, _b); \
+                nc_println_err("%s", msg_buf); \
                 exit(1); \
             } \
         } while (0)
@@ -106,11 +112,13 @@
             __typeof__(a) _a = (a); \
             __typeof__(b) _b = (b); \
             if (NC_UNLIKELY(!(_a <= _b))) { \
-                char fmt_buf[512]; \
-                snprintf(fmt_buf, sizeof(fmt_buf), \
+                char tmpl_buf[512]; \
+                char msg_buf[512]; \
+                snprintf(tmpl_buf, sizeof(tmpl_buf), \
                     "Assertion failed: %s <= %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
                     #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
-                nc_println_err(fmt_buf, _a, _b); \
+                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a, _b); \
+                nc_println_err("%s", msg_buf); \
                 exit(1); \
             } \
         } while (0)
@@ -121,11 +129,13 @@
             __typeof__(a) _a = (a); \
             __typeof__(b) _b = (b); \
             if (NC_UNLIKELY(!(_a > _b))) { \
-                char fmt_buf[512]; \
-                snprintf(fmt_buf, sizeof(fmt_buf), \
+                char tmpl_buf[512]; \
+                char msg_buf[512]; \
+                snprintf(tmpl_buf, sizeof(tmpl_buf), \
                     "Assertion failed: %s > %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
                     #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
-                nc_println_err(fmt_buf, _a, _b); \
+                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a, _b); \
+                nc_println_err("%s", msg_buf); \
                 exit(1); \
             } \
         } while (0)
@@ -136,11 +146,13 @@
             __typeof__(a) _a = (a); \
             __typeof__(b) _b = (b); \
             if (NC_UNLIKELY(!(_a >= _b))) { \
-                char fmt_buf[512]; \
-                snprintf(fmt_buf, sizeof(fmt_buf), \
+                char tmpl_buf[512]; \
+                char msg_buf[512]; \
+                snprintf(tmpl_buf, sizeof(tmpl_buf), \
                     "Assertion failed: %s >= %s (Left: %s, Right: %s) [File: %s, Line: %ld]", \
                     #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
-                nc_println_err(fmt_buf, _a, _b); \
+                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a, _b); \
+                nc_println_err("%s", msg_buf); \
                 exit(1); \
             } \
         } while (0)
