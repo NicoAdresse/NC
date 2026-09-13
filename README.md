@@ -36,13 +36,24 @@ NC
 ├── docs
 │   ├── ABOUT_NC.md
 │   ├── ASSERTIONS.md
+│   ├── FLOAT_API.md
 │   ├── HOW_GCC_COMPILES_NC.md
+│   ├── INTEGER_API.md
 │   ├── METHOD_CHAINING.md
 │   └── TESTING_NC.md
 ├── LICENSE
 ├── README.md
 ├── src
 │   └── nc
+│       ├── nc_float
+│       │   ├── inc_helper_funcs.h
+│       │   ├── nc_f32
+│       │   │   └── nc_f32.h
+│       │   ├── nc_f64
+│       │   │   └── nc_f64.h
+│       │   ├── nc_float_constructors.h
+│       │   ├── nc_float_method_macros.h
+│       │   └── nc_float_primitives.h
 │       ├── nc_int
 │       │   ├── inc_helper_funcs.h
 │       │   ├── nc_i16
