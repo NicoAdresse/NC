@@ -6,8 +6,8 @@
     Helper Functions for NC integer primitives. Private, and is not meant to be used by users.
 */
 
-#ifndef INC_HELPER_FUNCS_H
-#define INC_HELPER_FUNCS_H
+#ifndef INC_INT_HELPER_FUNCS_H
+#define INC_INT_HELPER_FUNCS_H
 
 #include <stdint.h>
 #include "../nc_log.h"
@@ -142,4 +142,4 @@ static inline void send_null_pointer_error_msg(
     );
 }
 
-#endif /* INC_HELPER_FUNCS_H */
+#endif /* INC_INT_HELPER_FUNCS_H */
