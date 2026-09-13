@@ -1,10 +1,10 @@
-# NC Float API Documentation
+# NC Float API Documentation <->
 
-## Overview
+## Overview <->
 
 The NC Float API provides type-safe, checked floating-point arithmetic operations for both 32-bit (`nc_f32`) and 64-bit (`nc_f64`) floating-point numbers. All operations include comprehensive error handling for NaN, infinity, overflow, and underflow conditions.
 
-## Table of Contents
+## Table of Contents <->
 
 1. [Data Types](#data-types)
 2. [Constructors](#constructors)
@@ -15,7 +15,7 @@ The NC Float API provides type-safe, checked floating-point arithmetic operation
 
 ---
 
-## Data Types
+## Data Types <->
 
 ### `nc_f32`
 
@@ -39,7 +39,7 @@ typedef struct {
 
 ---
 
-## Constructors
+## Constructors <->
 
 ### `nc_new_f32(double val)` / `nc_new_f64(double val)`
 
@@ -65,11 +65,11 @@ nc_f32 a = nc_new_must_f32(3.14);  // Program exits if val is NaN or Inf
 
 ---
 
-## Arithmetic Operations
+## Arithmetic Operations <->
 
 All arithmetic operations are **type-generic** using `_Generic`. You can call the same macro name regardless of whether you're working with `nc_f32` or `nc_f64`.
 
-### Addition
+### Addition <->
 
 **Macro:** `nc_checked_add_float(n1, n2)`
 
@@ -86,7 +86,7 @@ nc_f32 result = nc_checked_add_float(a, b);  // 8.0
 - Either operand is Infinity → error, returns 0.0
 - Result overflows to Infinity → error, returns 0.0
 
-### Subtraction
+### Subtraction <->
 
 **Macro:** `nc_checked_sub_float(n1, n2)`
 
@@ -103,7 +103,7 @@ nc_f32 result = nc_checked_sub_float(a, b);  // 2.0
 - Either operand is Infinity → error, returns 0.0
 - Result overflows to Infinity → error, returns 0.0
 
-### Multiplication
+### Multiplication <->
 
 **Macro:** `nc_checked_mul_float(n1, n2)`
 
@@ -120,7 +120,7 @@ nc_f32 result = nc_checked_mul_float(a, b);  // 10.0
 - Either operand is Infinity → error, returns 0.0
 - Result overflows to Infinity → error, returns 0.0
 
-### Division
+### Division <->
 
 **Macro:** `nc_checked_div_float(n1, n2, is_zero_division_allowed)`
 
@@ -143,7 +143,7 @@ nc_f32 result = nc_checked_div_float(a, b, 0);  // 5.0
 - `n2` is 0.0 and `is_zero_division_allowed == 0` → error, returns 0.0
 - Result overflows to Infinity → error, returns 0.0
 
-### Modulo (Remainder)
+### Modulo (Remainder) <->
 
 **Macro:** `nc_checked_mod_float(n1, n2, is_zero_division_allowed)`
 
@@ -170,9 +170,9 @@ nc_f32 result = nc_checked_mod_float(a, b, 0);  // 1.5
 
 ---
 
-## Utility Functions
+## Utility Functions <->
 
-### Signum
+### Signum <->
 
 **Macro:** `nc_checked_signum_float(n)`
 
@@ -195,7 +195,7 @@ nc_f32 sign = nc_checked_signum_float(c);  // 0.0
 
 ---
 
-## Error Handling
+## Error Handling <->
 
 All checked operations follow a consistent error handling pattern:
 
@@ -205,22 +205,22 @@ All checked operations follow a consistent error handling pattern:
 4. **Error reporting** — call `send_float_error()` or `send_float_error_overflow()`
 5. **Safe return** — return 0.0 on any error
 
-### Error Functions
+### Error Functions <->
 
 - `send_float_error(bits, error_type, val1, val2)` — Reports input validation errors
 - `send_float_error_overflow(bits, result)` — Reports overflow/underflow errors
 - `send_float_zero_denominator_error_msg(val1, val2)` — Reports division by zero
 
-### Error Types
+### Error Types <->
 
 - `ERROR_ISNAN` — Input is NaN
 - `ERROR_ISINF` — Input is Infinity
 
 ---
 
-## Examples
+## Examples <->
 
-### Basic Arithmetic
+### Basic Arithmetic <->
 
 ```c
 #include "nc_float/nc_float_method_macros.h"
@@ -241,7 +241,7 @@ int main() {
 }
 ```
 
-### Type-Generic Operations
+### Type-Generic Operations <->
 
 ```c
 // Works seamlessly with both nc_f32 and nc_f64
@@ -253,7 +253,7 @@ nc_f32 result32 = nc_checked_add_float(a32, a32);
 nc_f64 result64 = nc_checked_add_float(a64, a64);
 ```
 
-### Error Handling
+### Error Handling <->
 
 ```c
 nc_f32 x = nc_new_f32(10.0);
@@ -270,7 +270,7 @@ nc_f32 result = nc_checked_div_float(x, zero, 1);
 
 ---
 
-## Design Philosophy
+## Design Philosophy <->
 
 - **Type Safety:** Wrapped types prevent mixing nc_f32 with plain floats
 - **Comprehensive Validation:** All inputs and results are checked
@@ -280,9 +280,9 @@ nc_f32 result = nc_checked_div_float(x, zero, 1);
 
 ---
 
-## Implementation Details
+## Implementation Details <->
 
-### Internal Functions
+### Internal Functions <->
 
 Each macro dispatches to type-specific implementations:
 
@@ -291,7 +291,7 @@ Each macro dispatches to type-specific implementations:
 
 All implementations are `static inline` for performance.
 
-### Validation Pattern
+### Validation Pattern <->
 
 ```c
 static inline nc_f32 nc_checked_add_f32(nc_f32 n1, nc_f32 n2) {
@@ -317,7 +317,7 @@ static inline nc_f32 nc_checked_add_f32(nc_f32 n1, nc_f32 n2) {
 
 ---
 
-## See Also
+## See Also <->
 
 - `nc_float_primitives.h` — Type definitions
 - `nc_f32/nc_f32.h` — 32-bit implementations
