@@ -195,6 +195,15 @@ nc_f32 sign = nc_checked_signum_float(c);  // 0.0
 
 ---
 
+### Conversions <->
+
+Returns a conversion. Can go from `nc_f32` to `nc_f64` or vice versa or `nc_f64` to `float`.
+
+```c
+    nc_f32 a = nc_new_f32(20.0);
+    nc_f64 b = nc_f32_convert_to_f64(a);
+```
+
 ## Error Handling <->
 
 All checked operations follow a consistent error handling pattern:
