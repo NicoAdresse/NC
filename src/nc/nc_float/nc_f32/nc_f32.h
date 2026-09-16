@@ -161,4 +161,11 @@ static inline size_t nc_get_size_f32() { return sizeof(nc_f32); }
 /* nc_get_val */
 static inline float nc_get_val_f32(nc_f32 val) { return val.val; }
 
+/* nc_convert_to_f64 */
+static inline nc_f64 nc_f32_convert_to_f64(nc_f32 val) { return (nc_f64){.val = (double)val.val}; }
+
+/* nc_convert_to_libc_primitives */
+static inline float nc_f32_convert_to_float(nc_f32 val) { return val.val; }
+static inline double nc_f32_convert_to_double(nc_f32 val) { return (double)val.val; }
+
 #endif /* NC_F32_H */
