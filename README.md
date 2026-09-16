@@ -54,6 +54,7 @@ NC
 │       │   ├── nc_float_constructors.h
 │       │   ├── nc_float_method_macros.h
 │       │   └── nc_float_primitives.h
+│       ├── nc_float_types.h
 │       ├── nc_int
 │       │   ├── inc_helper_funcs.h
 │       │   ├── nc_i16
@@ -99,6 +100,11 @@ NC
 │       │   └── nc_print_stmts.h
 │       └── nc_log.h
 ├── tests
+│   ├── nc_float_types
+│   │   ├── nc_f32
+│   │   │   └── test_nc_f32.c
+│   │   └── nc_f64
+│   │       └── test_nc_f64.c
 │   ├── nc_int_types
 │   │   ├── conversion
 │   │   │   └── test_nc_convert.c
