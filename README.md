@@ -97,6 +97,7 @@ NC
 │       ├── nc_int_types.h
 │       ├── nc_log
 │       │   ├── nc_debug_stmts.h
+│       │   ├── nc_error_stmts.h
 │       │   └── nc_print_stmts.h
 │       └── nc_log.h
 ├── tests
@@ -146,6 +147,7 @@ NC
 │   │           └── test_nc_u8.c
 │   └── nc_log
 │       ├── test_nc_debug.c
+│       ├── test_nc_error.c
 │       └── test_nc_log.c
 ├── TEST.sh
 └── vcpkg.json
