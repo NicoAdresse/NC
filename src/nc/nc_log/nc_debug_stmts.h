@@ -72,7 +72,7 @@
             } \
         } while (0)
 
-    /* Assert: Checks if two vales are NOT equal. */
+    /* Assert: Checks if two values are NOT equal. */
     #define nc_assert_ne(a, b) \
         do { \
             __typeof__(a) _a = (a); \
@@ -81,9 +81,9 @@
                 char tmpl_buf[512]; \
                 char msg_buf[512]; \
                 snprintf(tmpl_buf, sizeof(tmpl_buf), \
-                    "Assertion failed: %s != %s (Both values are: %s) [File: %s, Line: %ld]", \
-                    #a, #b, NC_FMT_SPECIFIER(_a), __FILE__, (long)__LINE__); \
-                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a); \
+                    "Assertion failed: %s != %s (Both values are: %s and %s) [File: %s, Line: %ld]", \
+                    #a, #b, NC_FMT_SPECIFIER(_a), NC_FMT_SPECIFIER(_b), __FILE__, (long)__LINE__); \
+                snprintf(msg_buf, sizeof(msg_buf), tmpl_buf, _a, _b); \
                 nc_println_err("%s", msg_buf); \
                 exit(1); \
             } \
