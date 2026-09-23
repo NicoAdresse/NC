@@ -31,6 +31,7 @@ This is a header-only library with **zero dependencies**.
 ```text
 NC
 ├── CLEAN.sh
+├── CMakeLists.txt
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── docs
@@ -44,7 +45,6 @@ NC
 ├── LICENSE
 ├── README.md
 ├── SECURITY.md
-├── CMakeLists.txt
 ├── src
 │   └── nc
 │       ├── nc_float
@@ -54,8 +54,13 @@ NC
 │       │   ├── nc_f64
 │       │   │   └── nc_f64.h
 │       │   ├── nc_float_constructors.h
+│       │   ├── nc_float_destructors.h
 │       │   ├── nc_float_method_macros.h
-│       │   └── nc_float_primitives.h
+│       │   ├── nc_float_primitives.h
+│       │   ├── nc_ptr_f32
+│       │   │   └── nc_ptr_f32.h
+│       │   └── nc_ptr_f64
+│       │       └── nc_ptr_f64.h
 │       ├── nc_float_types.h
 │       ├── nc_int
 │       │   ├── inc_helper_funcs.h
