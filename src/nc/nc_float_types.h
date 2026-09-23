@@ -11,6 +11,8 @@
 
 #include "nc_float/nc_f32/nc_f32.h"
 #include "nc_float/nc_f64/nc_f64.h"
+#include "nc_float/nc_ptr_f32/nc_ptr_f32.h"
+#include "nc_float/nc_ptr_f64/nc_ptr_f64.h"
 
 #include "nc_float/nc_float_constructors.h"
 #include "nc_float/nc_float_method_macros.h"
