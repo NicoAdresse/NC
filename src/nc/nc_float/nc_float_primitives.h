@@ -11,5 +11,7 @@
 
 typedef struct { float val; } nc_f32;
 typedef struct { double val; } nc_f64;
+typedef struct { float* val; } nc_ptr_f32;
+typedef struct { double* val; } nc_ptr_f64;
 
 #endif /* NC_FLOAT_PRIMITIVES_H */
