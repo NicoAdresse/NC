@@ -6,7 +6,7 @@
     Tests for 'nc_f32'.
 */
 
-#include "../../../src/nc/nc_float_types.h"
+#include "../../../src/nc.h"
 
 int main(void) {
     nc_f32 x = nc_new_f32(20.0);

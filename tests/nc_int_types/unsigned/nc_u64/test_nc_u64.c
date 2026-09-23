@@ -6,7 +6,7 @@
     Tests for 'nc_u64'.
 */
 
-#include "../../../../src/nc/nc_int_types.h"
+#include "../../../../src/nc.h"
 #include <inttypes.h>
 #include <stdio.h>
 

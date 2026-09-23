@@ -6,7 +6,7 @@
     Testing panics.
 */
 
-#include "../../src/nc/nc_log.h"
+#include "../../src/nc.h"
 
 int main(void) {
     nc_panicln("This is a panic: %d", 42);

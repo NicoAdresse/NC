@@ -6,7 +6,7 @@
     Tests for 'nc_f64'.
 */
 
-#include "../../../src/nc/nc_float_types.h"
+#include "../../../src/nc.h"
 
 int main(void) {
     nc_f64 x = nc_new_f64(40.0);

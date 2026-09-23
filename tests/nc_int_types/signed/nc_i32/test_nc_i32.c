@@ -6,7 +6,7 @@
     Tests for 'nc_i32'.
 */
 
-#include "../../../../src/nc/nc_int_types.h"
+#include "../../../../src/nc.h"
 #include <stdio.h>
 
 int main(void) {
