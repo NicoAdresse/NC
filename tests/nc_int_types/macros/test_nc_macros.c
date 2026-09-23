@@ -6,7 +6,7 @@
     Tests for generic arithmetic and pointer allocation macros.
 */
 
-#include "../../../src/nc/nc_int_types.h"
+#include "../../../src/nc.h"
 #include <stdio.h>
 #include <inttypes.h>
 

@@ -6,8 +6,7 @@
     Testing assertions and debugging.
 */
 
-#include "../../src/nc/nc_log/nc_print_stmts.h"
-#include "../../src/nc/nc_log/nc_debug_stmts.h"
+#include "../../src/nc.h"
 
 int main(void) {
     nc_println_info("Starting debug statement tests...");

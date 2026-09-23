@@ -6,8 +6,7 @@
     Testing logging methods.
 */
 
-#include "../../src/nc/nc_log.h"
-#include "../../src/nc/nc_int_types.h"
+#include "../../src/nc.h"
 
 int main(void) {
     nc_i8 x = nc_new_int((int8_t)NC_I8_MAX);

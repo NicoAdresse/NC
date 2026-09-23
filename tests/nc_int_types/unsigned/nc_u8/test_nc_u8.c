@@ -6,7 +6,7 @@
     Tests for 'nc_u8'.
 */
 
-#include "../../../../src/nc/nc_int_types.h"
+#include "../../../../src/nc.h"
 #include <stdio.h>
 
 int main(void) {
