@@ -41,6 +41,25 @@ static inline void send_bounds_error_msg(
     );
 }
 
+static inline void send_bounds_must_error_msg(
+    int number_of_bits,
+    int is_integer_signed,
+    int64_t number_one_val,
+    int64_t number_two_val,
+    error_int_bound_t bound_err_type,
+    int64_t bounds_max
+) {
+    nc_println_err(
+        "Error. %s Integer (%d Bits) %s detected. Check your variables. (Values received: %lld & %lld). Exiting with error code of 1.",
+        is_integer_signed ? "Signed" : "Unsigned",
+        number_of_bits,
+        (bound_err_type == ERROR_OVERFLOW) ? "overflow" : "underflow",
+        (long long)number_one_val,
+        (long long)number_two_val,
+        (long long)bounds_max
+    );
+}
+
 static inline void send_bounds_ptr_error_msg(
     int number_of_bits,
     int is_integer_signed,
