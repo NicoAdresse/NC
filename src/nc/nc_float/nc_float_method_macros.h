@@ -79,4 +79,9 @@
     default: nc_get_val_f32 \
 )((n))
 
+#define nc_free_float(ptr) _Generic((ptr), \
+    nc_ptr_f32: nc_free_ptr_f32, \
+    nc_ptr_f64: nc_free_ptr_f64  \
+)((ptr))
+
 #endif /* NC_FLOAT_METHOD_MACROS_H */

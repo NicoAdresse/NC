@@ -112,6 +112,6 @@ static inline nc_ptr_f64 nc_checked_signum_ptr_f64(nc_f64 number) {
 
 /* Helper functions */
 static inline size_t nc_get_size_ptr_f64() { return sizeof(nc_ptr_f64); }
-static inline double nc_get_val_ptr_f64(nc_ptr_f64 val) { return *val.val; }
+static inline nc_f64 nc_get_val_ptr_f64(nc_ptr_f64 ptr) { return *ptr.val; }
 
 #endif /* NC_PTR_F64_H */

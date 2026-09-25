@@ -127,7 +127,7 @@ static inline nc_ptr_f32 nc_new_ptr_f32(double val) {
         return (nc_ptr_f32){.val = NULL};
     }
 
-    return (nc_ptr_f32){.val = converted};
+    return (nc_ptr_f32){.val = (nc_f32*)converted};
 }
 
 /* nc_ptr_f32's runtime fail constructor */
@@ -163,7 +163,7 @@ static inline nc_ptr_f32 nc_new_must_ptr_f32(double val) {
         exit(1);
     }
 
-    return (nc_ptr_f32){.val = coverted};
+    return (nc_ptr_f32){.val = (nc_f32*)coverted};
 }
 
 /* nc_ptr_f64's constructor */
@@ -191,7 +191,7 @@ static inline nc_ptr_f64 nc_new_ptr_f64(double val) {
         return (nc_ptr_f64){.val = NULL};
     }
 
-    return (nc_ptr_f64){.val = converted};
+    return (nc_ptr_f64){.val = (nc_f64*)converted};
 }
 
 /* nc_ptr_f64's runtime fail constructor */
@@ -227,7 +227,7 @@ static inline nc_ptr_f64 nc_new_must_ptr_f64(double val) {
         exit(1);
     }
 
-    return (nc_ptr_f64){.val = coverted};
+    return (nc_ptr_f64){.val = (nc_f64*)coverted};
 }
 
 #endif /* NC_FLOAT_CONSTRUCTORS_H */

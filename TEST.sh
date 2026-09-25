@@ -21,7 +21,7 @@ EXECUTABLE_NAME="${FILENAME%.c}"
 echo "Starting script for test: $TEST_PATH"
 
 echo "Compiling $TEST_PATH..."
-gcc -Wall -Wextra -std=c11 -Os -ffunction-sections -fdata-sections -fno-asynchronous-unwind-tables -fno-unwind-tables -Isrc "$TEST_PATH" -Wl,--gc-sections -s -o "build/$EXECUTABLE_NAME"
+gcc -Wall -Wextra -std=c11 -Os -ffunction-sections -fdata-sections -fno-asynchronous-unwind-tables -fno-unwind-tables -Isrc "$TEST_PATH" -Wl,--gc-sections -s -o "build/$EXECUTABLE_NAME" -lm
 echo "Done!"
 
 echo "Executing $EXECUTABLE_NAME"
