@@ -37,6 +37,7 @@ NC
 ├── docs
 │   ├── ABOUT_NC.md
 │   ├── ASSERTIONS.md
+│   ├── BASIC_EXAMPLE.md
 │   ├── FLOAT_API.md
 │   ├── HOW_GCC_COMPILES_NC.md
 │   ├── INTEGER_API.md
