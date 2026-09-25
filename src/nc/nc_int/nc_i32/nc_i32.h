@@ -20,51 +20,39 @@
 /* Checked Addition -> nc_i32 */
 static inline nc_i32 nc_checked_add_i32(nc_i32 number_one, nc_i32 number_two) {
     int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i32(sum, number_one, number_two);
+}
 
-    if (check_overflow(sum, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};   
-    }
-
-    if (check_underflow(sum, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};   
-    }
-
+/* Checked Must Addition -> nc_i32 */
+static inline nc_i32 nc_checked_add_must_i32(nc_i32 number_one, nc_i32 number_two) {
+    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i32(sum, number_one, number_two);
     return (nc_i32){.val = (int32_t)sum};
 }
 
 /* Checked Subtraction -> nc_i32 */
 static inline nc_i32 nc_checked_sub_i32(nc_i32 number_one, nc_i32 number_two) {
     int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i32(diff, number_one, number_two);
+}
 
-    if (check_overflow(diff, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};
-    }
-
-    if (check_underflow(diff, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};
-    }
-
+/* Checked Must Subtraction -> nc_i32 */
+static inline nc_i32 nc_checked_sub_must_i32(nc_i32 number_one, nc_i32 number_two) {
+    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i32(diff, number_one, number_two);
     return (nc_i32){.val = (int32_t)diff};
 }
 
 /* Checked Multiplication -> nc_i32 */
 static inline nc_i32 nc_checked_mul_i32(nc_i32 number_one, nc_i32 number_two) {
     int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i32(product, number_one, number_two);
+}
 
-    if (check_overflow(product, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};
-    }
-
-    if (check_underflow(product, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};
-    }
-
+/* Checked Must Multiplication -> nc_i32 */
+static inline nc_i32 nc_checked_mul_must_i32(nc_i32 number_one, nc_i32 number_two) {
+    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i32(product, number_one, number_two);
     return (nc_i32){.val = (int32_t)product};
 }
 
@@ -79,17 +67,21 @@ static inline nc_i32 nc_checked_div_i32(nc_i32 number_one, nc_i32 number_two, in
     }
 
     int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i32(quotient, number_one, number_two);
+}
 
-    if (check_overflow(quotient, NC_I32_MAX)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
-        return (nc_i32){.val = (int32_t)NC_I32_MAX};
+/* Checked Must Division -> nc_i32 */
+static inline nc_i32 nc_checked_div_must_i32(nc_i32 number_one, nc_i32 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            exit(EXIT_FAILURE);
+        }
+        return (nc_i32){.val = 0};
     }
 
-    if (check_underflow(quotient, NC_I32_MIN)) {
-        send_bounds_error_msg(32, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
-        return (nc_i32){.val = (int32_t)NC_I32_MIN};
-    }
-
+    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i32(quotient, number_one, number_two);
     return (nc_i32){.val = (int32_t)quotient};
 }
 
@@ -99,6 +91,20 @@ static inline nc_i32 nc_checked_mod_i32(nc_i32 number_one, nc_i32 number_two, in
         if (!is_zero_denominator_allowed) {
             send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
             return (nc_i32){.val = 0};
+        } 
+        return (nc_i32){.val = 0};
+    }
+
+    int64_t remainder = (int64_t)number_one.val % (int64_t)number_two.val;
+    return (nc_i32){.val = (int32_t)remainder};
+}
+
+/* Checked Must Modulo -> nc_i32 */
+static inline nc_i32 nc_checked_mod_must_i32(nc_i32 number_one, nc_i32 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            exit(EXIT_FAILURE);
         } 
         return (nc_i32){.val = 0};
     }
