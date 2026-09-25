@@ -48,69 +48,42 @@ static inline nc_i8 nc_uint32_t_convert_to_i8(uint32_t val) { return nc_new_i8(v
 static inline nc_i8 nc_int64_t_convert_to_i8(int64_t val) { return nc_new_i8(val); }
 static inline nc_i8 nc_uint64_t_convert_to_i8(uint64_t val) { return nc_new_i8((int64_t)val); }
 
-/* Helper Functions */
-static inline nc_i8 inc_check_for_bound_errs(int64_t number, nc_i8 previous_number_one, nc_i8 previous_number_two) {
-    if (check_overflow(number, NC_I8_MAX)) {
-        send_bounds_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = NC_I8_MAX};
-    }
-
-    if (check_underflow(number, NC_I8_MIN)) {
-        send_bounds_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
-    return (nc_i8){.val = (int8_t)number};
-}
-
-static inline void inc_check_for_bound_must_errs(int64_t number, nc_i8 previous_number_one, nc_i8 previous_number_two) {
-    if (check_overflow(number, NC_I8_MAX)) {
-        send_bounds_must_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        exit(EXIT_FAILURE);
-    }
-
-    if (check_underflow(number, NC_I8_MIN)) {
-        send_bounds_must_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        exit(EXIT_FAILURE);
-    }
-}
-
 /* Checked Addition -> nc_i8 */
 static inline nc_i8 nc_checked_add_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-    return inc_check_for_bound_errs(sum, number_one, number_two);
+    return inc_check_for_bound_errs_i8(sum, number_one, number_two);
 }
 
 /* Checked Must Addition -> nc_i8 */
 static inline nc_i8 nc_checked_add_must_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
-    inc_check_for_bound_must_errs(sum, number_one, number_two);
+    inc_check_for_bound_must_errs_i8(sum, number_one, number_two);
     return (nc_i8){.val = (int8_t)sum};
 }
 
 /* Checked Subtraction -> nc_i8 */
 static inline nc_i8 nc_checked_sub_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-    return inc_check_for_bound_errs(diff, number_one, number_two);
+    return inc_check_for_bound_errs_i8(diff, number_one, number_two);
 }
 
 /* Checked Must Subtraction -> nc_i8 */
 static inline nc_i8 nc_checked_sub_must_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
-    inc_check_for_bound_must_errs(diff, number_one, number_two);
+    inc_check_for_bound_must_errs_i8(diff, number_one, number_two);
     return (nc_i8){.val = (int8_t)diff};
 }
 
 /* Checked Multiplication -> nc_i8 */
 static inline nc_i8 nc_checked_mul_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-    return inc_check_for_bound_errs(product, number_one, number_two);
+    return inc_check_for_bound_errs_i8(product, number_one, number_two);
 }
 
 /* Checked Must Multiplication -> nc_i8 */
 static inline nc_i8 nc_checked_mul_must_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
-    inc_check_for_bound_must_errs(product, number_one, number_two);
+    inc_check_for_bound_must_errs_i8(product, number_one, number_two);
     return (nc_i8){.val = (int8_t)product};
 }
 
@@ -125,7 +98,7 @@ static inline nc_i8 nc_checked_div_i8(nc_i8 number_one, nc_i8 number_two, int is
     }
 
     int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-    return inc_check_for_bound_errs(quotient, number_one, number_two);
+    return inc_check_for_bound_errs_i8(quotient, number_one, number_two);
 }
 
 /* Checked Must Division -> nc_i8 */
@@ -139,7 +112,7 @@ static inline nc_i8 nc_checked_div_must_i8(nc_i8 number_one, nc_i8 number_two, i
     }
 
     int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
-    inc_check_for_bound_must_errs(quotient, number_one, number_two);
+    inc_check_for_bound_must_errs_i8(quotient, number_one, number_two);
     return (nc_i8){.val = (int8_t)quotient};
 }
 

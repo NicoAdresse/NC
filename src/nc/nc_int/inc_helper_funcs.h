@@ -161,4 +161,36 @@ static inline void send_null_pointer_error_msg(
     );
 }
 
+/*
+    If Successful: returns the result of the operation as nc_i8.
+    If Overflow: returns NC_I8_MAX and sends an error message to stderr.
+    If Underflow: returns NC_I8_MIN and sends an error message to stderr.
+    Must equivalent functions will exit the program if an error occurs.
+*/
+static inline nc_i8 inc_check_for_bound_errs_i8(int64_t number, nc_i8 previous_number_one, nc_i8 previous_number_two) {
+    if (check_overflow(number, NC_I8_MAX)) {
+        send_bounds_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
+        return (nc_i8){.val = NC_I8_MAX};
+    }
+
+    if (check_underflow(number, NC_I8_MIN)) {
+        send_bounds_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
+        return (nc_i8){.val = (int8_t)NC_I8_MIN};
+    }
+
+    return (nc_i8){.val = (int8_t)number};
+}
+
+static inline void inc_check_for_bound_must_errs_i8(int64_t number, nc_i8 previous_number_one, nc_i8 previous_number_two) {
+    if (check_overflow(number, NC_I8_MAX)) {
+        send_bounds_must_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
+        exit(EXIT_FAILURE);
+    }
+
+    if (check_underflow(number, NC_I8_MIN)) {
+        send_bounds_must_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
+        exit(EXIT_FAILURE);
+    }
+}
+
 #endif /* INC_INT_HELPER_FUNCS_H */
