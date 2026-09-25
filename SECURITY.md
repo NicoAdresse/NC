@@ -9,6 +9,16 @@ Only the current initial release is actively supported with security updates.
 | 0.0.1   | :white_check_mark: |
 | < 0.0.1 | :x:                |
 
+## Supported Compilers <->
+
+| Compiler | Supported  |
+| -------- | ---------- |
+| GCC      | :white_check_mark: |
+| Clang    | :white_check_mark: |
+| ICX      | :white_check_mark: |
+| MSVC     | :x:                |
+
+
 ## Reporting a Vulnerability <->
 
 If you discover a security vulnerability within this project, please report it responsibly.
