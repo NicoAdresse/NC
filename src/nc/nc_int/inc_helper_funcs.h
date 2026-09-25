@@ -169,12 +169,12 @@ static inline void send_null_pointer_error_msg(
 */
 static inline nc_i8 inc_check_for_bound_errs_i8(int64_t number, nc_i8 previous_number_one, nc_i8 previous_number_two) {
     if (check_overflow(number, NC_I8_MAX)) {
-        send_bounds_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
+        send_bounds_error_msg(8, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
         return (nc_i8){.val = NC_I8_MAX};
     }
 
     if (check_underflow(number, NC_I8_MIN)) {
-        send_bounds_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
+        send_bounds_error_msg(8, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
         return (nc_i8){.val = (int8_t)NC_I8_MIN};
     }
 
@@ -183,24 +183,24 @@ static inline nc_i8 inc_check_for_bound_errs_i8(int64_t number, nc_i8 previous_n
 
 static inline void inc_check_for_bound_must_errs_i8(int64_t number, nc_i8 previous_number_one, nc_i8 previous_number_two) {
     if (check_overflow(number, NC_I8_MAX)) {
-        send_bounds_must_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
+        send_bounds_must_error_msg(8, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
         exit(EXIT_FAILURE);
     }
 
     if (check_underflow(number, NC_I8_MIN)) {
-        send_bounds_must_error_msg(sizeof(nc_i8), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
+        send_bounds_must_error_msg(8, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
         exit(EXIT_FAILURE);
     }
 }
 
 static inline nc_i16 inc_check_for_bound_errs_i16(int64_t number, nc_i16 previous_number_one, nc_i16 previous_number_two) {
     if (check_overflow(number, NC_I16_MAX)) {
-        send_bounds_error_msg(sizeof(nc_i16), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
+        send_bounds_error_msg(16, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
         return (nc_i16){.val = NC_I16_MAX};
     }
 
     if (check_underflow(number, NC_I16_MIN)) {
-        send_bounds_error_msg(sizeof(nc_i16), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
+        send_bounds_error_msg(16, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
         return (nc_i16){.val = (int16_t)NC_I16_MIN};
     }
 
@@ -209,24 +209,24 @@ static inline nc_i16 inc_check_for_bound_errs_i16(int64_t number, nc_i16 previou
 
 static inline void inc_check_for_bound_must_errs_i16(int64_t number, nc_i16 previous_number_one, nc_i16 previous_number_two) {
     if (check_overflow(number, NC_I16_MAX)) {
-        send_bounds_must_error_msg(sizeof(nc_i16), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
+        send_bounds_must_error_msg(16, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I16_MAX);
         exit(EXIT_FAILURE);
     }
 
     if (check_underflow(number, NC_I16_MIN)) {
-        send_bounds_must_error_msg(sizeof(nc_i16), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
+        send_bounds_must_error_msg(16, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I16_MIN);
         exit(EXIT_FAILURE);
     }
 }
 
 static inline nc_i32 inc_check_for_bound_errs_i32(int64_t number, nc_i32 previous_number_one, nc_i32 previous_number_two) {
     if (check_overflow(number, NC_I32_MAX)) {
-        send_bounds_error_msg(sizeof(nc_i32), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
+        send_bounds_error_msg(32, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
         return (nc_i32){.val = NC_I32_MAX};
     }
 
     if (check_underflow(number, NC_I32_MIN)) {
-        send_bounds_error_msg(sizeof(nc_i32), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
+        send_bounds_error_msg(32, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
         return (nc_i32){.val = (int32_t)NC_I32_MIN};
     }
 
@@ -235,12 +235,12 @@ static inline nc_i32 inc_check_for_bound_errs_i32(int64_t number, nc_i32 previou
 
 static inline void inc_check_for_bound_must_errs_i32(int64_t number, nc_i32 previous_number_one, nc_i32 previous_number_two) {
     if (check_overflow(number, NC_I32_MAX)) {
-        send_bounds_must_error_msg(sizeof(nc_i32), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
+        send_bounds_must_error_msg(32, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_I32_MAX);
         exit(EXIT_FAILURE);
     }
 
     if (check_underflow(number, NC_I32_MIN)) {
-        send_bounds_must_error_msg(sizeof(nc_i16), IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
+        send_bounds_must_error_msg(32, IS_SIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_UNDERFLOW, NC_I32_MIN);
         exit(EXIT_FAILURE);
     }
 }
