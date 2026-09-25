@@ -29,7 +29,7 @@ static inline nc_ptr_f32 nc_checked_add_ptr_f32(nc_f32 number_one, nc_f32 number
     }
 
     nc_f32 sum = nc_checked_add_f32(number_one, number_two);
-    return nc_new_ptr_f32((double)sum.val);
+    return nc_new_ptr_f32(sum.val);
 }
 
 /* Checked Subtraction -> nc_ptr_f32 */
@@ -45,7 +45,7 @@ static inline nc_ptr_f32 nc_checked_sub_ptr_f32(nc_f32 number_one, nc_f32 number
     }
 
     nc_f32 diff = nc_checked_sub_f32(number_one, number_two);
-    return nc_new_ptr_f32((double)diff.val);
+    return nc_new_ptr_f32(diff.val);
 }
 
 /* Checked Multiplication -> nc_ptr_f32 */
@@ -61,7 +61,7 @@ static inline nc_ptr_f32 nc_checked_mul_ptr_f32(nc_f32 number_one, nc_f32 number
     }
 
     nc_f32 prod = nc_checked_mul_f32(number_one, number_two);
-    return nc_new_ptr_f32((double)prod.val);
+    return nc_new_ptr_f32(prod.val);
 }
 
 /* Checked Division -> nc_ptr_f32 */
@@ -77,7 +77,7 @@ static inline nc_ptr_f32 nc_checked_div_ptr_f32(nc_f32 number_one, nc_f32 number
     }
 
     nc_f32 quot = nc_checked_div_f32(number_one, number_two, zero_division_allowed);
-    return nc_new_ptr_f32((double)quot.val);
+    return nc_new_ptr_f32(quot.val);
 }
 
 /* Checked Mod -> nc_ptr_f32 */
@@ -93,7 +93,7 @@ static inline nc_ptr_f32 nc_checked_mod_ptr_f32(nc_f32 number_one, nc_f32 number
     }
 
     nc_f32 rem = nc_checked_mod_f32(number_one, number_two, zero_division_allowed);
-    return nc_new_ptr_f32((double)rem.val);
+    return nc_new_ptr_f32(rem.val);
 }
 
 /* Checked Signum -> nc_ptr_f32 */
@@ -109,11 +109,11 @@ static inline nc_ptr_f32 nc_checked_signum_ptr_f32(nc_f32 number) {
     }
 
     nc_f32 sig = nc_checked_signum_f32(number);
-    return nc_new_ptr_f32((double)sig.val);
+    return nc_new_ptr_f32(sig.val);
 }
 
 /* Helper functions */
-static inline float nc_get_val_ptr_f32(nc_ptr_f32 val) { return *val.val; }
+static inline nc_f32 nc_get_val_ptr_f32(nc_ptr_f32 val) { return *val.val; }
 static inline size_t nc_get_size_ptr_f32() { return sizeof(nc_ptr_f32); }
 
 #endif /* NC_F32_PTR_H */

@@ -14,6 +14,7 @@
 
 #include "nc_print_stmts.h"
 #include "../nc_int_types.h"
+#include "../nc_float_types.h"
 
 #if defined(__GNUC__) || defined(__clang__)
     #define NC_UNLIKELY(x) __builtin_expect(!!(x), 0)
@@ -48,6 +49,8 @@
         nc_u32: "%u", \
         nc_i64: "%lld", \
         nc_u64: "%llu", \
+        nc_f32: "%f", \
+        nc_f64: "%lf", \
         float: "%f", \
         double: "%f", \
         char*: "%s", \

@@ -17,5 +17,6 @@
 #include "nc_float/nc_float_constructors.h"
 #include "nc_float/nc_float_method_macros.h"
 #include "nc_float/nc_float_primitives.h"
+#include "nc_float/nc_float_destructors.h"
 
 #endif /* NC_FLOAT_TYPES_H */
