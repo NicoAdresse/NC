@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include "../nc_log.h"
+#include "nc_int_macros.h"
 
 typedef enum {
     ERROR_OVERFLOW,
@@ -293,6 +294,22 @@ static inline void inc_check_for_bound_must_errs_i64_mul(__int128_t number, nc_i
 
     if (number < NC_I64_MIN) {
         send_bounds_must_error_msg(64, IS_SIGNED, previous_number_one.val, previous_number_two.val, ERROR_UNDERFLOW, NC_I64_MIN);
+        exit(EXIT_FAILURE);
+    }
+}
+
+static inline nc_u8 inc_check_for_bound_errs_u8(uint64_t number, nc_u8 previous_number_one, nc_u8 previous_number_two) {
+    if (check_overflow(number, NC_U8_MAX)) {
+        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
+        return (nc_u8){.val = NC_U8_MAX};
+    }
+
+    return (nc_u8){.val = (uint8_t)number};
+}
+
+static inline void inc_check_for_bound_must_errs_u8(uint64_t number, nc_u8 previous_number_one, nc_u8 previous_number_two) {
+    if (check_overflow(number, NC_U8_MAX)) {
+        send_bounds_must_error_msg(8, IS_UNSIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
         exit(EXIT_FAILURE);
     }
 }
