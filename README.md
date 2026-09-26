@@ -34,134 +34,135 @@ NC
 ├── CMakeLists.txt
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
+├── Dockerfile
 ├── docs
-│   ├── ABOUT_NC.md
-│   ├── ASSERTIONS.md
-│   ├── BASIC_EXAMPLE.md
-│   ├── FLOAT_API.md
-│   ├── HOW_GCC_COMPILES_NC.md
-│   ├── INTEGER_API.md
-│   ├── METHOD_CHAINING.md
-│   └── TESTING_NC.md
+│   ├── ABOUT_NC.md
+│   ├── ASSERTIONS.md
+│   ├── BASIC_EXAMPLE.md
+│   ├── FLOAT_API.md
+│   ├── HOW_GCC_COMPILES_NC.md
+│   ├── INTEGER_API.md
+│   ├── METHOD_CHAINING.md
+│   └── TESTING_NC.md
 ├── LICENSE
 ├── README.md
 ├── SECURITY.md
 ├── src
-│   ├── nc
-│   │   ├── nc_float
-│   │   │   ├── inc_helper_funcs.h
-│   │   │   ├── nc_f32
-│   │   │   │   └── nc_f32.h
-│   │   │   ├── nc_f64
-│   │   │   │   └── nc_f64.h
-│   │   │   ├── nc_float_constructors.h
-│   │   │   ├── nc_float_destructors.h
-│   │   │   ├── nc_float_method_macros.h
-│   │   │   ├── nc_float_primitives.h
-│   │   │   ├── nc_ptr_f32
-│   │   │   │   └── nc_ptr_f32.h
-│   │   │   └── nc_ptr_f64
-│   │   │       └── nc_ptr_f64.h
-│   │   ├── nc_float_types.h
-│   │   ├── nc_int
-│   │   │   ├── inc_helper_funcs.h
-│   │   │   ├── nc_i16
-│   │   │   │   └── nc_i16.h
-│   │   │   ├── nc_i32
-│   │   │   │   └── nc_i32.h
-│   │   │   ├── nc_i64
-│   │   │   │   └── nc_i64.h
-│   │   │   ├── nc_i8
-│   │   │   │   └── nc_i8.h
-│   │   │   ├── nc_int_constructors.h
-│   │   │   ├── nc_int_destructors.h
-│   │   │   ├── nc_int_macros.h
-│   │   │   ├── nc_int_method_macros.h
-│   │   │   ├── nc_ptr_i16
-│   │   │   │   └── nc_ptr_i16.h
-│   │   │   ├── nc_ptr_i32
-│   │   │   │   └── nc_ptr_i32.h
-│   │   │   ├── nc_ptr_i64
-│   │   │   │   └── nc_ptr_i64.h
-│   │   │   ├── nc_ptr_i8
-│   │   │   │   └── nc_ptr_i8.h
-│   │   │   ├── nc_ptr_u16
-│   │   │   │   └── nc_ptr_u16.h
-│   │   │   ├── nc_ptr_u32
-│   │   │   │   └── nc_ptr_u32.h
-│   │   │   ├── nc_ptr_u64
-│   │   │   │   └── nc_ptr_u64.h
-│   │   │   ├── nc_ptr_u8
-│   │   │   │   └── nc_ptr_u8.h
-│   │   │   ├── nc_types.h
-│   │   │   ├── nc_u16
-│   │   │   │   └── nc_u16.h
-│   │   │   ├── nc_u32
-│   │   │   │   └── nc_u32.h
-│   │   │   ├── nc_u64
-│   │   │   │   └── nc_u64.h
-│   │   │   └── nc_u8
-│   │   │       └── nc_u8.h
-│   │   ├── nc_int_types.h
-│   │   ├── nc_log
-│   │   │   ├── nc_debug_stmts.h
-│   │   │   ├── nc_error_stmts.h
-│   │   │   └── nc_print_stmts.h
-│   │   └── nc_log.h
-│   └── nc.h
+│   ├── nc
+│   │   ├── nc_float
+│   │   │   ├── inc_helper_funcs.h
+│   │   │   ├── nc_f32
+│   │   │   │   └── nc_f32.h
+│   │   │   ├── nc_f64
+│   │   │   │   └── nc_f64.h
+│   │   │   ├── nc_float_constructors.h
+│   │   │   ├── nc_float_destructors.h
+│   │   │   ├── nc_float_method_macros.h
+│   │   │   ├── nc_float_primitives.h
+│   │   │   ├── nc_ptr_f32
+│   │   │   │   └── nc_ptr_f32.h
+│   │   │   └── nc_ptr_f64
+│   │   │       └── nc_ptr_f64.h
+│   │   ├── nc_float_types.h
+│   │   ├── nc_int
+│   │   │   ├── inc_helper_funcs.h
+│   │   │   ├── nc_i16
+│   │   │   │   └── nc_i16.h
+│   │   │   ├── nc_i32
+│   │   │   │   └── nc_i32.h
+│   │   │   ├── nc_i64
+│   │   │   │   └── nc_i64.h
+│   │   │   ├── nc_i8
+│   │   │   │   └── nc_i8.h
+│   │   │   ├── nc_int_constructors.h
+│   │   │   ├── nc_int_destructors.h
+│   │   │   ├── nc_int_macros.h
+│   │   │   ├── nc_int_method_macros.h
+│   │   │   ├── nc_ptr_i16
+│   │   │   │   └── nc_ptr_i16.h
+│   │   │   ├── nc_ptr_i32
+│   │   │   │   └── nc_ptr_i32.h
+│   │   │   ├── nc_ptr_i64
+│   │   │   │   └── nc_ptr_i64.h
+│   │   │   ├── nc_ptr_i8
+│   │   │   │   └── nc_ptr_i8.h
+│   │   │   ├── nc_ptr_u16
+│   │   │   │   └── nc_ptr_u16.h
+│   │   │   ├── nc_ptr_u32
+│   │   │   │   └── nc_ptr_u32.h
+│   │   │   ├── nc_ptr_u64
+│   │   │   │   └── nc_ptr_u64.h
+│   │   │   ├── nc_ptr_u8
+│   │   │   │   └── nc_ptr_u8.h
+│   │   │   ├── nc_types.h
+│   │   │   ├── nc_u16
+│   │   │   │   └── nc_u16.h
+│   │   │   ├── nc_u32
+│   │   │   │   └── nc_u32.h
+│   │   │   ├── nc_u64
+│   │   │   │   └── nc_u64.h
+│   │   │   └── nc_u8
+│   │   │       └── nc_u8.h
+│   │   ├── nc_int_types.h
+│   │   ├── nc_log
+│   │   │   ├── nc_debug_stmts.h
+│   │   │   ├── nc_error_stmts.h
+│   │   │   └── nc_print_stmts.h
+│   │   └── nc_log.h
+│   └── nc.h
 ├── tests
-│   ├── nc_float_types
-│   │   ├── nc_f32
-│   │   │   └── test_nc_f32.c
-│   │   ├── nc_f64
-│   │   │   └── test_nc_f64.c
-│   │   ├── nc_ptr_f32
-│   │   │   └── test_nc_ptr_f32.c
-│   │   └── nc_ptr_f64
-│   │       └── test_nc_ptr_f64.c
-│   ├── nc_int_types
-│   │   ├── conversion
-│   │   │   └── test_nc_convert.c
-│   │   ├── macros
-│   │   │   └── test_nc_macros.c
-│   │   ├── signed
-│   │   │   ├── nc_i16
-│   │   │   │   └── test_nc_i16.c
-│   │   │   ├── nc_i32
-│   │   │   │   └── test_nc_i32.c
-│   │   │   ├── nc_i64
-│   │   │   │   └── test_nc_i64.c
-│   │   │   ├── nc_i8
-│   │   │   │   └── test_nc_i8.c
-│   │   │   ├── nc_ptr_i16
-│   │   │   │   └── test_nc_ptr_i16.c
-│   │   │   ├── nc_ptr_i32
-│   │   │   │   └── test_nc_ptr_i32.c
-│   │   │   ├── nc_ptr_i64
-│   │   │   │   └── test_nc_ptr_i64.c
-│   │   │   └── nc_ptr_i8
-│   │   │       └── test_nc_ptr_i8.c
-│   │   └── unsigned
-│   │       ├── nc_ptr_u16
-│   │       │   └── test_nc_ptr_u16.c
-│   │       ├── nc_ptr_u32
-│   │       │   └── test_nc_ptr_u32.c
-│   │       ├── nc_ptr_u64
-│   │       │   └── test_nc_ptr_u64.c
-│   │       ├── nc_ptr_u8
-│   │       │   └── test_nc_ptr_u8.c
-│   │       ├── nc_u16
-│   │       │   └── test_nc_u16.c
-│   │       ├── nc_u32
-│   │       │   └── test_nc_u32.c
-│   │       ├── nc_u64
-│   │       │   └── test_nc_u64.c
-│   │       └── nc_u8
-│   │           └── test_nc_u8.c
-│   └── nc_log
-│       ├── test_nc_debug.c
-│       ├── test_nc_error.c
-│       └── test_nc_log.c
+│   ├── nc_float_types
+│   │   ├── nc_f32
+│   │   │   └── test_nc_f32.c
+│   │   ├── nc_f64
+│   │   │   └── test_nc_f64.c
+│   │   ├── nc_ptr_f32
+│   │   │   └── test_nc_ptr_f32.c
+│   │   └── nc_ptr_f64
+│   │       └── test_nc_ptr_f64.c
+│   ├── nc_int_types
+│   │   ├── conversion
+│   │   │   └── test_nc_convert.c
+│   │   ├── macros
+│   │   │   └── test_nc_macros.c
+│   │   ├── signed
+│   │   │   ├── nc_i16
+│   │   │   │   └── test_nc_i16.c
+│   │   │   ├── nc_i32
+│   │   │   │   └── test_nc_i32.c
+│   │   │   ├── nc_i64
+│   │   │   │   └── test_nc_i64.c
+│   │   │   ├── nc_i8
+│   │   │   │   └── test_nc_i8.c
+│   │   │   ├── nc_ptr_i16
+│   │   │   │   └── test_nc_ptr_i16.c
+│   │   │   ├── nc_ptr_i32
+│   │   │   │   └── test_nc_ptr_i32.c
+│   │   │   ├── nc_ptr_i64
+│   │   │   │   └── test_nc_ptr_i64.c
+│   │   │   └── nc_ptr_i8
+│   │   │       └── test_nc_ptr_i8.c
+│   │   └── unsigned
+│   │       ├── nc_ptr_u16
+│   │       │   └── test_nc_ptr_u16.c
+│   │       ├── nc_ptr_u32
+│   │       │   └── test_nc_ptr_u32.c
+│   │       ├── nc_ptr_u64
+│   │       │   └── test_nc_ptr_u64.c
+│   │       ├── nc_ptr_u8
+│   │       │   └── test_nc_ptr_u8.c
+│   │       ├── nc_u16
+│   │       │   └── test_nc_u16.c
+│   │       ├── nc_u32
+│   │       │   └── test_nc_u32.c
+│   │       ├── nc_u64
+│   │       │   └── test_nc_u64.c
+│   │       └── nc_u8
+│   │           └── test_nc_u8.c
+│   └── nc_log
+│       ├── test_nc_debug.c
+│       ├── test_nc_error.c
+│       └── test_nc_log.c
 ├── TEST.sh
 └── vcpkg.json
 ```
