@@ -19,52 +19,40 @@
 
 /* Checked Addition -> nc_u16 */
 static inline nc_u16 nc_checked_add_u16(nc_u16 number_one, nc_u16 number_two) {
-    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
+    uint64_t sum = (uint64_t)number_one.val + (uint64_t)number_two.val;
+    return inc_check_for_bound_errs_u16(sum, number_one, number_two);
+}
 
-    if (check_overflow(sum, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};  
-    }
-
-    if (check_underflow(sum, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};  
-    }
-
+/* Checked Must Addition -> nc_u16 */
+static inline nc_u16 nc_checked_add_must_u16(nc_u16 number_one, nc_u16 number_two) {
+    uint64_t sum = (uint64_t)number_one.val + (uint64_t)number_two.val;
+    inc_check_for_bound_must_errs_u16(sum, number_one, number_two);
     return (nc_u16){.val = (uint16_t)sum};
 }
 
 /* Checked Subtraction -> nc_u16 */
 static inline nc_u16 nc_checked_sub_u16(nc_u16 number_one, nc_u16 number_two) {
-    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
+    uint64_t diff = (uint64_t)number_one.val - (uint64_t)number_two.val;
+    return inc_check_for_bound_errs_u16(diff, number_one, number_two);
+}
 
-    if (check_overflow(diff, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};
-    }
-
-    if (check_underflow(diff, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};
-    }
-
+/* Checked Must Subtraction -> nc_u16 */
+static inline nc_u16 nc_checked_sub_must_u16(nc_u16 number_one, nc_u16 number_two) {
+    uint64_t diff = (uint64_t)number_one.val - (uint64_t)number_two.val;
+    inc_check_for_bound_must_errs_u16(diff, number_one, number_two);
     return (nc_u16){.val = (uint16_t)diff};
 }
 
 /* Checked Multiplication -> nc_u16 */
 static inline nc_u16 nc_checked_mul_u16(nc_u16 number_one, nc_u16 number_two) {
-    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
+    uint64_t product = (uint64_t)number_one.val * (uint64_t)number_two.val;
+    return inc_check_for_bound_errs_u16(product, number_one, number_two);
+}
 
-    if (check_overflow(product, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};
-    }
-
-    if (check_underflow(product, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};
-    }
-
+/* Checked Must Multiplication -> nc_u16 */
+static inline nc_u16 nc_checked_mul_must_u16(nc_u16 number_one, nc_u16 number_two) {
+    uint64_t product = (uint64_t)number_one.val * (uint64_t)number_two.val;
+    inc_check_for_bound_must_errs_u16(product, number_one, number_two);
     return (nc_u16){.val = (uint16_t)product};
 }
 
@@ -72,24 +60,28 @@ static inline nc_u16 nc_checked_mul_u16(nc_u16 number_one, nc_u16 number_two) {
 static inline nc_u16 nc_checked_div_u16(nc_u16 number_one, nc_u16 number_two, int is_zero_denominator_allowed) {
     if (number_two.val == 0) {
         if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            send_zero_denominator_error_msg(IS_UNSIGNED, (uint64_t)number_one.val, (uint64_t)number_two.val);
             return (nc_u16){.val = 0};
         }
         return (nc_u16){.val = 0};
     }
 
-    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
+    uint64_t quotient = (uint64_t)number_one.val / (uint64_t)number_two.val;
+    return inc_check_for_bound_errs_u16(quotient, number_one, number_two);
+}
 
-    if (check_overflow(quotient, NC_U16_MAX)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
-        return (nc_u16){.val = (uint16_t)NC_U16_MAX};
+/* Checked Must Division -> nc_u16 */
+static inline nc_u16 nc_checked_div_must_u16(nc_u16 number_one, nc_u16 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_UNSIGNED, (uint64_t)number_one.val, (uint64_t)number_two.val);
+            exit(EXIT_FAILURE);
+        }
+        return (nc_u16){.val = 0};
     }
 
-    if (check_underflow(quotient, NC_UNSIGNED_MIN)) {
-        send_bounds_error_msg(16, IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u16){.val = (uint16_t)NC_UNSIGNED_MIN};
-    }
-
+    uint64_t quotient = (uint64_t)number_one.val / (uint64_t)number_two.val;
+    inc_check_for_bound_must_errs_u16(quotient, number_one, number_two);
     return (nc_u16){.val = (uint16_t)quotient};
 }
 
@@ -97,13 +89,27 @@ static inline nc_u16 nc_checked_div_u16(nc_u16 number_one, nc_u16 number_two, in
 static inline nc_u16 nc_checked_mod_u16(nc_u16 number_one, nc_u16 number_two, int is_zero_denominator_allowed) {
     if (number_two.val == 0) {
         if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_UNSIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            send_zero_denominator_error_msg(IS_UNSIGNED, (uint64_t)number_one.val, (uint64_t)number_two.val);
             return (nc_u16){.val = 0};
         } 
         return (nc_u16){.val = 0};
     }
 
-    int64_t remainder = (int64_t)number_one.val % (int64_t)number_two.val;
+    uint64_t remainder = (uint64_t)number_one.val % (uint64_t)number_two.val;
+    return (nc_u16){.val = (uint16_t)remainder};
+}
+
+/* Checked Must Modulo -> nc_u16 */
+static inline nc_u16 nc_checked_mod_must_u16(nc_u16 number_one, nc_u16 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_UNSIGNED, (uint64_t)number_one.val, (uint64_t)number_two.val);
+            exit(EXIT_FAILURE);
+        } 
+        return (nc_u16){.val = 0};
+    }
+
+    uint64_t remainder = (uint64_t)number_one.val % (uint64_t)number_two.val;
     return (nc_u16){.val = (uint16_t)remainder};
 }
 

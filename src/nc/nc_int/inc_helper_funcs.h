@@ -10,6 +10,7 @@
 #define INC_INT_HELPER_FUNCS_H
 
 #include <stdint.h>
+#include <stdlib.h>
 #include "../nc_log.h"
 #include "nc_int_macros.h"
 
@@ -300,7 +301,7 @@ static inline void inc_check_for_bound_must_errs_i64_mul(__int128_t number, nc_i
 
 static inline nc_u8 inc_check_for_bound_errs_u8(uint64_t number, nc_u8 previous_number_one, nc_u8 previous_number_two) {
     if (check_overflow(number, NC_U8_MAX)) {
-        send_bounds_error_msg(8, IS_UNSIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
+        send_bounds_error_msg(8, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
         return (nc_u8){.val = NC_U8_MAX};
     }
 
@@ -309,7 +310,39 @@ static inline nc_u8 inc_check_for_bound_errs_u8(uint64_t number, nc_u8 previous_
 
 static inline void inc_check_for_bound_must_errs_u8(uint64_t number, nc_u8 previous_number_one, nc_u8 previous_number_two) {
     if (check_overflow(number, NC_U8_MAX)) {
-        send_bounds_must_error_msg(8, IS_UNSIGNED, (int64_t)previous_number_one.val, (int64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
+        send_bounds_must_error_msg(8, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U8_MAX);
+        exit(EXIT_FAILURE);
+    }
+}
+
+static inline nc_u16 inc_check_for_bound_errs_u16(uint64_t number, nc_u16 previous_number_one, nc_u16 previous_number_two) {
+    if (check_overflow(number, NC_U16_MAX)) {
+        send_bounds_error_msg(16, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
+        return (nc_u16){.val = (uint16_t)NC_U16_MAX};  
+    }
+
+    return (nc_u16){.val = (uint16_t)number};
+}
+
+static inline void inc_check_for_bound_must_errs_u16(uint16_t number, nc_u16 previous_number_one, nc_u16 previous_number_two) {
+    if (check_overflow(number, NC_U16_MAX)) {
+        send_bounds_must_error_msg(16, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U16_MAX);
+        exit(EXIT_FAILURE);
+    }
+}
+
+static inline nc_u32 inc_check_for_bound_errs_u32(uint64_t number, nc_u32 previous_number_one, nc_u32 previous_number_two) {
+    if (check_overflow(number, NC_U32_MAX)) {
+        send_bounds_error_msg(32, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U32_MAX);
+        return (nc_u32){.val = (uint32_t)NC_U32_MAX};
+    }
+
+    return (nc_u32){.val = (uint32_t)number};
+}
+
+static inline void inc_check_for_bound_must_errs_u32(uint64_t number, nc_u32 previous_number_one, nc_u32 previous_number_two) {
+    if (check_overflow(number, NC_U32_MAX)) {
+        send_bounds_must_error_msg(32, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U32_MAX);
         exit(EXIT_FAILURE);
     }
 }
