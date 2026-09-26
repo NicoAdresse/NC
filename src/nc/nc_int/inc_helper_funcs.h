@@ -347,4 +347,20 @@ static inline void inc_check_for_bound_must_errs_u32(uint64_t number, nc_u32 pre
     }
 }
 
+static inline nc_u64 inc_check_for_bound_errs_u64(__uint128_t number, nc_u64 previous_number_one, nc_u64 previous_number_two) {
+    if (check_overflow(number, NC_U64_MAX)) {
+        send_bounds_error_msg(64, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U64_MAX);
+        return (nc_u64){.val = NC_U64_MAX};
+    }
+
+    return (nc_u64){.val = (uint64_t)number};
+}
+
+static inline void inc_check_for_bound_must_errs_u64(__uint128_t number, nc_u64 previous_number_one, nc_u64 previous_number_two) {
+    if (check_overflow(number, NC_U64_MAX)) {
+        send_bounds_error_msg(64, IS_UNSIGNED, (uint64_t)previous_number_one.val, (uint64_t)previous_number_two.val, ERROR_OVERFLOW, NC_U64_MAX);
+        exit(EXIT_FAILURE);
+    }
+}
+
 #endif /* INC_INT_HELPER_FUNCS_H */
