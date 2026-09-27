@@ -9,7 +9,7 @@
 #include "../../../src/nc.h"
 
 int main(void) {
-    printf("=== Testing NC Must Operators ===\n\n");
+    nc_println_info("=== Testing NC Must Operators ===\n");
 
     nc_i32 a = nc_new_int((int32_t)10);
     nc_i32 b = nc_new_int((int32_t)5);
