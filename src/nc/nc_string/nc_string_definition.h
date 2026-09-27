@@ -3,7 +3,7 @@
 /*
     SPDX-License-Identifier: MIT
     Copyright (c) 2026 Nico Erdmann
-    nc_string struct definition
+    nc_string struct definition.
 */
 
 #ifndef NC_STRING_DEFINITION_H
