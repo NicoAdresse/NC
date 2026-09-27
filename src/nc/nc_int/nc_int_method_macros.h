@@ -32,91 +32,91 @@
 #include "nc_ptr_u64/nc_ptr_u64.h"
 
 #define nc_get_val_int(x) _Generic((x), \
-    nc_i8: nc_get_val_i8, \
-    nc_u8: nc_get_val_u8,  \
-    nc_i16: nc_get_val_i16, \
-    nc_u16: nc_get_val_u16, \
-    nc_i32: nc_get_val_i32, \
-    nc_u32: nc_get_val_u32, \
-    nc_i64: nc_get_val_i64, \
-    nc_u64: nc_get_val_u64, \
-    nc_ptr_i8: nc_get_val_ptr_i8, \
-    nc_ptr_u8: nc_get_val_ptr_u8, \
+    nc_i8:      nc_get_val_i8, \
+    nc_u8:      nc_get_val_u8,  \
+    nc_i16:     nc_get_val_i16, \
+    nc_u16:     nc_get_val_u16, \
+    nc_i32:     nc_get_val_i32, \
+    nc_u32:     nc_get_val_u32, \
+    nc_i64:     nc_get_val_i64, \
+    nc_u64:     nc_get_val_u64, \
+    nc_ptr_i8:  nc_get_val_ptr_i8, \
+    nc_ptr_u8:  nc_get_val_ptr_u8, \
     nc_ptr_i16: nc_get_val_ptr_i16, \
     nc_ptr_u16: nc_get_val_ptr_u16, \
     nc_ptr_i32: nc_get_val_ptr_i32, \
     nc_ptr_u32: nc_get_val_ptr_u32, \
     nc_ptr_i64: nc_get_val_ptr_i64, \
     nc_ptr_u64: nc_get_val_ptr_u64, \
-    default: nc_get_val_i32 \
+    default:    nc_get_val_i32 \
 )(x)
 
 #define nc_get_size_int(x) _Generic((x), \
-    nc_i8:  nc_get_size_i8(), \
-    nc_u8:  nc_get_size_u8(), \
-    nc_i16: nc_get_size_i16(), \
-    nc_u16: nc_get_size_u16(), \
-    nc_i32: nc_get_size_i32(), \
-    nc_u32: nc_get_size_u32(), \
-    nc_i64: nc_get_size_i64(), \
-    nc_u64: nc_get_size_u64(), \
-    nc_ptr_i8: nc_get_size_ptr_i8(), \
-    nc_ptr_u8: nc_get_size_ptr_u8(), \
+    nc_i8:      nc_get_size_i8(), \
+    nc_u8:      nc_get_size_u8(), \
+    nc_i16:     nc_get_size_i16(), \
+    nc_u16:     nc_get_size_u16(), \
+    nc_i32:     nc_get_size_i32(), \
+    nc_u32:     nc_get_size_u32(), \
+    nc_i64:     nc_get_size_i64(), \
+    nc_u64:     nc_get_size_u64(), \
+    nc_ptr_i8:  nc_get_size_ptr_i8(), \
+    nc_ptr_u8:  nc_get_size_ptr_u8(), \
     nc_ptr_i16: nc_get_size_ptr_i16(), \
     nc_ptr_u16: nc_get_size_ptr_u16(), \
     nc_ptr_i32: nc_get_size_ptr_i32(), \
     nc_ptr_u32: nc_get_size_ptr_u32(), \
     nc_ptr_i64: nc_get_size_ptr_i64(), \
     nc_ptr_u64: nc_get_size_ptr_u64(), \
-    default: nc_get_size_i32() \
+    default:    nc_get_size_i32() \
 )
 
 #define nc_new_int(val) _Generic((val), \
-    int8_t:    nc_new_i8, \
-    uint8_t:   nc_new_u8, \
-    int16_t:   nc_new_i16, \
-    uint16_t:  nc_new_u16, \
-    int32_t:   nc_new_i32, \
-    uint32_t:  nc_new_u32, \
-    int64_t:   nc_new_i64, \
-    uint64_t:  nc_new_u64, \
-    default: nc_new_i32 \
+    int8_t:     nc_new_i8, \
+    uint8_t:    nc_new_u8, \
+    int16_t:    nc_new_i16, \
+    uint16_t:   nc_new_u16, \
+    int32_t:    nc_new_i32, \
+    uint32_t:   nc_new_u32, \
+    int64_t:    nc_new_i64, \
+    uint64_t:   nc_new_u64, \
+    default:    nc_new_i32 \
 )(val)
 
 #define nc_new_must_int(val) _Generic((val), \
-    int8_t: nc_new_must_i8, \
-    uint8_t: nc_new_must_u8, \
-    int16_t: nc_new_must_i16, \
-    uint16_t: nc_new_must_u16, \
-    int32_t: nc_new_must_i32, \
-    uint32_t: nc_new_must_u32, \
-    int64_t: nc_new_must_i64, \
-    uint64_t: nc_new_must_u64, \
-    default: nc_new_must_i32 \
+    int8_t:     nc_new_must_i8, \
+    uint8_t:    nc_new_must_u8, \
+    int16_t:    nc_new_must_i16, \
+    uint16_t:   nc_new_must_u16, \
+    int32_t:    nc_new_must_i32, \
+    uint32_t:   nc_new_must_u32, \
+    int64_t:    nc_new_must_i64, \
+    uint64_t:   nc_new_must_u64, \
+    default:    nc_new_must_i32 \
 )(val)
 
 #define nc_new_ptr_int(val) _Generic((val), \
-    nc_ptr_i8:    nc_new_ptr_i8, \
+    nc_ptr_i8:   nc_new_ptr_i8, \
     nc_ptr_u8:   nc_new_ptr_u8, \
-    nc_ptr_i16:   nc_new_ptr_i16, \
+    nc_ptr_i16:  nc_new_ptr_i16, \
     nc_ptr_u16:  nc_new_ptr_u16, \
-    nc_ptr_i32:   nc_new_ptr_i32, \
+    nc_ptr_i32:  nc_new_ptr_i32, \
     nc_ptr_u32:  nc_new_ptr_u32, \
-    nc_ptr_i64:   nc_new_ptr_i64, \
+    nc_ptr_i64:  nc_new_ptr_i64, \
     nc_ptr_u64:  nc_new_ptr_u64, \
-    default: nc_new_ptr_i32 \
+    default:     nc_new_ptr_i32 \
 )(val)
 
 #define nc_new_must_ptr_int(val) _Generic((val), \
-    nc_ptr_i8:    nc_new_must_ptr_i8, \
-    nc_ptr_u8:   nc_new_must_ptr_u8, \
-    nc_ptr_i16:   nc_new_must_ptr_i16, \
-    nc_ptr_u16:  nc_new_must_ptr_u16, \
-    nc_ptr_i32:   nc_new_must_ptr_i32, \
-    nc_ptr_u32:  nc_new_must_ptr_u32, \
-    nc_ptr_i64:   nc_new_must_ptr_i64, \
-    nc_ptr_u64:  nc_new_must_ptr_u64, \
-    default: nc_new_must_ptr_i32 \
+    nc_ptr_i8:      nc_new_must_ptr_i8, \
+    nc_ptr_u8:      nc_new_must_ptr_u8, \
+    nc_ptr_i16:     nc_new_must_ptr_i16, \
+    nc_ptr_u16:     nc_new_must_ptr_u16, \
+    nc_ptr_i32:     nc_new_must_ptr_i32, \
+    nc_ptr_u32:     nc_new_must_ptr_u32, \
+    nc_ptr_i64:     nc_new_must_ptr_i64, \
+    nc_ptr_u64:     nc_new_must_ptr_u64, \
+    default:        nc_new_must_ptr_i32 \
 )(val)
 
 #define nc_free_int(ptr) _Generic((ptr), \
@@ -223,123 +223,183 @@
 )(val)
 
 #define nc_checked_add_int(n1, n2) _Generic((n1), \
-    nc_i8: nc_checked_add_i8, \
-    nc_u8: nc_checked_add_u8, \
-    nc_i16: nc_checked_add_i16, \
-    nc_u16: nc_checked_add_u16, \
-    nc_i32: nc_checked_add_i32, \
-    nc_u32: nc_checked_add_u32, \
-    nc_i64: nc_checked_add_i64, \
-    nc_u64: nc_checked_add_u64, \
-    nc_ptr_i8: nc_checked_add_ptr_i8, \
-    nc_ptr_u8: nc_checked_add_ptr_u8, \
+    nc_i8:      nc_checked_add_i8, \
+    nc_u8:      nc_checked_add_u8, \
+    nc_i16:     nc_checked_add_i16, \
+    nc_u16:     nc_checked_add_u16, \
+    nc_i32:     nc_checked_add_i32, \
+    nc_u32:     nc_checked_add_u32, \
+    nc_i64:     nc_checked_add_i64, \
+    nc_u64:     nc_checked_add_u64, \
+    nc_ptr_i8:  nc_checked_add_ptr_i8, \
+    nc_ptr_u8:  nc_checked_add_ptr_u8, \
     nc_ptr_i16: nc_checked_add_ptr_i16, \
     nc_ptr_u16: nc_checked_add_ptr_u16, \
     nc_ptr_i32: nc_checked_add_ptr_i32, \
     nc_ptr_u32: nc_checked_add_ptr_u32, \
     nc_ptr_i64: nc_checked_add_ptr_i64, \
     nc_ptr_u64: nc_checked_add_ptr_u64, \
-    default: nc_checked_add_i32 \
+    default:    nc_checked_add_i32 \
+)((n1), (n2))
+
+#define nc_checked_add_must_int(n1, n2) _Generic((n1), \
+    nc_i8:      nc_checked_add_must_i8, \
+    nc_u8:      nc_checked_add_must_u8, \
+    nc_i16:     nc_checked_add_must_i16, \
+    nc_u16:     nc_checked_add_must_u16, \
+    nc_i32:     nc_checked_add_must_i32, \
+    nc_u32:     nc_checked_add_must_u32, \
+    nc_i64:     nc_checked_add_must_i64, \
+    nc_u64:     nc_checked_add_must_u64, \
+    default:    nc_checked_add_i32 \
 )((n1), (n2))
 
 #define nc_checked_sub_int(n1, n2) _Generic((n1), \
-    nc_i8: nc_checked_sub_i8, \
-    nc_u8: nc_checked_sub_u8, \
-    nc_i16: nc_checked_sub_i16, \
-    nc_u16: nc_checked_sub_u16, \
-    nc_i32: nc_checked_sub_i32, \
-    nc_u32: nc_checked_sub_u32, \
-    nc_i64: nc_checked_sub_i64, \
-    nc_u64: nc_checked_sub_u64, \
-    nc_ptr_i8: nc_checked_sub_ptr_i8, \
-    nc_ptr_u8: nc_checked_sub_ptr_u8, \
+    nc_i8:      nc_checked_sub_i8, \
+    nc_u8:      nc_checked_sub_u8, \
+    nc_i16:     nc_checked_sub_i16, \
+    nc_u16:     nc_checked_sub_u16, \
+    nc_i32:     nc_checked_sub_i32, \
+    nc_u32:     nc_checked_sub_u32, \
+    nc_i64:     nc_checked_sub_i64, \
+    nc_u64:     nc_checked_sub_u64, \
+    nc_ptr_i8:  nc_checked_sub_ptr_i8, \
+    nc_ptr_u8:  nc_checked_sub_ptr_u8, \
     nc_ptr_i16: nc_checked_sub_ptr_i16, \
     nc_ptr_u16: nc_checked_sub_ptr_u16, \
     nc_ptr_i32: nc_checked_sub_ptr_i32, \
     nc_ptr_u32: nc_checked_sub_ptr_u32, \
     nc_ptr_i64: nc_checked_sub_ptr_i64, \
     nc_ptr_u64: nc_checked_sub_ptr_u64, \
-    default: nc_checked_sub_i32 \
+    default:    nc_checked_sub_i32 \
+)((n1), (n2))
+
+#define nc_checked_sub_must_int(n1, n2) _Generic((n1), \
+    nc_i8:      nc_checked_sub_must_i8, \
+    nc_u8:      nc_checked_sub_must_u8, \
+    nc_i16:     nc_checked_sub_must_i16, \
+    nc_u16:     nc_checked_sub_must_u16, \
+    nc_i32:     nc_checked_sub_must_i32, \
+    nc_u32:     nc_checked_sub_must_u32, \
+    nc_i64:     nc_checked_sub_must_i64, \
+    nc_u64:     nc_checked_sub_must_u64, \
+    default:    nc_checked_sub_must_i32 \
 )((n1), (n2))
 
 #define nc_checked_mul_int(n1, n2) _Generic((n1), \
-    nc_i8: nc_checked_mul_i8, \
-    nc_u8: nc_checked_mul_u8, \
-    nc_i16: nc_checked_mul_i16, \
-    nc_u16: nc_checked_mul_u16, \
-    nc_i32: nc_checked_mul_i32, \
-    nc_u32: nc_checked_mul_u32, \
-    nc_i64: nc_checked_mul_i64, \
-    nc_u64: nc_checked_mul_u64, \
-    nc_ptr_i8: nc_checked_mul_ptr_i8, \
-    nc_ptr_u8: nc_checked_mul_ptr_u8, \
+    nc_i8:      nc_checked_mul_i8, \
+    nc_u8:      nc_checked_mul_u8, \
+    nc_i16:     nc_checked_mul_i16, \
+    nc_u16:     nc_checked_mul_u16, \
+    nc_i32:     nc_checked_mul_i32, \
+    nc_u32:     nc_checked_mul_u32, \
+    nc_i64:     nc_checked_mul_i64, \
+    nc_u64:     nc_checked_mul_u64, \
+    nc_ptr_i8:  nc_checked_mul_ptr_i8, \
+    nc_ptr_u8:  nc_checked_mul_ptr_u8, \
     nc_ptr_i16: nc_checked_mul_ptr_i16, \
     nc_ptr_u16: nc_checked_mul_ptr_u16, \
     nc_ptr_i32: nc_checked_mul_ptr_i32, \
     nc_ptr_u32: nc_checked_mul_ptr_u32, \
     nc_ptr_i64: nc_checked_mul_ptr_i64, \
     nc_ptr_u64: nc_checked_mul_ptr_u64, \
-    default: nc_checked_mul_i32 \
+    default:    nc_checked_mul_i32 \
+)((n1), (n2))
+
+#define nc_checked_mul_must_int(n1, n2) _Generic((n1), \
+    nc_i8:      nc_checked_mul_must_i8, \
+    nc_u8:      nc_checked_mul_must_u8, \
+    nc_i16:     nc_checked_mul_must_i16, \
+    nc_u16:     nc_checked_mul_must_u16, \
+    nc_i32:     nc_checked_mul_must_i32, \
+    nc_u32:     nc_checked_mul_must_u32, \
+    nc_i64:     nc_checked_mul_must_i64, \
+    nc_u64:     nc_checked_mul_must_u64, \
+    default:    nc_checked_mul_must_i32 \
 )((n1), (n2))
 
 #define nc_checked_div_int(n1, n2, is_zero_division_allowed) _Generic((n1), \
-    nc_i8: nc_checked_div_i8, \
-    nc_u8: nc_checked_div_u8, \
-    nc_i16: nc_checked_div_i16, \
-    nc_u16: nc_checked_div_u16, \
-    nc_i32: nc_checked_div_i32, \
-    nc_u32: nc_checked_div_u32, \
-    nc_i64: nc_checked_div_i64, \
-    nc_u64: nc_checked_div_u64, \
-    nc_ptr_i8: nc_checked_div_ptr_i8, \
-    nc_ptr_u8: nc_checked_div_ptr_u8, \
+    nc_i8:      nc_checked_div_i8, \
+    nc_u8:      nc_checked_div_u8, \
+    nc_i16:     nc_checked_div_i16, \
+    nc_u16:     nc_checked_div_u16, \
+    nc_i32:     nc_checked_div_i32, \
+    nc_u32:     nc_checked_div_u32, \
+    nc_i64:     nc_checked_div_i64, \
+    nc_u64:     nc_checked_div_u64, \
+    nc_ptr_i8:  nc_checked_div_ptr_i8, \
+    nc_ptr_u8:  nc_checked_div_ptr_u8, \
     nc_ptr_i16: nc_checked_div_ptr_i16, \
     nc_ptr_u16: nc_checked_div_ptr_u16, \
     nc_ptr_i32: nc_checked_div_ptr_i32, \
     nc_ptr_u32: nc_checked_div_ptr_u32, \
     nc_ptr_i64: nc_checked_div_ptr_i64, \
     nc_ptr_u64: nc_checked_div_ptr_u64, \
-    default: nc_checked_div_i32 \
+    default:    nc_checked_div_i32 \
+)((n1), (n2), (is_zero_division_allowed))
+
+#define nc_checked_div_must_int(n1, n2, is_zero_division_allowed) _Generic((n1), \
+    nc_i8:      nc_checked_div_must_i8, \
+    nc_u8:      nc_checked_div_must_u8, \
+    nc_i16:     nc_checked_div_must_i16, \
+    nc_u16:     nc_checked_div_must_u16, \
+    nc_i32:     nc_checked_div_must_i32, \
+    nc_u32:     nc_checked_div_must_u32, \
+    nc_i64:     nc_checked_div_must_i64, \
+    nc_u64:     nc_checked_div_must_u64, \
+    default:    nc_checked_div_must_i32 \
 )((n1), (n2), (is_zero_division_allowed))
 
 #define nc_signum_int(n1) _Generic((n1), \
-    nc_i8: nc_signum_i8, \
-    nc_i16: nc_signum_i16, \
-    nc_i32: nc_signum_i32, \
-    nc_i64: nc_signum_i64, \
-    nc_u8: nc_signum_u8, \
-    nc_u16: nc_signum_u16, \
-    nc_u32: nc_signum_u32, \
-    nc_u64: nc_signum_u64, \
-    nc_ptr_i8: nc_signum_ptr_i8, \
+    nc_i8:      nc_signum_i8, \
+    nc_i16:     nc_signum_i16, \
+    nc_i32:     nc_signum_i32, \
+    nc_i64:     nc_signum_i64, \
+    nc_u8:      nc_signum_u8, \
+    nc_u16:     nc_signum_u16, \
+    nc_u32:     nc_signum_u32, \
+    nc_u64:     nc_signum_u64, \
+    nc_ptr_i8:  nc_signum_ptr_i8, \
     nc_ptr_i16: nc_signum_ptr_i16, \
     nc_ptr_i32: nc_signum_ptr_i32, \
     nc_ptr_i64: nc_signum_ptr_i64, \
-    nc_ptr_u8: nc_signum_ptr_u8, \
+    nc_ptr_u8:  nc_signum_ptr_u8, \
     nc_ptr_u16: nc_signum_ptr_u16, \
     nc_ptr_u32: nc_signum_ptr_u32, \
     nc_ptr_u64: nc_signum_ptr_u64, \
-    default: nc_signum_i32 \
+    default:    nc_signum_i32 \
 )((n1))
 
 #define nc_checked_mod_int(n1, n2, is_zero_division_allowed) _Generic((n1),  \
-    nc_i8: nc_checked_mod_i8, \
-    nc_i16: nc_checked_mod_i16, \
-    nc_i32: nc_checked_mod_i32, \
-    nc_i64: nc_checked_mod_i64, \
-    nc_u8: nc_checked_mod_u8, \
-    nc_u16: nc_checked_mod_u16, \
-    nc_u32: nc_checked_mod_u32, \
-    nc_u64: nc_checked_mod_u64, \
-    nc_ptr_i8: nc_checked_mod_ptr_i8, \
-    nc_ptr_u8: nc_checked_mod_ptr_u8, \
-    nc_ptr_i16: nc_checked_mod_ptr_i16, \
-    nc_ptr_u16: nc_checked_mod_ptr_u16, \
-    nc_ptr_i32: nc_checked_mod_ptr_i32, \
-    nc_ptr_u32: nc_checked_mod_ptr_u32, \
-    nc_ptr_i64: nc_checked_mod_ptr_i64, \
-    nc_ptr_u64: nc_checked_mod_ptr_u64, \
-    default: nc_checked_mod_i32 \
+    nc_i8:          nc_checked_mod_i8, \
+    nc_i16:         nc_checked_mod_i16, \
+    nc_i32:         nc_checked_mod_i32, \
+    nc_i64:         nc_checked_mod_i64, \
+    nc_u8:          nc_checked_mod_u8, \
+    nc_u16:         nc_checked_mod_u16, \
+    nc_u32:         nc_checked_mod_u32, \
+    nc_u64:         nc_checked_mod_u64, \
+    nc_ptr_i8:      nc_checked_mod_ptr_i8, \
+    nc_ptr_u8:      nc_checked_mod_ptr_u8, \
+    nc_ptr_i16:     nc_checked_mod_ptr_i16, \
+    nc_ptr_u16:     nc_checked_mod_ptr_u16, \
+    nc_ptr_i32:     nc_checked_mod_ptr_i32, \
+    nc_ptr_u32:     nc_checked_mod_ptr_u32, \
+    nc_ptr_i64:     nc_checked_mod_ptr_i64, \
+    nc_ptr_u64:     nc_checked_mod_ptr_u64, \
+    default:        nc_checked_mod_i32 \
+)((n1), (n2), (is_zero_division_allowed))
+
+#define nc_checked_mod_must_int(n1, n2, is_zero_division_allowed) _Generic((n1), \
+    nc_i8:      nc_checked_mod_must_i8, \
+    nc_u8:      nc_checked_mod_must_u8, \
+    nc_i16:     nc_checked_mod_must_i16, \
+    nc_u16:     nc_checked_mod_must_u16, \
+    nc_i32:     nc_checked_mod_must_i32, \
+    nc_u32:     nc_checked_mod_must_u32, \
+    nc_i64:     nc_checked_mod_must_i64, \
+    nc_u64:     nc_checked_mod_must_u64, \
+    default:    nc_checked_mod_must_i32 \
 )((n1), (n2), (is_zero_division_allowed))
 
 #endif /* NC_INT_METHOD_MACROS_H */
