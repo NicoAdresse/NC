@@ -3,7 +3,7 @@
 /*
     SPDX-License-Identifier: MIT
     Copyright (c) 2026 Nico Erdmann
-    nc_string constructor.
+    nc_string constructors.
 */
 
 #ifndef NC_STRING_CONSTRUCTOR_H
