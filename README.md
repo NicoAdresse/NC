@@ -22,7 +22,7 @@ git clone https://github.com/NicoAdresse/NC.git
 
 2. **Enjoy + Advice**
 
-This project is still in version **0.0.1.** Do not add it in `usr/include`. Play around with it in the `tests` directory.
+This project is still in version **0.0.2.** Do not add it in `usr/include`. Play around with it in the `tests` directory.
 
 This is a header-only library with **zero dependencies**.
 
