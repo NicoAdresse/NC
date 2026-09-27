@@ -1,7 +1,7 @@
 # About NC <->
 NC (Has no meaning), also referred to as 'nc-lib', is a modern C library designed to bring modern programming concepts to C, focusing on safety, predictability, and developer ergonomics.
 
-**Current Version:** *0.0.1* (Work In Progress)
+**Current Version:** *0.0.2* (Work In Progress)
 
 ***DISCLAIMER: NC does not guarantee absolute memory safety or thread safety.***
 
