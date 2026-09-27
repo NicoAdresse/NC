@@ -14,8 +14,12 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /workspace
 COPY . .
 
+SHELL ["/bin/bash", "-c"]
+
 RUN mkdir -p build && cd build \
     && cmake .. \
     && cmake --build .
 
-RUN bash -c 'shopt -s globstar; chmod +x ./TEST.sh; for test in tests/**/*.c; do ./TEST.sh "$test" || exit 1; done'
+RUN shopt -s globstar \
+    && chmod +x ./TEST.sh \
+    && for test in tests/**/*.c; do ./TEST.sh "$test" || exit 1; done
