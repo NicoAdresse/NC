@@ -5,7 +5,7 @@ This document is meant to show you, how an ***'basic example'*** (or multiple ex
 ### Printing To The Console
 ```c
 int main(void) {
-    nc_println("Hello, World!");
+    nc_println_debug("Hello, World!");
     /* nc_printlns definition can be found in src/nc/nc_log/nc_print_stmts.h. */
 }
 ```
