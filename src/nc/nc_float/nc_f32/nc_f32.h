@@ -22,7 +22,7 @@ static inline nc_f32 nc_checked_add_f32(nc_f32 number_one, nc_f32 number_two) {
 }
 
 /* Checked Must Addition -> nc_f32 */
-static inline nc_f32 nc_checked_must_add_f32(nc_f32 number_one, nc_f32 number_two) {
+static inline nc_f32 nc_checked_add_must_f32(nc_f32 number_one, nc_f32 number_two) {
     float sum = number_one.val + number_two.val;
     inc_check_for_errs_must_f32(sum, number_one, number_two);
     return (nc_f32){.val = sum};
