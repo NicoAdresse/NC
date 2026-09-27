@@ -10,6 +10,9 @@
 #define INC_FLOAT_HELPER_FUNCS_H
 
 #include "../nc_log.h"
+#include "nc_float_primitives.h"
+
+#include <math.h>
 
 typedef enum {
     ERROR_ISNAN,
@@ -72,6 +75,78 @@ static inline void send_float_zero_denominator_error_msg(
         numerator,
         denominator
     );
+}
+
+static inline nc_f32 inc_check_for_errs_f32(float number, nc_f32 previous_number_one, nc_f32 previous_number_two) {
+    if (isnan(previous_number_one.val) || isnan(previous_number_two.val)) {
+        send_float_error(32, ERROR_ISNAN, (double)previous_number_one.val, (double)previous_number_two.val);
+        return (nc_f32){.val = 0.0};
+    }
+
+    if (isinf(previous_number_one.val) || isinf(previous_number_two.val)) {
+        send_float_error(32, ERROR_ISINF, (double)previous_number_one.val, (double)previous_number_two.val);
+        return (nc_f32){.val = 0.0};
+    }
+
+    if (isinf(number)) {
+        send_float_error_overflow(32, (double)number);
+        return (nc_f32){.val = 0.0};
+    }
+
+    return (nc_f32){.val = number};
+}
+
+static inline void inc_check_for_errs_must_f32(float number, nc_f32 previous_number_one, nc_f32 previous_number_two) {
+    if (isnan(previous_number_one.val) || isnan(previous_number_two.val)) {
+        send_float_error_must_constructor(32, ERROR_ISNAN, (double)previous_number_one.val);
+        exit(EXIT_FAILURE);
+    }
+
+    if (isinf(previous_number_one.val) || isinf(previous_number_two.val)) {
+        send_float_error_must_constructor(32, ERROR_ISINF, (double)previous_number_one.val);
+        exit(EXIT_FAILURE);
+    }
+
+    if (isinf(number)) {
+        send_float_error_overflow(32, (double)number);
+        exit(EXIT_FAILURE);
+    }
+}
+
+static inline nc_f64 inc_check_for_errs_f64(double number, nc_f64 previous_number_one, nc_f64 previous_number_two) {
+    if (isnan(previous_number_one.val) || isnan(previous_number_two.val)) {
+        send_float_error(64, ERROR_ISNAN, previous_number_one.val, previous_number_two.val);
+        return (nc_f64){.val = 0.0};
+    }
+
+    if (isinf(previous_number_one.val) || isinf(previous_number_two.val)) {
+        send_float_error(64, ERROR_ISINF, previous_number_one.val, previous_number_two.val);
+        return (nc_f64){.val = 0.0};
+    }
+
+    if (isinf(number)) {
+        send_float_error_overflow(64, number);
+        return (nc_f64){.val = 0.0};
+    }
+
+    return (nc_f64){.val = number};
+}
+
+static inline void inc_check_for_errs_must_f64(double number, nc_f64 previous_number_one, nc_f64 previous_number_two) {
+    if (isnan(previous_number_one.val) || isnan(previous_number_two.val)) {
+        send_float_error_must_constructor(64, ERROR_ISNAN, previous_number_one.val);
+        exit(EXIT_FAILURE);
+    }
+
+    if (isinf(previous_number_one.val) || isinf(previous_number_two.val)) {
+        send_float_error_must_constructor(64, ERROR_ISINF, previous_number_one.val);
+        exit(EXIT_FAILURE);
+    }
+
+    if (isinf(number)) {
+        send_float_error_overflow(64, number);
+        exit(EXIT_FAILURE);
+    }
 }
 
 #endif /* INC_FLOAT_HELPER_FUNCS_H */

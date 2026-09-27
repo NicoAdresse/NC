@@ -125,6 +125,8 @@ NC
 │   │   │   └── test_nc_convert.c
 │   │   ├── macros
 │   │   │   └── test_nc_macros.c
+│   │   ├── must_operators
+│   │   │   └── test_must_operators.c
 │   │   ├── signed
 │   │   │   ├── nc_i16
 │   │   │   │   └── test_nc_i16.c

@@ -51,51 +51,39 @@ static inline nc_i8 nc_uint64_t_convert_to_i8(uint64_t val) { return nc_new_i8((
 /* Checked Addition -> nc_i8 */
 static inline nc_i8 nc_checked_add_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i8(sum, number_one, number_two);
+}
 
-    if (check_overflow(sum, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(sum, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
+/* Checked Must Addition -> nc_i8 */
+static inline nc_i8 nc_checked_add_must_i8(nc_i8 number_one, nc_i8 number_two) {
+    int64_t sum = (int64_t)number_one.val + (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i8(sum, number_one, number_two);
     return (nc_i8){.val = (int8_t)sum};
 }
 
 /* Checked Subtraction -> nc_i8 */
 static inline nc_i8 nc_checked_sub_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i8(diff, number_one, number_two);
+}
 
-    if (check_overflow(diff, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(diff, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
+/* Checked Must Subtraction -> nc_i8 */
+static inline nc_i8 nc_checked_sub_must_i8(nc_i8 number_one, nc_i8 number_two) {
+    int64_t diff = (int64_t)number_one.val - (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i8(diff, number_one, number_two);
     return (nc_i8){.val = (int8_t)diff};
 }
 
 /* Checked Multiplication -> nc_i8 */
 static inline nc_i8 nc_checked_mul_i8(nc_i8 number_one, nc_i8 number_two) {
     int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i8(product, number_one, number_two);
+}
 
-    if (check_overflow(product, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
-    }
-
-    if (check_underflow(product, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
+/* Checked Must Multiplication -> nc_i8 */
+static inline nc_i8 nc_checked_mul_must_i8(nc_i8 number_one, nc_i8 number_two) {
+    int64_t product = (int64_t)number_one.val * (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i8(product, number_one, number_two);
     return (nc_i8){.val = (int8_t)product};
 }
 
@@ -110,17 +98,21 @@ static inline nc_i8 nc_checked_div_i8(nc_i8 number_one, nc_i8 number_two, int is
     }
 
     int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
+    return inc_check_for_bound_errs_i8(quotient, number_one, number_two);
+}
 
-    if (check_overflow(quotient, NC_I8_MAX)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_OVERFLOW, NC_I8_MAX);
-        return (nc_i8){.val = (int8_t)NC_I8_MAX};
+/* Checked Must Division -> nc_i8 */
+static inline nc_i8 nc_checked_div_must_i8(nc_i8 number_one, nc_i8 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            exit(EXIT_FAILURE);
+        }
+        return (nc_i8){.val = 0};
     }
 
-    if (check_underflow(quotient, NC_I8_MIN)) {
-        send_bounds_error_msg(8, IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val, ERROR_UNDERFLOW, NC_I8_MIN);
-        return (nc_i8){.val = (int8_t)NC_I8_MIN};
-    }
-
+    int64_t quotient = (int64_t)number_one.val / (int64_t)number_two.val;
+    inc_check_for_bound_must_errs_i8(quotient, number_one, number_two);
     return (nc_i8){.val = (int8_t)quotient};
 }
 
@@ -130,6 +122,20 @@ static inline nc_i8 nc_checked_mod_i8(nc_i8 number_one, nc_i8 number_two, int is
         if (!is_zero_denominator_allowed) {
             send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
             return (nc_i8){.val = 0};
+        }
+        return (nc_i8){.val = 0};
+    }
+
+    int64_t remainder = (int64_t)number_one.val % (int64_t)number_two.val;
+    return (nc_i8){.val = (int8_t)remainder};
+}
+
+/* Checked Must Modulo -> nc_i8 */
+static inline nc_i8 nc_checked_mod_must_i8(nc_i8 number_one, nc_i8 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_SIGNED, (int64_t)number_one.val, (int64_t)number_two.val);
+            exit(EXIT_FAILURE);
         }
         return (nc_i8){.val = 0};
     }

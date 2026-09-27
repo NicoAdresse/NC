@@ -19,49 +19,70 @@
 
 /* Checked Addition -> nc_u64 */
 static inline nc_u64 nc_checked_add_u64(nc_u64 number_one, nc_u64 number_two) {
-    uint64_t sum = number_one.val + number_two.val;
+    __uint128_t sum = (__uint128_t)number_one.val + (__uint128_t)number_two.val;
+    return inc_check_for_bound_errs_u64(sum, number_one, number_two);
+}
 
-    if (sum < number_one.val) {
-        send_constructor_error_msg(64, IS_UNSIGNED, ERROR_OVERFLOW, sum, NC_U64_MAX);
-        return (nc_u64){.val = (uint64_t)NC_U64_MAX};
-    }
-
-    return (nc_u64){.val = sum};
+/* Checked Must Addition -> nc_u64 */
+static inline nc_u64 nc_checked_add_must_u64(nc_u64 number_one, nc_u64 number_two) {
+    __uint128_t sum = (__uint128_t)number_one.val + (__uint128_t)number_two.val;
+    inc_check_for_bound_must_errs_u64(sum, number_one, number_two);
+    return (nc_u64){.val = (uint64_t)sum};
 }
 
 /* Checked Subtraction -> nc_u64 */
 static inline nc_u64 nc_checked_sub_u64(nc_u64 number_one, nc_u64 number_two) {
-    if (number_two.val > number_one.val) {
-        send_bounds_error_msg(64, IS_UNSIGNED, number_one.val, number_two.val, ERROR_UNDERFLOW, NC_UNSIGNED_MIN);
-        return (nc_u64){.val = (uint64_t)NC_UNSIGNED_MIN};
-    }
+    __uint128_t diff = (__uint128_t)number_one.val - (__uint128_t)number_two.val;
+    return inc_check_for_bound_errs_u64(diff, number_one, number_two);
+}
 
-    uint64_t diff = number_one.val - number_two.val;
-    return (nc_u64){.val = diff};
+/* Checked Must Subtraction -> nc_u64 */
+static inline nc_u64 nc_checked_sub_must_u64(nc_u64 number_one, nc_u64 number_two) {
+    __uint128_t diff = (__uint128_t)number_one.val - (__uint128_t)number_two.val;
+    inc_check_for_bound_must_errs_u64(diff, number_one, number_two);
+    return (nc_u64){.val = (uint64_t)diff};
 }
 
 /* Checked Multiplication -> nc_u64 */
 static inline nc_u64 nc_checked_mul_u64(nc_u64 number_one, nc_u64 number_two) {
-    if (number_one.val != 0 && number_two.val > NC_U64_MAX / number_one.val) {
-        send_bounds_error_msg(64, IS_UNSIGNED, number_one.val, number_two.val, ERROR_OVERFLOW, NC_U64_MAX);
-        return (nc_u64){.val = (uint64_t)NC_U64_MAX};
-    }
+    __uint128_t product = (__uint128_t)number_one.val * (__uint128_t)number_two.val;
+    return inc_check_for_bound_errs_u64(product, number_one, number_two);
+}
 
-    uint64_t product = number_one.val * number_two.val;
-    return (nc_u64){.val = product};
+/* Checked Must Multiplication -> nc_u64 */
+static inline nc_u64 nc_checked_mul_must_u64(nc_u64 number_one, nc_u64 number_two) {
+    __uint128_t product = (__uint128_t)number_one.val * (__uint128_t)number_two.val;
+    inc_check_for_bound_must_errs_u64(product, number_one, number_two);
+    return (nc_u64){.val = (uint64_t)product};
 }
 
 /* Checked Division -> nc_u64 */
 static inline nc_u64 nc_checked_div_u64(nc_u64 number_one, nc_u64 number_two, int is_zero_denominator_allowed) {
     if (number_two.val == 0) {
         if (!is_zero_denominator_allowed) {
-            send_zero_denominator_error_msg(IS_UNSIGNED, number_one.val, number_two.val);
+            send_zero_denominator_error_msg(IS_UNSIGNED, (uint64_t)number_one.val, (uint64_t)number_two.val);
+            return (nc_u64){.val = 0};
         }
         return (nc_u64){.val = 0};
     }
 
-    uint64_t quotient = number_one.val / number_two.val;
-    return (nc_u64){.val = quotient};
+    __uint128_t quotient = (__uint128_t)number_one.val / (__uint128_t)number_two.val;
+    return inc_check_for_bound_errs_u64(quotient, number_one, number_two);
+}
+
+/* Checked Must Division -> nc_u64 */
+static inline nc_u64 nc_checked_div_must_u64(nc_u64 number_one, nc_u64 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_UNSIGNED, (uint64_t)number_one.val, (uint64_t)number_two.val);
+            exit(EXIT_FAILURE);
+        }
+        return (nc_u64){.val = 0};
+    }
+
+    __uint128_t quotient = (__uint128_t)number_one.val / (__uint128_t)number_two.val;
+    inc_check_for_bound_must_errs_u64(quotient, number_one, number_two);
+    return (nc_u64){.val = (uint64_t)quotient};
 }
 
 /* Checked Modulo -> nc_u64 */
@@ -74,7 +95,21 @@ static inline nc_u64 nc_checked_mod_u64(nc_u64 number_one, nc_u64 number_two, in
         return (nc_u64){.val = 0};
     }
 
-    uint64_t remainder = (uint64_t)number_one.val % (uint64_t)number_two.val;
+    __uint128_t remainder = (__uint128_t)number_one.val % (__uint128_t)number_two.val;
+    return (nc_u64){.val = (uint64_t)remainder};
+}
+
+/* Checked Must Modulo -> nc_u64 */
+static inline nc_u64 nc_checked_mod_must_u64(nc_u64 number_one, nc_u64 number_two, int is_zero_denominator_allowed) {
+    if (number_two.val == 0) {
+        if (!is_zero_denominator_allowed) {
+            send_zero_denominator_error_msg(IS_UNSIGNED, (uint64_t)number_one.val, (uint64_t)number_two.val);
+            exit(EXIT_FAILURE);
+        } 
+        return (nc_u64){.val = 0};
+    }
+
+    __uint128_t remainder = (__uint128_t)number_one.val % (__uint128_t)number_two.val;
     return (nc_u64){.val = (uint64_t)remainder};
 }
 
