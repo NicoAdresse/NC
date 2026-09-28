@@ -18,18 +18,23 @@
 
 /* Dynamic Resizing */
 static inline void nc_string_resize(nc_string* str, int new_capacity) {
-    if (new_capacity <= str->capacity) {
-        inc_failed_to_resize();
+    if (!str || new_capacity <= 0) {
+        inc_null_must_error();
         exit(EXIT_FAILURE);
     }
 
-    char* temp = (char*)realloc(str->data, new_capacity);
-    if (!temp) {
-        inc_failed_to_allocate_must_memory();
+    char* new_data = (char*)malloc(new_capacity * sizeof(char));
+    if (!new_data) {
+        inc_null_must_error();
         exit(EXIT_FAILURE);
     }
 
-    str->data = temp;
+    if (str->data) {
+        memcpy(new_data, str->data, str->length);
+        free(str->data);
+    }
+
+    str->data = new_data;
     str->capacity = new_capacity;
 }
 
@@ -41,12 +46,13 @@ static inline void nc_string_set(nc_string* str, char* value) {
     }
 
     int value_len = strlen(value);
+
     if (value_len + 1 > str->capacity) {
         nc_string_resize(str, value_len + 50);
     }
 
-    strncpy(str->data, value, str->capacity - 1);
-    str->data[str->capacity - 1] = '\0';
+    memcpy(str->data, value, value_len);
+    str->data[value_len] = '\0';
     str->length = value_len;
 }
 
@@ -72,7 +78,7 @@ static inline void nc_string_append(nc_string* str, const char* append) {
         nc_string_resize(str, new_length + 50);
     }
     
-    strcat(str->data, append);
+    strcpy(str->data + str->length, append);
     str->length = new_length;
 }
 

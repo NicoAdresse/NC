@@ -12,5 +12,6 @@
 #include "nc/nc_float_types.h"
 #include "nc/nc_int_types.h"
 #include "nc/nc_log.h"
+#include "nc/nc_string.h"
 
 #endif /* NC_H */
