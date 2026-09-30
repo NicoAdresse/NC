@@ -1,7 +1,7 @@
 {
   "name": "nc-lib",
   "description": "nc-lib is a C collection of data types and methods meant to create the best and modern developer experience.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "contacts": [
     "Nico Erdmann <nicobsc4@yahoo.com>"
   ],
