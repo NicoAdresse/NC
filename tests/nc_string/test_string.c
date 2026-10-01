@@ -17,7 +17,7 @@ int main(void) {
     nc_debug_log("If you see this, then all assertions have been passing.");
 
     nc_string_set(str, "Hello, World!");
-    nc_assert_eq(strcmp(nc_string_get_data(str), "Hello, World!"), 0);
+    nc_assert_eq(nc_string_compare(str, nc_string_from_cstr("Hello, World!")), 0);
     nc_println_info("Data: %s", nc_string_get_data(str));
 
     nc_string_destroy(str);

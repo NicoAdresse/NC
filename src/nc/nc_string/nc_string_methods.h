@@ -13,6 +13,7 @@
 #include "inc_helper_functions.h"
 #include "nc_string_constructor.h"
 
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -149,6 +150,126 @@ static inline char nc_string_at(nc_string* str, int pos) {
         return '\0';
     }
     return str->data[pos];
+}
+
+/* Converting a C string into an nc_string */
+static inline nc_string* nc_string_from_cstr(const char* cstr) {
+	if (!cstr) {
+		inc_null_error();
+		return NULL;
+	}
+
+	int len = strlen(cstr);
+	nc_string* str = nc_string_create(len + 1);
+	if (!str) {
+		inc_null_error();
+		return NULL;
+	}
+
+	memcpy(str->data, cstr, len + 1);
+	str->length = len;
+	return str;
+}
+
+/* Comparing two strings */
+static inline int nc_string_compare(nc_string* a, nc_string* b) {
+	if (!a || !b) {
+		inc_null_must_error();
+		exit(EXIT_FAILURE);
+	}
+
+	return strcmp(a->data, b->data);
+}
+
+/* To Upper */
+static inline void nc_string_to_upper(nc_string* str) {
+    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
+    for (int i = 0; i < str->length; i++)
+        str->data[i] = toupper((unsigned char)str->data[i]);
+}
+
+/* To Lower */
+static inline void nc_string_to_lower(nc_string* str) {
+    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
+    for (int i = 0; i < str->length; i++)
+        str->data[i] = tolower((unsigned char)str->data[i]);
+}
+
+/* Trim Left */
+static inline void nc_string_trim_left(nc_string* str) {
+    if (!str) {
+        inc_null_must_error();
+        exit(EXIT_FAILURE);
+    }
+
+    int i = 0;
+    while (i < str->length && isspace((unsigned char)str->data[i])) i++;
+    if (i > 0) {
+        memmove(str->data, str->data + i, str->length - i + 1);
+        str->length -= i;
+    }
+}
+
+/* Trim Right */
+static inline void nc_string_trim_right(nc_string* str) {
+    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
+    while (str->length > 0 && isspace((unsigned char)str->data[str->length - 1]))
+        str->data[--str->length] = '\0';
+}
+
+/* Trim (both sides) */
+static inline void nc_string_trim(nc_string* str) {
+    nc_string_trim_right(str);
+    nc_string_trim_left(str);
+}
+
+/* Reverse */
+static inline void nc_string_reverse(nc_string* str) {
+    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
+    int left = 0, right = str->length - 1;
+    while (left < right) {
+        char tmp = str->data[left];
+        str->data[left++] = str->data[right];
+        str->data[right--] = tmp;
+    }
+}
+
+/* Replace all occurrences of 'from' with 'to' */
+static inline void nc_string_replace(nc_string* str, const char* from, const char* to) {
+    if (!str || !from || !to) { inc_null_must_error(); exit(EXIT_FAILURE); }
+
+    int from_len = strlen(from);
+    int to_len   = strlen(to);
+    if (from_len == 0) return;
+
+    int count = 0;
+    char* cursor = str->data;
+
+    while ((cursor = strstr(cursor, from))) { count++; cursor += from_len; }
+    if (count == 0) return;
+
+    int new_length = str->length + count * (to_len - from_len);
+    char* new_data = (char*)malloc((new_length + 1) * sizeof(char));
+    if (!new_data) { inc_null_must_error(); exit(EXIT_FAILURE); }
+
+    char* src = str->data;
+    char* dst = new_data;
+    char* match;
+    while ((match = strstr(src, from))) {
+        int chunk = match - src;
+        memcpy(dst, src, chunk);
+        dst += chunk;
+        memcpy(dst, to, to_len);
+        dst += to_len;
+        src = match + from_len;
+    }
+
+    strcpy(dst, src);
+
+    free(str->data);
+    str->data = new_data;
+    str->length = new_length;
+    str->capacity = new_length + 1;
 }
 
 /* Getters */
