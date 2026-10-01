@@ -20,5 +20,11 @@ int main(void) {
     nc_assert_eq(nc_string_compare(str, nc_string_from_cstr("Hello, World!")), 0);
     nc_println_info("Data: %s", nc_string_get_data(str));
 
+    nc_string_to_lower(str);
+    nc_println_info("After lowering: %s", nc_string_get_data(str));
+
+    nc_string_to_upper(str);
+    nc_println_info("After uppering: %s", nc_string_get_data(str));
+
     nc_string_destroy(str);
 }

@@ -183,16 +183,26 @@ static inline int nc_string_compare(nc_string* a, nc_string* b) {
 
 /* To Upper */
 static inline void nc_string_to_upper(nc_string* str) {
-    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
-    for (int i = 0; i < str->length; i++)
+    if (!str) {
+        inc_null_must_error();
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < str->length; i++) {
         str->data[i] = toupper((unsigned char)str->data[i]);
+    }
 }
 
 /* To Lower */
 static inline void nc_string_to_lower(nc_string* str) {
-    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
-    for (int i = 0; i < str->length; i++)
+    if (!str) {
+        inc_null_must_error();
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < str->length; i++) {
         str->data[i] = tolower((unsigned char)str->data[i]);
+    }
 }
 
 /* Trim Left */
@@ -203,7 +213,7 @@ static inline void nc_string_trim_left(nc_string* str) {
     }
 
     int i = 0;
-    while (i < str->length && isspace((unsigned char)str->data[i])) i++;
+    while (i < str->length && isspace((unsigned char)str->data[i])) { i++; }
     if (i > 0) {
         memmove(str->data, str->data + i, str->length - i + 1);
         str->length -= i;
@@ -212,9 +222,14 @@ static inline void nc_string_trim_left(nc_string* str) {
 
 /* Trim Right */
 static inline void nc_string_trim_right(nc_string* str) {
-    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
-    while (str->length > 0 && isspace((unsigned char)str->data[str->length - 1]))
+    if (!str) {
+        inc_null_must_error();
+        exit(EXIT_FAILURE);
+    }
+
+    while (str->length > 0 && isspace((unsigned char)str->data[str->length - 1])) {
         str->data[--str->length] = '\0';
+    }
 }
 
 /* Trim (both sides) */
@@ -225,7 +240,11 @@ static inline void nc_string_trim(nc_string* str) {
 
 /* Reverse */
 static inline void nc_string_reverse(nc_string* str) {
-    if (!str) { inc_null_must_error(); exit(EXIT_FAILURE); }
+    if (!str) {
+        inc_null_must_error();
+        exit(EXIT_FAILURE);
+    }
+
     int left = 0, right = str->length - 1;
     while (left < right) {
         char tmp = str->data[left];
@@ -239,7 +258,7 @@ static inline void nc_string_replace(nc_string* str, const char* from, const cha
     if (!str || !from || !to) { inc_null_must_error(); exit(EXIT_FAILURE); }
 
     int from_len = strlen(from);
-    int to_len   = strlen(to);
+    int to_len = strlen(to);
     if (from_len == 0) return;
 
     int count = 0;
