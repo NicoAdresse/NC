@@ -108,7 +108,14 @@ NC
 │   │   │   ├── nc_debug_stmts.h
 │   │   │   ├── nc_error_stmts.h
 │   │   │   └── nc_print_stmts.h
-│   │   └── nc_log.h
+│   │   ├── nc_log.h
+│   │   ├── nc_string
+│   │   │   ├── inc_helper_functions.h
+│   │   │   ├── nc_string_constructor.h
+│   │   │   ├── nc_string_definition.h
+│   │   │   ├── nc_string_destructor.h
+│   │   │   └── nc_string_methods.h
+│   │   └── nc_string.h
 │   └── nc.h
 ├── tests
 │   ├── nc_float_types
@@ -161,10 +168,12 @@ NC
 │   │       │   └── test_nc_u64.c
 │   │       └── nc_u8
 │   │           └── test_nc_u8.c
-│   └── nc_log
-│       ├── test_nc_debug.c
-│       ├── test_nc_error.c
-│       └── test_nc_log.c
+│   ├── nc_log
+│   │   ├── test_nc_debug.c
+│   │   ├── test_nc_error.c
+│   │   └── test_nc_log.c
+│   └── nc_string
+│       └── test_string.c
 ├── TEST.sh
 └── vcpkg.json
 ```
