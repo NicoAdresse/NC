@@ -26,5 +26,20 @@ int main(void) {
     nc_string_to_upper(str);
     nc_println_info("After uppering: %s", nc_string_get_data(str));
 
+    nc_string* str2 = nc_string_create(100);
+    nc_string_set(str2, "Hello, World!");
+    nc_string_to_upper(str2);
+
+    nc_assert_eq(nc_string_compare(str, str2), 0);
+
+    nc_string* my_converted_cstr = nc_string_from_cstr("My Name is Nico!");
+
+    nc_println_debug("Data: %s\nCapacity: %d\nLength: %d",
+        nc_string_get_data(my_converted_cstr),
+        nc_string_get_capacity(my_converted_cstr),
+        nc_string_get_length(my_converted_cstr)
+    );
+
     nc_string_destroy(str);
+    nc_string_destroy(str2);
 }

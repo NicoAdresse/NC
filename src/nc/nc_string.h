@@ -13,6 +13,5 @@
 #include "nc_string/nc_string_definition.h"
 #include "nc_string/nc_string_destructor.h"
 #include "nc_string/nc_string_methods.h"
-#include "nc_string/nc_string_unique.h"
 
 #endif /* NC_STRING_H */
