@@ -4,12 +4,6 @@
 #   Copyright (c) 2026 Nico Erdmann
 #   CMakeLists.txt for NC
 
-# CMakeLists.txt
-
-#   SPDX-License-Identifier: MIT
-#   Copyright (c) 2026 Nico Erdmann
-#   CMakeLists.txt for NC
-
 cmake_minimum_required(VERSION 3.12)
 project(nc VERSION 1.0.0 LANGUAGES C)
 
