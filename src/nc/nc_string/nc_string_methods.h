@@ -18,8 +18,8 @@
 #include <string.h>
 
 /* Dynamic Resizing */
-static inline void nc_string_resize(nc_string* str, int new_capacity) {
-    if (!str || new_capacity <= 0) {
+static inline void nc_string_resize(nc_string* str, size_t new_capacity) {
+    if (!str || new_capacity == 0) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
@@ -40,13 +40,13 @@ static inline void nc_string_resize(nc_string* str, int new_capacity) {
 }
 
 /* Setting nc_string->data with a value */
-static inline void nc_string_set(nc_string* str, char* value) {
+static inline void nc_string_set(nc_string* str, const char* value) {
     if (!str || !value) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
 
-    int value_len = strlen(value);
+    size_t value_len = strlen(value);
 
     if (value_len + 1 > str->capacity) {
         nc_string_resize(str, value_len + 50);
@@ -59,7 +59,7 @@ static inline void nc_string_set(nc_string* str, char* value) {
 
 /* Clearing data and length */
 static inline void nc_string_clear(nc_string* str) {
-    if (str) {
+    if (str && str->data) {
         str->data[0] = '\0';
         str->length = 0;
     }
@@ -72,8 +72,8 @@ static inline void nc_string_append(nc_string* str, const char* append) {
         exit(EXIT_FAILURE);
     }
     
-    int append_len = strlen(append);
-    int new_length = str->length + append_len;
+    size_t append_len = strlen(append);
+    size_t new_length = str->length + append_len;
     
     if (new_length + 1 > str->capacity) {
         nc_string_resize(str, new_length + 50);
@@ -84,14 +84,14 @@ static inline void nc_string_append(nc_string* str, const char* append) {
 }
 
 /* Inserting at position */
-static inline void nc_string_insert(nc_string* str, int pos, const char* insert) {
-    if (!str || !insert || pos < 0 || pos > str->length) {
+static inline void nc_string_insert(nc_string* str, size_t pos, const char* insert) {
+    if (!str || !insert || pos > str->length) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
     
-    int insert_len = strlen(insert);
-    int new_length = str->length + insert_len;
+    size_t insert_len = strlen(insert);
+    size_t new_length = str->length + insert_len;
     
     if (new_length + 1 > str->capacity) {
         nc_string_resize(str, new_length + 50);
@@ -120,8 +120,8 @@ static inline nc_string* nc_string_clone(nc_string* str) {
 }
 
 /* Removing substring */
-static inline void nc_string_remove(nc_string* str, int pos, int count) {
-    if (!str || pos < 0 || pos >= str->length || count < 0) {
+static inline void nc_string_remove(nc_string* str, size_t pos, size_t count) {
+    if (!str || pos >= str->length) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
@@ -136,17 +136,17 @@ static inline void nc_string_remove(nc_string* str, int pos, int count) {
 
 /* Finding substring */
 static inline int nc_string_find(nc_string* str, const char* substring) {
-    if (!str || !substring) {
+    if (!str || !substring || !str->data) {
         return -1;
     }
     
     char* pos = strstr(str->data, substring);
-    return pos ? (pos - str->data) : -1;
+    return pos ? (int)(pos - str->data) : -1;
 }
 
 /* Get character at position */
-static inline char nc_string_at(nc_string* str, int pos) {
-    if (!str || pos < 0 || pos >= str->length) {
+static inline char nc_string_at(nc_string* str, size_t pos) {
+    if (!str || !str->data || pos >= str->length) {
         return '\0';
     }
     return str->data[pos];
@@ -154,65 +154,65 @@ static inline char nc_string_at(nc_string* str, int pos) {
 
 /* Converting a C string into an nc_string */
 static inline nc_string* nc_string_from_cstr(const char* cstr) {
-	if (!cstr) {
-		inc_null_error();
-		return NULL;
-	}
+    if (!cstr) {
+        inc_null_error();
+        return NULL;
+    }
 
-	int len = strlen(cstr);
-	nc_string* str = nc_string_create(len + 1);
-	if (!str) {
-		inc_null_error();
-		return NULL;
-	}
+    size_t len = strlen(cstr);
+    nc_string* str = nc_string_create(len + 1);
+    if (!str) {
+        inc_null_error();
+        return NULL;
+    }
 
-	memcpy(str->data, cstr, len + 1);
-	str->length = len;
-	return str;
+    memcpy(str->data, cstr, len + 1);
+    str->length = len;
+    return str;
 }
 
 /* Comparing two strings */
 static inline int nc_string_compare(nc_string* a, nc_string* b) {
-	if (!a || !b) {
-		inc_null_must_error();
-		exit(EXIT_FAILURE);
-	}
-
-	return strcmp(a->data, b->data);
-}
-
-/* To Upper */
-static inline void nc_string_to_upper(nc_string* str) {
-    if (!str) {
+    if (!a || !b || !a->data || !b->data) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
 
-    for (int i = 0; i < str->length; i++) {
-        str->data[i] = toupper((unsigned char)str->data[i]);
+    return strcmp(a->data, b->data);
+}
+
+/* To Upper */
+static inline void nc_string_to_upper(nc_string* str) {
+    if (!str || !str->data) {
+        inc_null_must_error();
+        exit(EXIT_FAILURE);
+    }
+
+    for (size_t i = 0; i < str->length; i++) {
+        str->data[i] = (char)toupper((unsigned char)str->data[i]);
     }
 }
 
 /* To Lower */
 static inline void nc_string_to_lower(nc_string* str) {
-    if (!str) {
+    if (!str || !str->data) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
 
-    for (int i = 0; i < str->length; i++) {
-        str->data[i] = tolower((unsigned char)str->data[i]);
+    for (size_t i = 0; i < str->length; i++) {
+        str->data[i] = (char)tolower((unsigned char)str->data[i]);
     }
 }
 
 /* Trim Left */
 static inline void nc_string_trim_left(nc_string* str) {
-    if (!str) {
+    if (!str || !str->data) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
 
-    int i = 0;
+    size_t i = 0;
     while (i < str->length && isspace((unsigned char)str->data[i])) { i++; }
     if (i > 0) {
         memmove(str->data, str->data + i, str->length - i + 1);
@@ -222,7 +222,7 @@ static inline void nc_string_trim_left(nc_string* str) {
 
 /* Trim Right */
 static inline void nc_string_trim_right(nc_string* str) {
-    if (!str) {
+    if (!str || !str->data) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
@@ -240,12 +240,15 @@ static inline void nc_string_trim(nc_string* str) {
 
 /* Reverse */
 static inline void nc_string_reverse(nc_string* str) {
-    if (!str) {
+    if (!str || !str->data) {
         inc_null_must_error();
         exit(EXIT_FAILURE);
     }
 
-    int left = 0, right = str->length - 1;
+    if (str->length == 0) return;
+
+    size_t left = 0;
+    size_t right = str->length - 1;
     while (left < right) {
         char tmp = str->data[left];
         str->data[left++] = str->data[right];
@@ -255,19 +258,25 @@ static inline void nc_string_reverse(nc_string* str) {
 
 /* Replace all occurrences of 'from' with 'to' */
 static inline void nc_string_replace(nc_string* str, const char* from, const char* to) {
-    if (!str || !from || !to) { inc_null_must_error(); exit(EXIT_FAILURE); }
+    if (!str || !from || !to || !str->data) { inc_null_must_error(); exit(EXIT_FAILURE); }
 
-    int from_len = strlen(from);
-    int to_len = strlen(to);
+    size_t from_len = strlen(from);
+    size_t to_len = strlen(to);
     if (from_len == 0) return;
 
-    int count = 0;
+    size_t count = 0;
     char* cursor = str->data;
 
     while ((cursor = strstr(cursor, from))) { count++; cursor += from_len; }
     if (count == 0) return;
 
-    int new_length = str->length + count * (to_len - from_len);
+    size_t new_length = str->length;
+    if (to_len > from_len) {
+        new_length += count * (to_len - from_len);
+    } else {
+        new_length -= count * (from_len - to_len);
+    }
+
     char* new_data = (char*)malloc((new_length + 1) * sizeof(char));
     if (!new_data) { inc_null_must_error(); exit(EXIT_FAILURE); }
 
@@ -275,7 +284,7 @@ static inline void nc_string_replace(nc_string* str, const char* from, const cha
     char* dst = new_data;
     char* match;
     while ((match = strstr(src, from))) {
-        int chunk = match - src;
+        size_t chunk = match - src;
         memcpy(dst, src, chunk);
         dst += chunk;
         memcpy(dst, to, to_len);
@@ -292,8 +301,8 @@ static inline void nc_string_replace(nc_string* str, const char* from, const cha
 }
 
 /* Getters */
-static inline int nc_string_get_capacity(nc_string* str) { return str ? str->capacity : 0; }
-static inline int nc_string_get_length(nc_string* str) { return str ? str->length : 0; }
+static inline size_t nc_string_get_capacity(nc_string* str) { return str ? str->capacity : 0; }
+static inline size_t nc_string_get_length(nc_string* str) { return str ? str->length : 0; }
 static inline char* nc_string_get_data(nc_string* str) { return str ? str->data : NULL; }
 
 #endif /* NC_STRING_METHODS_H */
