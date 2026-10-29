@@ -12,8 +12,8 @@ int main(void) {
     nc_string* str = nc_string_create(100);
 
     nc_assert_ne(str, NULL);
-    nc_assert_eq(nc_string_get_capacity(str), 100);
-    nc_assert_eq(nc_string_get_length(str), 0);
+    nc_assert_eq(nc_string_get_capacity(str), (size_t)100);
+    nc_assert_eq(nc_string_get_length(str), (size_t)0);
     nc_debug_log("If you see this, then all assertions have been passing.");
 
     nc_string_set(str, "Hello, World!");
