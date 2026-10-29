@@ -9,10 +9,12 @@
 #ifndef NC_STRING_DEFINITION_H
 #define NC_STRING_DEFINITION_H
 
+#include <stdlib.h>
+
 typedef struct {
     char* data;
-    int length;
-    int capacity; 
+    size_t length;
+    size_t capacity; 
 } nc_string;
 
 #endif /* NC_STRING_DEFINTION_H */
